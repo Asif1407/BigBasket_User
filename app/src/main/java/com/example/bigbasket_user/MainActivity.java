@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-                switch (menuItem.getItemId()){
+            switch (menuItem.getItemId()){
                     case R.id.home_btm:
                     selectorFragment= new HomeFragment();
                     break;

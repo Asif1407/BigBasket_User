@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home_btm"
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
+    <item
+        android:id="@+id/categories_btm"
+        android:icon="@drawable/ic_category"
+        android:title="Categories" />
+    <item
+        android:id="@+id/offers_btm"
+        android:icon="@drawable/ic_offers"
+        android:title="Offers" />
+    <item
+        android:id="@+id/accounts_btm"
+        android:icon="@drawable/ic_account"
+        android:title="Accounts" />
+</menu>
