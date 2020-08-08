@@ -4,15 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity">
 
-   <FrameLayout
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:id="@+id/fragment_container"
-       android:layout_above="@+id/bottom">
+   <include
+      layout="@layout/main_toolbar"
+       android:id="@+id/toolbarMain">
 
-   </FrameLayout>
+   </include>
+
+      <FrameLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:id="@+id/fragment_container"
+          android:layout_above="@+id/bottom"
+          android:layout_below="@+id/toolbarMain">
+
+      </FrameLayout>
 
    <com.google.android.material.appbar.AppBarLayout
        android:layout_width="match_parent"
@@ -28,9 +36,6 @@
           app:labelVisibilityMode="unlabeled"
           android:background="?android:attr/windowBackground" />
 
-
    </com.google.android.material.appbar.AppBarLayout>
-
-
 
 </RelativeLayout>
