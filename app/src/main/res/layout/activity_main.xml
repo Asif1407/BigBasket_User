@@ -20,7 +20,7 @@
           android:layout_above="@+id/bottom"
           android:layout_below="@+id/toolbarMain">
 
-      </FrameLayout>
+   </FrameLayout>
 
    <com.google.android.material.appbar.AppBarLayout
        android:layout_width="match_parent"
@@ -36,6 +36,9 @@
           app:labelVisibilityMode="unlabeled"
           android:background="?android:attr/windowBackground" />
 
+
    </com.google.android.material.appbar.AppBarLayout>
+
+
 
 </RelativeLayout>
