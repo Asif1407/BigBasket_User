@@ -4,10 +4,31 @@
     android:layout_height="match_parent"
     tools:context="Fragments.CategoryFragment">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="426dp"
-        android:layout_height="61dp"
-        android:text="This is Category Fragment"
-        android:textSize="24sp" />
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/categorytab"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fruits" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vegetables" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Others" />
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/itemsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"/>
+
 </FrameLayout>
