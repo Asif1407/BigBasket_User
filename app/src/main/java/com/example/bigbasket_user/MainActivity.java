@@ -35,20 +35,10 @@ public class MainActivity extends AppCompatActivity {
     private Fragment selectorFragment;
     private Toolbar toolbar;
 
-
-    Toolbar mToolbar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mToolbar = findViewById(R.id.toolbarMain);
-        setSupportActionBar(mToolbar);
-
-        /*
-        Adding XML files to java Files here.
-        */
 
         toolbar = findViewById(R.id.toolbarMain);
         setSupportActionBar(toolbar);
@@ -103,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -73,6 +74,13 @@ public class CartActivity extends AppCompatActivity {
         mProgressDialog.setCanceledOnTouchOutside(false);
 
         loadCartItems();
+
+        placeOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(CartActivity.this, PaymentModeActivity.class));
+            }
+        });
     }
 
     private void loadCartItems() {

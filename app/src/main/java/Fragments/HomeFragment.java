@@ -48,7 +48,7 @@ import javax.annotation.Nullable;
 import Adapters.TrendingItemsAdapter;
 import DataModels.Item;
 
-public class HomeFragment<Butto> extends Fragment {
+public class HomeFragment extends Fragment {
 
 
     private SearchView search_bar_Main;
