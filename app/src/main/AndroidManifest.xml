@@ -14,6 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".PaymentModeActivity"></activity>
+        <activity android:name=".ConfirmOrderActivity"></activity>
         <activity android:name=".CartActivity" />
         <activity android:name=".SignInActivity">
             <intent-filter>
