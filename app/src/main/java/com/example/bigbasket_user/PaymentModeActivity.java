@@ -57,6 +57,8 @@ public class PaymentModeActivity extends AppCompatActivity {
                     Toast.makeText(PaymentModeActivity.this, "UPI Payment", Toast.LENGTH_SHORT).show();
                 } else if(radioBtn.getText().equals("Cash On Delivery (COD)")){
                     Toast.makeText(PaymentModeActivity.this, "Cash On Delivery (COD)", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(PaymentModeActivity.this, ConfirmOrderActivity.class));
+                    finish();
                 } else {
                     Toast.makeText(PaymentModeActivity.this, "We are Working on this service\nSoon you will get this facility", Toast.LENGTH_SHORT).show();
                 }
@@ -145,8 +147,9 @@ public class PaymentModeActivity extends AppCompatActivity {
             if (status.equals("success")) {
                 //Code to handle successful transaction here.
                 Toast.makeText(this, "Transaction successful.", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(PaymentModeActivity.this, MainActivity.class));
+                startActivity(new Intent(PaymentModeActivity.this, ConfirmOrderActivity.class));
                 Log.d("UPI", "responseStr: "+approvalRefNo);
+                finish();
             }
             else if("Payment cancelled by user.".equals(paymentCancel)) {
                 Toast.makeText(this, "Payment cancelled by user.", Toast.LENGTH_SHORT).show();
