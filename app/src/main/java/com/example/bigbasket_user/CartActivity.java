@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,6 +18,7 @@ import com.example.bigbasket_user.Adapter.AdapterCart;
 import com.example.bigbasket_user.Model.ModelCart;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -31,6 +34,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -49,6 +53,7 @@ public class CartActivity extends AppCompatActivity {
     //Model adapter class
     private AdapterCart adapterCart;
     private CollectionReference cartRefrence;
+    int sum=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +78,15 @@ public class CartActivity extends AppCompatActivity {
         mProgressDialog.setCanceledOnTouchOutside(false);
 
         loadCartItems();
+
+        placeOrder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CartActivity.this, PaymentModeActivity.class);
+                intent.putExtra("totalPrice", sum+"");
+                startActivity(intent);
+            }
+        });
     }
 
     private void loadCartItems() {
@@ -97,14 +111,23 @@ public class CartActivity extends AppCompatActivity {
         });
     }
     private void grandTotalPrice() {
-        final ArrayList<Integer> list = new ArrayList<>();
-        cartRefrence.orderBy("price").addSnapshotListener(new EventListener<QuerySnapshot>() {
+        sum=0;
+        cartRefrence.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                if (!queryDocumentSnapshots.isEmpty()) {
+                    for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
+                        if (documentSnapshot.exists()) {
+                            sum += Integer.valueOf(documentSnapshot.getString("price").trim());
+                            Log.d("price", sum+" !!");
+                        }
+                    }
+                    grandTotal.setText("₹"+sum);
+                    detailCost.setText("₹"+sum);
+                    detailTotal.setText("₹"+sum);
+                }
             }
         });
-
     }
 
     @Override
