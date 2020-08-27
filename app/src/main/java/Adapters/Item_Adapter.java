@@ -44,6 +44,8 @@ public class Item_Adapter extends RecyclerView.Adapter<Item_Adapter.MyViewHolder
         holder.price.setText(Integer.toString(Items.get(position).getPrice()));
 
 
+
+
         // implement setOnClickListener event on item view.
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +76,7 @@ public class Item_Adapter extends RecyclerView.Adapter<Item_Adapter.MyViewHolder
             price = itemView.findViewById(R.id.item_price);
             addtocart = itemView.findViewById(R.id.addtocart_button);
             buynow = itemView.findViewById(R.id.buynow_button);
+
 
         }
     }
