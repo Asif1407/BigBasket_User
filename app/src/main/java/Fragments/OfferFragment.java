@@ -2,8 +2,13 @@ package Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +17,40 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.bigbasket_user.R;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import Adapters.OfferItemAdapter;
+import Adapters.Offer_Adapter;
+import Adapters.TrendingItemsAdapter;
+import DataModels.Offers;
 
 public class OfferFragment extends Fragment {
 
-    private ImageView offerFruitsIV;
-    private ImageView offerVegetablesIV;
-    private Button shop_now_button;
+    private RecyclerView offerRecyclerView;
+    public Offer_Adapter adapter;
+    public ArrayList<Offers> mList= new ArrayList<>();
+
+
+    // FireStore Init.
+    private FirebaseFirestore database= FirebaseFirestore.getInstance();
+    private CollectionReference ref= database.collection("Offers");
 
     public OfferFragment() {
         // Required empty public constructor
@@ -30,31 +63,37 @@ public class OfferFragment extends Fragment {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_offer, container, false);
 
-        offerFruitsIV= view.findViewById(R.id.fruitsOffersIV);
-        offerVegetablesIV= view.findViewById(R.id.offersVegetableIV);
-        shop_now_button= view.findViewById(R.id.shop_now_button);
+        offerRecyclerView = view.findViewById(R.id.offerRecyclerView);
 
-        offerVegetablesIV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "Taking you to offer section in category fragments", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        offerFruitsIV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "Taking you to offer section in category fragments", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        shop_now_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getActivity(), "Taking you to offer section in category fragments", Toast.LENGTH_SHORT).show();
-            }
-        });
+        // Calling Functions.
+        settingUpAdapter();
 
         return view;
+    }
+
+    private void settingUpAdapter() {
+
+        adapter = new Offer_Adapter(getContext(),mList);
+        offerRecyclerView.setHasFixedSize(true);
+        offerRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+        offerRecyclerView.setAdapter(adapter);
+
+        ref.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (!value.isEmpty()) {
+                    for (QueryDocumentSnapshot snapshot: value){
+                        Offers offers = snapshot.toObject(Offers.class);
+                        mList.add(offers);
+                    }
+                    adapter.notifyDataSetChanged();
+
+                }else{
+                    Log.d("Error",error.getMessage());
+                    // request.time < timestamp.date(2020, 8, 28);
+                }
+                Log.d("DataAdapter",mList+"");
+            }
+        });
     }
 }

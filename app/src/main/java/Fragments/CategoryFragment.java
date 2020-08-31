@@ -50,11 +50,12 @@ public class CategoryFragment extends Fragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2);
         recyclerView.setLayoutManager(gridLayoutManager);
         final Item_Adapter ItemAdapter = new Item_Adapter(getContext(),Items);
+//
+//        Item item = new Item("Title","Description","56","yes","yes","url","imageurls");
+//        Item item1 = new Item("Title","Description","56","yes","yes","imageurls");
 
-        Item item = new Item("Title","Description",56,"yes","yes","url",imageurls);
-        Item item1 = new Item("Title","Description",56,"yes","yes","url",imageurls);
-        Items.add(item);
-        Items.add(item1);
+//        Items.add(item);
+//        Items.add(item1);
         ItemAdapter.notifyDataSetChanged();
 
         recyclerView.setAdapter(ItemAdapter);

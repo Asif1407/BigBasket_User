@@ -48,6 +48,7 @@ public class AdapterCart extends FirestoreRecyclerAdapter<ModelCart, AdapterCart
         final String[] price = {modelCart.getPrice()};
         final String productId = modelCart.getProductId();
 
+
         holder.titleTv.setText(title);
         holder.categoryTv.setText(category);
         holder.priceTv.setText(price[0]);

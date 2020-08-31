@@ -5,11 +5,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="Fragments.HomeFragment">
 
-    <SearchView
+    <AutoCompleteTextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:id="@+id/search_bar_Main"
         android:padding="5dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_height="400dp"
+            android:layout_width="match_parent"
+            android:id="@+id/recyclerViewSearch"
+            android:visibility="invisible"
+            android:layout_below="@+id/search_bar_Main">
+        </androidx.recyclerview.widget.RecyclerView>
 
         <com.synnapps.carouselview.CarouselView
             android:layout_below="@+id/search_bar_Main"
@@ -21,7 +29,8 @@
             app:slideInterval="3000"
             app:strokeColor="#FF777777"
             app:strokeWidth="1dp"
-            android:id="@+id/carouselView" />
+            android:id="@+id/carouselView" >
+        </com.synnapps.carouselview.CarouselView>
 
         <Button
             android:id="@+id/shop_now_button"

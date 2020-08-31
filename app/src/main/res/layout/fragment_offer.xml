@@ -4,55 +4,23 @@
     android:layout_height="match_parent"
     tools:context="Fragments.OfferFragment">
 
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Offers on Fruits."
-        android:textSize="28sp"
-        android:layout_centerHorizontal="true"
+        android:id="@+id/offersTextView"
+        android:gravity="center_horizontal"
+        android:text="Current Offers"
+        android:textSize="30sp"
         android:textStyle="bold"
-        android:id="@+id/offersFruitsTV"> </TextView>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_below="@+id/offersFruitsTV"
-        android:layout_marginTop="10dp"
-        android:id="@+id/fruitsOffersIV"
-        android:src="@drawable/carouselone"
-        android:layout_marginBottom="10dp" />
-
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Offers on Vegetables."
-        android:textSize="28sp"
         android:layout_centerHorizontal="true"
-        android:textStyle="bold"
-        android:id="@+id/offersVegetableTV"
-        android:layout_below="@+id/fruitsOffersIV"> </TextView>
+        android:layout_marginTop="12dp">
 
-    <ImageView
+    </TextView>
+
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_below="@+id/offersVegetableTV"
-        android:layout_marginTop="10dp"
-        android:id="@+id/offersVegetableIV"
-        android:src="@drawable/carouselthree"
-        android:layout_marginBottom="10dp" >
-
-    </ImageView>
-
-    <Button
-        android:id="@+id/shop_now_button"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/offersVegetableIV"
-        android:layout_centerHorizontal="true"
-        android:text="Shop Now">
-
-    </Button>
+        android:layout_below="@+id/offersTextView"
+        android:id="@+id/offerRecyclerView"/>
 
 </RelativeLayout>

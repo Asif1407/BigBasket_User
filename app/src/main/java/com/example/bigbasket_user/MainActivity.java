@@ -18,6 +18,7 @@ import com.synnapps.carouselview.ImageListener;
 
 import Fragments.AccountFragment;
 import Fragments.CategoryFragment;
+import Fragments.HistoryFragment;
 import Fragments.HomeFragment;
 import Fragments.OfferFragment;
 
@@ -57,13 +58,18 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.accounts_btm:
                         selectorFragment= new AccountFragment();
                         break;
+
+                case R.id.history_btm:
+                    selectorFragment = new HistoryFragment();
+                    break;
                 }
 
                 if (selectorFragment!= null){
                     //Replacing the fragments accordingly.
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,selectorFragment).commit();
+                }else{
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,new HomeFragment()).commit();
                 }
-
                 return true;
             }
         });
