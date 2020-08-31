@@ -46,6 +46,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import Fragments.HomeFragment;
+
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -126,6 +128,12 @@ public class SignInActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        if (currentUser!= null){
+            // Send to start Activity.
+            Intent mainIntent = new Intent(SignInActivity.this,MainActivity.class);
+            startActivity(mainIntent);
+        }
 
     }
 

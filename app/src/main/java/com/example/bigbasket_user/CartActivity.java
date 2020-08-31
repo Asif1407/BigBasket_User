@@ -102,6 +102,7 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
 
+                // RealTime OnEventLisnt. --> for loop --> String Total --> SetText.
             }
         });
 

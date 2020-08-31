@@ -5,25 +5,25 @@ import java.util.ArrayList;
 public class Item {
 
     String Title;
+    String Price;
+    String Quantity;
     String Description;
-    int price;
-    String quantity;
-    String inStock;
     String ImageUrl;
-    ArrayList<String> images;
+    ArrayList<String> Images;
+    String InStock;
 
     public Item() {
-        // So that App doesn't crashes.
+        // So that App doesn't crash.
     }
 
-    public Item(String title, String description, int price, String quantity, String inStock, String imageUrl, ArrayList<String> images) {
+    public Item(String title, String price, String quantity, String description, String imageUrl, ArrayList<String> images, String inStock) {
         Title = title;
+        Price = price;
+        Quantity = quantity;
         Description = description;
-        this.price = price;
-        this.quantity = quantity;
-        this.inStock = inStock;
         ImageUrl = imageUrl;
-        this.images = images;
+        Images = images;
+        InStock = inStock;
     }
 
     public String getTitle() {
@@ -34,36 +34,28 @@ public class Item {
         Title = title;
     }
 
+    public String getPrice() {
+        return Price;
+    }
+
+    public void setPrice(String price) {
+        Price = price;
+    }
+
+    public String getQuantity() {
+        return Quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        Quantity = quantity;
+    }
+
     public String getDescription() {
         return Description;
     }
 
     public void setDescription(String description) {
         Description = description;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public String getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getInStock() {
-        return inStock;
-    }
-
-    public void setInStock(String inStock) {
-        this.inStock = inStock;
     }
 
     public String getImageUrl() {
@@ -75,85 +67,18 @@ public class Item {
     }
 
     public ArrayList<String> getImages() {
-        return images;
+        return Images;
     }
 
     public void setImages(ArrayList<String> images) {
-        this.images = images;
+        Images = images;
     }
 
+    public String getInStock() {
+        return InStock;
+    }
 
-
-
-    //    public Item(String title, String description, int price, String quantity, String instock, ArrayList<String> images) {
-//        this.title = title;
-//        this.description = description;
-//        this.price = price;
-//        this.quantity = quantity;
-//        this.instock = instock;
-//        this.images = images;
-//    }
-//
-//    //dummy constructor for testing
-//
-//
-//    public Item(String title, String description, int price, String quantity, String instock) {
-//        this.title = title;
-//        this.description = description;
-//        this.price = price;
-//        this.quantity = quantity;
-//        this.instock = instock;
-//    }
-//    //the above constructor can be deleted
-//
-//    public Item() {
-//    }
-//
-//    public String getTitle() {
-//        return title;
-//    }
-//
-//    public void setTitle(String title) {
-//        this.title = title;
-//    }
-//
-//    public String getDescription() {
-//        return description;
-//    }
-//
-//    public void setDescription(String description) {
-//        this.description = description;
-//    }
-//
-//    public int getPrice() {
-//        return price;
-//    }
-//
-//    public void setPrice(int price) {
-//        this.price = price;
-//    }
-//
-//    public String getQuantity() {
-//        return quantity;
-//    }
-//
-//    public void setQuantity(String quantity) {
-//        this.quantity = quantity;
-//    }
-//
-//    public String getInstock() {
-//        return instock;
-//    }
-//
-//    public void setInstock(String instock) {
-//        this.instock = instock;
-//    }
-//
-//    public ArrayList<String> getImages() {
-//        return images;
-//    }
-//
-//    public void setImages(ArrayList<String> images) {
-//        this.images = images;
-//    }
+    public void setInStock(String inStock) {
+        InStock = inStock;
+    }
 }
