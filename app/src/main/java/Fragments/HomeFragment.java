@@ -57,10 +57,10 @@ import DataModels.Search;
 
 public class HomeFragment  extends Fragment {
 
-    // For Search Item Adapter.
-    List<Search> searchList = new ArrayList<>();
-    SearchAdapter searchAdapter;
-    private RecyclerView searchRecyclerView;
+//    // For Search Item Adapter.
+//    List<Search> searchList = new ArrayList<>();
+//    SearchAdapter searchAdapter;
+//    private RecyclerView searchRecyclerView;
 
     // For Trending Item Adapter.
     List<Item> mList = new ArrayList<>();
@@ -98,17 +98,16 @@ public class HomeFragment  extends Fragment {
         trendingRecyclerView= view.findViewById(R.id.trendingRecyclerView);
 
         // For Search View
-        searchRecyclerView = view.findViewById(R.id.recyclerViewSearch);
+//        searchRecyclerView = view.findViewById(R.id.recyclerViewSearch);
 
         // SearchBar
-        search_bar_Main.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String text = search_bar_Main.getText().toString();
-                search(text);
-                searchRecyclerView.setVisibility(View.INVISIBLE);
-            }
-        });
+//        search_bar_Main.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent searchIntent = new Intent(v.getContext(),SearchFragment.class);
+//                v.getContext().startActivity(searchIntent);
+//            }
+//        });
 
         // Calling Various Functions here.
         carouselView();
@@ -119,34 +118,34 @@ public class HomeFragment  extends Fragment {
         return view;
     }
 
-    private void search(String text) {
-
-        Query searchQuery = ref.orderBy("Title").startAt(text).endAt(text + "\uf8ff");
-        searchRecyclerView.setVisibility(View.VISIBLE);
-
-        searchQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@androidx.annotation.Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                if (!value.isEmpty()) {
-                    for (QueryDocumentSnapshot snapshot: value){
-                        Search search = snapshot.toObject(Search.class);
-                        searchList.add(search);
-                    }
-                    adapter.notifyDataSetChanged();
-
-                }else{
-                    Log.d("Error",error.getMessage());
-                    // request.time < timestamp.date(2020, 8, 28);
-                }
-                Log.d("DataAdapter",mList+"");
-            }
-        });
-
-        searchAdapter = new SearchAdapter(getContext(),searchList);
-        searchRecyclerView.setHasFixedSize(true);
-        searchRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        searchRecyclerView.setAdapter(searchAdapter);
-    }
+//    private void search(String text) {
+//
+//        Query searchQuery = ref.orderBy("Title").startAt(text).endAt(text + "\uf8ff");
+//        searchRecyclerView.setVisibility(View.VISIBLE);
+//
+//        searchQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
+//            @Override
+//            public void onEvent(@androidx.annotation.Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+//                if (!value.isEmpty()) {
+//                    for (QueryDocumentSnapshot snapshot: value){
+//                        Search search = snapshot.toObject(Search.class);
+//                        searchList.add(search);
+//                    }
+//                    adapter.notifyDataSetChanged();
+//
+//                }else{
+//                    Log.d("Error",error.getMessage());
+//                    // request.time < timestamp.date(2020, 8, 28);
+//                }
+//                Log.d("DataAdapter",mList+"");
+//            }
+//        });
+//
+//        searchAdapter = new SearchAdapter(getContext(),searchList);
+//        searchRecyclerView.setHasFixedSize(true);
+//        searchRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//        searchRecyclerView.setAdapter(searchAdapter);
+//    }
 
     private void shopNowButton() {
         shop_now_button.setOnClickListener(new View.OnClickListener() {

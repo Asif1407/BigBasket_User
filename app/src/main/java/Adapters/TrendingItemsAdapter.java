@@ -94,15 +94,14 @@ public class TrendingItemsAdapter extends RecyclerView.Adapter<TrendingItemsAdap
         });
 
         // We will implement this in other style. AfterWards.
-
-//        holder.add_to_cart_button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent ActIntent = new Intent(v.getContext(), CartActivity.class);
-//                addingDataToCart(item);
-//                v.getContext().startActivity(ActIntent);
-//            }
-//        });
+        holder.add_to_cart_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent ActIntent = new Intent(v.getContext(), CartActivity.class);
+                addingDataToCart(item);
+                v.getContext().startActivity(ActIntent);
+            }
+        });
     }
 
     private void addingDataToCart(Item item) {
@@ -116,10 +115,12 @@ public class TrendingItemsAdapter extends RecyclerView.Adapter<TrendingItemsAdap
         cart.put("Description",item.getDescription());
         cart.put("ImageUrl",item.getImageUrl());
 
-        ref.document(Uid).collection(item.getTitle()).document("new").set(cart).addOnCompleteListener(new OnCompleteListener<Void>() {
+        ref.document(Uid).collection("newItems").document(item.getTitle()).set(cart)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+
                     Log.d("DR", "DocumentSnapshot added with ID: " + ref.getId());
                     Toast.makeText(mContext, "Item Added Successfully :)", Toast.LENGTH_SHORT).show();
                 }

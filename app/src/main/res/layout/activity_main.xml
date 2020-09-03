@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".MainActivity">
+    android:fitsSystemWindows="true"
+    android:id="@+id/drawerLayout">
 
-   <include
-      layout="@layout/main_toolbar"
-       android:id="@+id/toolbarMain">
+   <!--    app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
 
-   </include>
+
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       app:layout_behavior="@string/appbar_scrolling_view_behavior"
+       tools:context=".MainActivity">
+
+      <include
+          layout="@layout/main_toolbar"
+          android:id="@+id/toolbarMain">
+
+      </include>
 
       <FrameLayout
           android:layout_width="match_parent"
@@ -20,25 +29,35 @@
           android:layout_above="@+id/bottom"
           android:layout_below="@+id/toolbarMain">
 
-   </FrameLayout>
+      </FrameLayout>
 
-   <com.google.android.material.appbar.AppBarLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:id="@+id/bottom"
-       android:layout_alignParentBottom="true">
-
-      <com.google.android.material.bottomnavigation.BottomNavigationView
-          android:id="@+id/btm_navigation"
+      <com.google.android.material.appbar.AppBarLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          app:menu="@menu/menu_bottom"
-          app:labelVisibilityMode="unlabeled"
-          android:background="?android:attr/windowBackground" />
+          android:id="@+id/bottom"
+          android:layout_alignParentBottom="true">
+
+         <com.google.android.material.bottomnavigation.BottomNavigationView
+             android:id="@+id/btm_navigation"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             app:menu="@menu/menu_bottom"
+             app:labelVisibilityMode="unlabeled"
+             android:background="?android:attr/windowBackground" />
 
 
-   </com.google.android.material.appbar.AppBarLayout>
+      </com.google.android.material.appbar.AppBarLayout>
 
+   </RelativeLayout>
 
+   <com.google.android.material.navigation.NavigationView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+      android:layout_gravity ="start"
+      android:id="@+id/navSlideBar"
+       app:menu="@menu/drawer_menu"
+       app:headerLayout="@layout/header_file">
 
-</RelativeLayout>
+   </com.google.android.material.navigation.NavigationView>
+
+</androidx.drawerlayout.widget.DrawerLayout>
