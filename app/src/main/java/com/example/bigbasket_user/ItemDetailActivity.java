@@ -1,18 +1,33 @@
 package com.example.bigbasket_user;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import DataModels.Item;
 
 public class ItemDetailActivity extends AppCompatActivity {
 
@@ -24,7 +39,12 @@ public class ItemDetailActivity extends AppCompatActivity {
     TextView description;
     TextView instockTextView;
     CarouselView carouselView;
+    Button addToCart;
 
+    // Firebase.
+    private FirebaseFirestore database= FirebaseFirestore.getInstance();
+    private CollectionReference ref= database.collection("Cart");
+    private FirebaseUser currentUSer;
 
     final int[] sampleImages= {R.drawable.carouselone, R.drawable.carouseltwo, R.drawable.carouselthree,
             R.drawable.carouselfour, R.drawable.carouselfive};
@@ -42,6 +62,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         price = (TextView) findViewById(R.id.price);
         quantity = (TextView) findViewById(R.id.quantity);
         description = (TextView) findViewById(R.id.description);
+        addToCart = findViewById(R.id.addToCartButton);
 
         // For Toolbar
         setSupportActionBar(toolbar);
@@ -58,6 +79,15 @@ public class ItemDetailActivity extends AppCompatActivity {
         // Calling Various Functions here.
         carouselView();
         settingData();
+
+        addToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent ActIntent = new Intent(v.getContext(), CartActivity.class);
+//                addingDataToCart(item);
+                v.getContext().startActivity(ActIntent);
+            }
+        });
     }
 
     private void settingData() {
@@ -94,5 +124,34 @@ public class ItemDetailActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void addingDataToCart(Item item) {
+        currentUSer = FirebaseAuth.getInstance().getCurrentUser();
+        String Uid = currentUSer.getUid();
+
+        Map<String, String> cart = new HashMap<>();
+        cart.put("Title", item.getTitle());
+        cart.put("Price", item.getPrice());
+        cart.put("Quantity", item.getQuantity());
+        cart.put("Description", item.getDescription());
+        cart.put("ImageUrl", item.getImageUrl());
+
+        ref.document(Uid).collection("newItems").document(item.getTitle()).set(cart)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+
+                            Log.d("DR", "DocumentSnapshot added with ID: " + ref.getId());
+                            Toast.makeText(getApplicationContext() , "Item Added Successfully :)", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w("ErrorCart", e.getMessage());
+            }
+        });
     }
 }

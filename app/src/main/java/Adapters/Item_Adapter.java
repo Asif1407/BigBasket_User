@@ -1,6 +1,8 @@
 package Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,20 +11,39 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bigbasket_user.CartActivity;
+import com.example.bigbasket_user.ItemDetailActivity;
 import com.example.bigbasket_user.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import DataModels.Item;
 
 public class Item_Adapter extends RecyclerView.Adapter<Item_Adapter.MyViewHolder> {
 
-    ArrayList<Item> Items;
+   ArrayList<Item> Items;
     Context context;
-    String uri = "https://ichef.bbci.co.uk/news/410/cpsprodpb/5655/production/_94810122_istock-494702400.jpg";
+
+    private FirebaseUser currentUSer;
+    private FirebaseFirestore database= FirebaseFirestore.getInstance();
+    private CollectionReference ref= database.collection("Cart");
+
+
     public Item_Adapter(Context context, ArrayList<Item> itemNames) {
         this.context = context;
         this.Items = itemNames;
@@ -30,9 +51,11 @@ public class Item_Adapter extends RecyclerView.Adapter<Item_Adapter.MyViewHolder
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        // infalte the item Layout
+
+        // inflate the item Layout
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_adapter, parent, false);
-        // set the view's size, margins, paddings and layout parameters
+        // set the view's size, margins, padding and layout parameters.
+
         MyViewHolder vh = new MyViewHolder(v); // pass the view to View Holder
         return vh;
     }
@@ -40,25 +63,41 @@ public class Item_Adapter extends RecyclerView.Adapter<Item_Adapter.MyViewHolder
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         // set the data in items
-//        holder.name.setText(itemNames.get(position));
 
-        holder.description.setText(Items.get(position).getDescription());
+        final Item item = Items.get(position);
+
+        // Setting Data.
+        holder.title.setText(Items.get(position).getTitle());
         holder.price.setText((Items.get(position).getPrice()));
 
-        Picasso.get().load(uri).into(holder.item_image);
+        Picasso.get().load(item.getImageUrl()).into(holder.item_image);
 
-
-
-        // implement setOnClickListener event on item view.
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        // Add to Cart Method
+        holder.addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                // display a toast with person name on item click
-                            }
+            public void onClick(View v) {
+                Intent ActIntent = new Intent(v.getContext(), CartActivity.class);
+                addingDataToCart(item);
+                v.getContext().startActivity(ActIntent);
+            }
         });
 
+        // item Detail
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Passing data
+                // Calling other Activity & sending data.
+                Intent itemsDetailIntent = new Intent(v.getContext(), ItemDetailActivity.class);
+                itemsDetailIntent.putExtra("Title",item.getTitle());
+                itemsDetailIntent.putExtra("Price",item.getPrice());
+                itemsDetailIntent.putExtra("Quantity",item.getQuantity());
+                itemsDetailIntent.putExtra("Description",item.getDescription());
+                itemsDetailIntent.putExtra("Image",item.getImageUrl());
+                v.getContext().startActivity(itemsDetailIntent);
+            }
+        });
     }
-
 
     @Override
     public int getItemCount() {
@@ -66,23 +105,51 @@ public class Item_Adapter extends RecyclerView.Adapter<Item_Adapter.MyViewHolder
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView title,description,price;
-        Button addtocart,buynow;
+
+        CardView cardView;
+        TextView title,price;
+        Button addToCart;
         ImageView item_image;// init the item view's
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
             // get the reference of item view's
-//            name = (TextView) itemView.findViewById(R.id.name);
 
-            item_image = itemView.findViewById(R.id.item_image);
-            description = itemView.findViewById(R.id.item_description);
+            cardView = itemView.findViewById(R.id.cardView);
+            title = itemView.findViewById(R.id.item_title);
             price = itemView.findViewById(R.id.item_price);
-            addtocart = itemView.findViewById(R.id.addtocart_button);
-            buynow = itemView.findViewById(R.id.buynow_button);
-
-
+            item_image = itemView.findViewById(R.id.item_image);
+            addToCart = itemView.findViewById(R.id.addToCartButton);
         }
+    }
+
+    private void addingDataToCart(Item item) {
+        currentUSer = FirebaseAuth.getInstance().getCurrentUser();
+        String Uid = currentUSer.getUid();
+
+        Map<String, String> cart = new HashMap<>();
+        cart.put("Title", item.getTitle());
+        cart.put("Price", item.getPrice());
+        cart.put("Quantity", item.getQuantity());
+        cart.put("Description", item.getDescription());
+        cart.put("ImageUrl", item.getImageUrl());
+
+        ref.document(Uid).collection("newItems").document(item.getTitle()).set(cart)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+
+                            Log.d("DR", "DocumentSnapshot added with ID: " + ref.getId());
+                            Toast.makeText(context, "Item Added Successfully :)", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w("ErrorCart", e.getMessage());
+            }
+        });
     }
 }

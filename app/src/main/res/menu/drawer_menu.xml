@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single"
+        android:id="@+id/group1">
+
+        <item
+            android:id="@+id/home"
+            android:title="Home">
+
+        </item>
+
+        <item
+            android:id="@+id/category"
+            android:title="Shop by Category">
+
+        </item>
+
+        <item
+            android:id="@+id/history"
+            android:title="History">
+
+        </item>
+
+
+        <item
+            android:id="@+id/review"
+            android:title="Review">
+
+        </item>
+
+
+        <item
+            android:id="@+id/logOut"
+            android:title="Log Out">
+
+        </item>
+
+    </group>
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/group2">
+        <item
+            android:id="@+id/tnc"
+            android:title="Terms and Condition">
+
+        </item>
+        <item
+            android:id="@+id/aboutUs"
+            android:title="About Us">
+
+        </item>
+
+        <item
+            android:id="@+id/contactUs"
+            android:title="Contact Us">
+
+        </item>
+    </group>
+</menu>

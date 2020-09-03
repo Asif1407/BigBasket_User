@@ -2,35 +2,45 @@ package Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.bigbasket_user.R;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GithubAuthCredential;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
 import Adapters.Item_Adapter;
 import DataModels.Item;
+import DataModels.Offers;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class CategoryFragment extends Fragment {
 
+    private ViewPager main_TabPager;
+    private TabLayout main_Tabs;
 
-    ArrayList<Item> Items = new ArrayList<>();
-    TabLayout tabLayout;
-    ArrayList<String> imageurls = new ArrayList<>();
-
-
+    private SectionPagerClass sectionPagerClass;
 
     public CategoryFragment() {
         // Required empty public constructor
@@ -42,52 +52,16 @@ public class CategoryFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_category, container, false);
-        tabLayout = view.findViewById(R.id.categorytab);
 
 
-        final RecyclerView recyclerView = view.findViewById(R.id.itemsRecyclerView);
-        // set a LinearLayoutManager with default vertical orientation
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2);
-        recyclerView.setLayoutManager(gridLayoutManager);
-        final Item_Adapter ItemAdapter = new Item_Adapter(getContext(),Items);
-//
-//        Item item = new Item("Title","Description","56","yes","yes","url","imageurls");
-//        Item item1 = new Item("Title","Description","56","yes","yes","imageurls");
-
-//        Items.add(item);
-//        Items.add(item1);
-        ItemAdapter.notifyDataSetChanged();
-
-        recyclerView.setAdapter(ItemAdapter);
+        main_TabPager= (ViewPager) view.findViewById(R.id.main_TabPager);
+        main_Tabs= (TabLayout) view.findViewById(R.id.main_Tabs);
 
 
+       sectionPagerClass = new SectionPagerClass(getActivity().getSupportFragmentManager());
+        main_TabPager.setAdapter(sectionPagerClass);
 
-
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                if (tab.getPosition()==1){
-
-
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-
-        // Inflate the layout for this fragment
+        main_Tabs.setupWithViewPager(main_TabPager);
         return (view);
-
-
     }
 }
