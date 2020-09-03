@@ -22,8 +22,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.bigbasket_user.R;
@@ -31,6 +33,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -51,6 +54,7 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -68,7 +72,8 @@ public class AccountFragment extends Fragment {
     private FirebaseFirestore fstore;
     //views
     private ImageView profileIv;
-    private TextInputEditText nameEt, phoneEt, addressEt, pinCodeET, upiEt;
+    private TextInputEditText nameEt, phoneEt, addressEt;
+    private Spinner pinCodeSpinner;
     private Button saveBtn;
     ProgressDialog mProgressDialog;
     //permission request code
@@ -79,7 +84,9 @@ public class AccountFragment extends Fragment {
 
     private String[] cameraPermission;
     private String[] storagePermission;
-
+    ArrayAdapter<String> spinnerAdapter;
+    private String[] pinCodeArray;
+    private String[] pinCodeAreaArray;
     private Uri image_uri;
 
     public AccountFragment() {
@@ -101,9 +108,12 @@ public class AccountFragment extends Fragment {
         nameEt = view.findViewById(R.id.nameEt);
         phoneEt = view.findViewById(R.id.phoneEt);
         addressEt = view.findViewById(R.id.addressEt);
-        pinCodeET = view.findViewById(R.id.pinCodeEt);
-        upiEt = view.findViewById(R.id.upiIdET);
+        pinCodeSpinner = view.findViewById(R.id.pinCodeSpinner);
         saveBtn = view.findViewById(R.id.saveBtn);
+        pinCodeArray = new String[]{"491001", "490020", "490006", "490001", "490009", "490022", "490023", "490029"};
+        pinCodeAreaArray = new String[]{"491001(Durg city)", "490020(Nehru Nagar)", "490006(Risali)", "490001 (Adarsh Nagar)", "490009 (Hudco)", "490022 (Jawahar Nagar)", "490023 (Supela)", "490029 (Surya Vihar)"};
+        spinnerAdapter = new ArrayAdapter<>(this.getActivity(), R.layout.support_simple_spinner_dropdown_item, pinCodeAreaArray);
+        pinCodeSpinner.setAdapter(spinnerAdapter);
         //init progress dialog
         mProgressDialog = new ProgressDialog(getActivity());
         mProgressDialog.setTitle("Please wait");
@@ -140,40 +150,38 @@ public class AccountFragment extends Fragment {
                 nameEt.setText(documentSnapshot.getString("name"));
                 phoneEt.setText(documentSnapshot.getString("phone"));
                 addressEt.setText(documentSnapshot.getString("address"));
-                pinCodeET.setText(documentSnapshot.getString("pinCode"));
-                upiEt.setText(documentSnapshot.getString("upiId"));
+                String pinCode = documentSnapshot.getString("pinCode");
+                pinCodeSpinner.setSelection(Arrays.asList(pinCodeAreaArray).indexOf(pinCode));
                 try {
-                    Picasso.get().load(documentSnapshot.getString("profileImage")).placeholder(R.drawable.ic_account).into(profileIv);
+                    if (!documentSnapshot.getString("profileImage").isEmpty()) {
+                        Picasso.get().load(documentSnapshot.getString("profileImage")).placeholder(R.drawable.ic_account).into(profileIv);
+                    } else {
+                        Picasso.get().load(R.drawable.ic_account).placeholder(R.drawable.ic_account).into(profileIv);
+                    }
                 } catch (Exception z) {
-                    Picasso.get().load(R.drawable.ic_account).into(profileIv);
+                    Picasso.get().load(R.drawable.ic_account).placeholder(R.drawable.ic_account).into(profileIv);
                 }
             }
         });
     }
 
-    String name, phone, address, pinCode, upiId;
+    String name, phone, address;
     private void inputData() {
 
         name = nameEt.getText().toString().trim();
         phone = phoneEt.getText().toString().trim();
         address = addressEt.getText().toString().trim();
-        pinCode = pinCodeET.getText().toString().trim();
-        upiId = upiEt.getText().toString().trim();
 
         if (TextUtils.isEmpty(name)){
-            Toast.makeText(getActivity(), "", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Name not be empty", Toast.LENGTH_SHORT).show();
             return;
         }
         if (TextUtils.isEmpty(phone) || phone.length()<9){
             Toast.makeText(getActivity(), "Please enter valid phone number...", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (TextUtils.isEmpty(address)){
-            Toast.makeText(getActivity(), "Address is required...", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (TextUtils.isEmpty(pinCode)){
-            Toast.makeText(getActivity(), "Pin code is required...", Toast.LENGTH_SHORT).show();
+        if (TextUtils.isEmpty(address) || address.length()<8){
+            Toast.makeText(getActivity(), "Please enter valid Address...", Toast.LENGTH_SHORT).show();
             return;
         }
         updateDetails();
@@ -183,6 +191,8 @@ public class AccountFragment extends Fragment {
 
         mProgressDialog.setMessage("Update product...");
         mProgressDialog.show();
+        int code = Arrays.asList(pinCodeAreaArray).indexOf(pinCodeSpinner.getSelectedItem().toString());
+        final String pinCode = pinCodeArray[code];
         Log.d("MAGE_PICK_CAMERA_CODE", image_uri+"");
         if (image_uri==null) {
             Map<String, Object> map = new HashMap<>();
@@ -190,9 +200,8 @@ public class AccountFragment extends Fragment {
             map.put("phone", phone);
             map.put("address", address);
             map.put("pinCode", pinCode);
-            map.put("upiId", upiId);
             DocumentReference docRef = fstore.collection("Users").document(mAuth.getUid());
-            docRef.update(map)
+            docRef.set(map)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
@@ -223,7 +232,6 @@ public class AccountFragment extends Fragment {
                                 map.put("phone", phone);
                                 map.put("address", address);
                                 map.put("pinCode", pinCode);
-                                map.put("upiId", upiId);
                                 map.put("profileImage", ""+downlodeImageUri);
 
                                 DocumentReference docRef = fstore.collection("Users").document(mAuth.getUid());
@@ -239,6 +247,7 @@ public class AccountFragment extends Fragment {
                                     public void onFailure(@NonNull Exception e) {
                                         mProgressDialog.dismiss();
                                         Toast.makeText(getActivity(), ""+e, Toast.LENGTH_SHORT).show();
+                                        Log.d("Error", e+"");
                                     }
                                 });
                             }
@@ -248,6 +257,7 @@ public class AccountFragment extends Fragment {
                 public void onFailure(@NonNull Exception e) {
                     mProgressDialog.dismiss();
                     Toast.makeText(getActivity(), ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Log.d("Error", e+"");
                 }
             });;
         }

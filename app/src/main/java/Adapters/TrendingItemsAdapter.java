@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -153,7 +154,7 @@ public class TrendingItemsAdapter extends RecyclerView.Adapter<TrendingItemsAdap
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        CircleImageView itemsCircleView;
+        ImageView itemsCircleView;
         TextView item_title;
         TextView item_price;
         TextView item_qty;

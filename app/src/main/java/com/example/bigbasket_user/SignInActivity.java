@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -45,6 +46,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.squareup.picasso.Picasso;
 
 import Fragments.HomeFragment;
 
@@ -52,6 +54,7 @@ import Fragments.HomeFragment;
 public class SignInActivity extends AppCompatActivity {
 
     SignInButton SignIn;
+    ImageView imageView;
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
 
@@ -74,6 +77,9 @@ public class SignInActivity extends AppCompatActivity {
 // ...
 // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        imageView = findViewById(R.id.imageView);
+        String img = "https://firebasestorage.googleapis.com/v0/b/bigbasket-user.appspot.com/o/logo%2Fnewbblogo.png?alt=media&token=dbdbe2f2-4a5d-4684-a0ca-799b6508fdce";
+        Picasso.get().load(img).placeholder(R.drawable.newbblogo).into(imageView);
 
 
         // Configure sign-in to request the user's ID, email address, and basic
@@ -166,5 +172,6 @@ public class SignInActivity extends AppCompatActivity {
 
         Intent intent = new Intent(SignInActivity.this,MainActivity.class);
         startActivity(intent);
+        finish();
     }
 }

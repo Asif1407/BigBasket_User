@@ -13,6 +13,7 @@
         android:layout_margin="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
+        android:elevation="6dp"
         android:padding="10dp">
 
         <LinearLayout
@@ -28,38 +29,53 @@
                 android:src="@mipmap/ic_launcher" />
 
             <TextView
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Title"
-                android:id="@+id/title"
-                android:textSize="18sp"
-                android:layout_margin="8dp"/>
+                android:textSize="20dp"
+                android:textColor="@color/colorBlack"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_gravity="center"/>
 
             <TextView
+                android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Price"
-                android:id="@+id/price"
-                android:textSize="18sp"
-                android:layout_margin="8dp"/>
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
 
             <TextView
+                android:id="@+id/quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Quantity"
-                android:id="@+id/quantity"
-                android:textSize="18sp"
-                android:layout_margin="8dp"/>
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="center"/>
 
             <Button
+                android:id="@+id/addToCartButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:text="Add to Cart"
-                android:id="@+id/addToCartButton"
-                android:layout_margin="8dp" >
-
-            </Button>
-
+                android:background="@drawable/circular_button"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
 
         </LinearLayout>
 

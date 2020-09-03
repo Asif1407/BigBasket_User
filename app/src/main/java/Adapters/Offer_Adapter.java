@@ -128,8 +128,9 @@ public class Offer_Adapter extends RecyclerView.Adapter<Offer_Adapter.ViewHolder
         cart.put("Quantity",offers.getQuantity());
         cart.put("Description",offers.getDescription());
         cart.put("ImageUrl",offers.getImageUrl());
+        cart.put("SinglePrice",offers.getPrice());
 
-        ref.document(Uid).collection(offers.getTitle()).document("new").set(cart).addOnCompleteListener(new OnCompleteListener<Void>() {
+        ref.document(Uid).collection("newItems").document(offers.getTitle()).set(cart).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {

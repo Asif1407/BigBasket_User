@@ -12,15 +12,14 @@
 
     </include>
 
-    <ImageView
+    <com.blogspot.atifsoftwares.circularimageview.CircularImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_below="@id/toolbarMain"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="20dp"
-        android:elevation="6dp"
         android:src="@drawable/newbblogo" />
 
     <TextView
@@ -137,6 +136,8 @@
                 android:elevation="2dp"
                 android:layout_marginRight="20dp"
                 android:text="Place Order"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:textColor="@color/colorWhite" />
 
         </LinearLayout>

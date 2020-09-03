@@ -42,15 +42,17 @@ public class AdapterCart extends FirestoreRecyclerAdapter<ModelCart, AdapterCart
     protected void onBindViewHolder(@NonNull final HolderCart holder, int position, @NonNull final ModelCart modelCart) {
 
         final String title = modelCart.getTitle();
-        String category = modelCart.getCategory();
-        String itemImage = modelCart.getProductImage();
+        String category = modelCart.getDescription();
+        String itemImage = modelCart.getImageUrl();
         final String[] quantity = {modelCart.getQuantity()};
+        quantity[0] = quantity[0].replace("dozen", "").replace("kg", "").replace("Kg","").trim();
         final String[] price = {modelCart.getPrice()};
-        final String productId = modelCart.getProductId();
-
+        price[0] = price[0].replace("rs", "").trim();
+        final String singlePrice = modelCart.getSinglePrice().replace("rs", "").trim();
+//        singlePrice = singlePrice.replace("rs", "").trim();
 
         holder.titleTv.setText(title);
-        holder.categoryTv.setText(category);
+//        holder.categoryTv.setText(category);
         holder.priceTv.setText(price[0]);
         holder.quantityTv.setText(quantity[0]);
         try {
@@ -59,29 +61,40 @@ public class AdapterCart extends FirestoreRecyclerAdapter<ModelCart, AdapterCart
         catch (Exception e){
             holder.productIconIv.setImageResource(R.drawable.ic_cart_white);
         }
-
-        final int singlePrice = Integer.valueOf(price[0])/Integer.valueOf(quantity[0]);
-        final int[] cost = {Integer.valueOf(price[0])};
-        final int[] quant = {Integer.valueOf(quantity[0])};
+        final float[] quant = {Float.valueOf(quantity[0])};
+        final float[] cost = {0};
         holder.increasBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                quant[0]++;
-                cost[0] = cost[0] +singlePrice;
+                if (quant[0]<1) {
+                    quant[0]+=0.25;
+                } else if(quant[0] >=1&& quant[0]<3) {
+                    quant[0]+=0.5;
+                } else {
+                    quant[0]++;
+                }
+                cost[0] = quant[0] * Float.valueOf(singlePrice);
                 holder.quantityTv.setText(String.valueOf(quant[0]));
                 holder.priceTv.setText(String.valueOf(cost[0]));
-                updateQuantity(String.valueOf(cost[0]), String.valueOf(quant[0]),v, productId);
+                updateQuantity(String.valueOf(cost[0]), String.valueOf(quant[0]),v, title);
             }
         });
         holder.decreaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (quant[0]>1) {
-                    quant[0]--;
-                    cost[0]=cost[0]-singlePrice;
+                if (quant[0]>0.25) {
+                    if (quant[0] > 3) {
+                        quant[0]--;
+                    } else if(quant[0]>1 && quant[0]<=3){
+                        quant[0] -= 0.5;
+                    } else {
+                        quant[0] -= 0.25;
+                    }
+
+                    cost[0] = quant[0] * Float.valueOf(singlePrice);
                     holder.quantityTv.setText(String.valueOf(quant[0]));
                     holder.priceTv.setText(String.valueOf(cost[0]));
-                    updateQuantity(String.valueOf(cost[0]), String.valueOf(quant[0]),v, productId);
+                    updateQuantity(String.valueOf(cost[0]), String.valueOf(quant[0]),v, title);
                 }
 
             }
@@ -95,7 +108,7 @@ public class AdapterCart extends FirestoreRecyclerAdapter<ModelCart, AdapterCart
                         .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                deleteProduct(productId, v);
+                                deleteProduct(title, v);
                             }
                         })
                         .setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
@@ -109,9 +122,9 @@ public class AdapterCart extends FirestoreRecyclerAdapter<ModelCart, AdapterCart
     }
 
     private void updateQuantity(String s, String s1, final View v, String id) {
-        DocumentReference docRef = FirebaseFirestore.getInstance().collection("Users")
-                .document(FirebaseAuth.getInstance().getUid()).collection("cart").document(id);
-        docRef.update("price", s, "quantity", s1)
+        DocumentReference docRef = FirebaseFirestore.getInstance().collection("Cart")
+                .document(FirebaseAuth.getInstance().getUid()).collection("newItems").document(id);
+        docRef.update("Price", s, "Quantity", s1)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -130,7 +143,7 @@ public class AdapterCart extends FirestoreRecyclerAdapter<ModelCart, AdapterCart
     private void deleteProduct(String id, final View v){
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseFirestore fstore = FirebaseFirestore.getInstance();
-        fstore.collection("Users").document(mAuth.getUid()).collection("cart").document(id).delete()
+        fstore.collection("Cart").document(mAuth.getUid()).collection("newItems").document(id).delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -158,8 +171,8 @@ public class AdapterCart extends FirestoreRecyclerAdapter<ModelCart, AdapterCart
 
             productIconIv = itemView.findViewById(R.id.productIconIV);
             titleTv = itemView.findViewById(R.id.titleTV);
-            categoryTv = itemView.findViewById(R.id.categoryTV);
-            priceTv = itemView.findViewById(R.id.discountPriceTV);
+//            categoryTv = itemView.findViewById(R.id.categoryTV);
+            priceTv = itemView.findViewById(R.id.priceTV);
             quantityTv = itemView.findViewById(R.id.quantityTV);
             deleteBtn = itemView.findViewById(R.id.deleteBtn);
             increasBtn = itemView.findViewById(R.id.increasBtn);

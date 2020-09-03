@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,6 +16,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.android.material.navigation.NavigationView;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
@@ -51,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         btm_navigation = findViewById(R.id.btm_navigation);
+        loadFragment(new HomeFragment());
         navigationView = findViewById(R.id.navSlideBar);
 
         setupNavSlide();
@@ -181,5 +186,13 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.toolbar_menu, menu);
         return true;
+    }
+
+    private boolean loadFragment(Fragment fragment) {
+        if (fragment!=null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+            return true;
+        }
+        return false;
     }
 }

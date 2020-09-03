@@ -1,66 +1,84 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="Fragments.HomeFragment">
 
     <AutoCompleteTextView
+        android:id="@+id/search_bar_Main"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:id="@+id/search_bar_Main"
         android:padding="5dp" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:layout_height="400dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewSearch"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_below="@+id/search_bar_Main"
+        android:visibility="invisible"></androidx.recyclerview.widget.RecyclerView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/search_bar_Main">
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:id="@+id/recyclerViewSearch"
-            android:visibility="invisible"
-            android:layout_below="@+id/search_bar_Main">
-        </androidx.recyclerview.widget.RecyclerView>
+            android:layout_height="wrap_content">
 
-        <com.synnapps.carouselview.CarouselView
-            android:layout_below="@+id/search_bar_Main"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            app:fillColor="#ffffff"
-            app:pageColor="#000000"
-            app:radius="6dp"
-            app:slideInterval="3000"
-            app:strokeColor="#FF777777"
-            app:strokeWidth="1dp"
-            android:id="@+id/carouselView" >
-        </com.synnapps.carouselview.CarouselView>
+            <com.synnapps.carouselview.CarouselView
+                android:id="@+id/carouselView"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                app:fillColor="#ffffff"
+                app:pageColor="#000"
+                app:radius="6dp"
+                app:slideInterval="3000"
+                app:strokeColor="#FF777777"
+                app:strokeWidth="1dp"></com.synnapps.carouselview.CarouselView>
 
-        <Button
-            android:id="@+id/shop_now_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/carouselView"
-            android:padding="5dp"
-            android:gravity="center"
-            android:text="Shop Now"
-            android:layout_centerInParent="true"/>
+            <Button
+                android:id="@+id/shop_now_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/carouselView"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/circular_button"
+                android:gravity="center"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="Shop Now" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/shop_now_button"
-            android:text="Trending Items"
-            android:textColor="#020000"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:id="@+id/trendingItems"
-            android:layout_margin="5dp"
-            android:layout_centerInParent="true"/>
+            <TextView
+                android:id="@+id/trendingItems"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/shop_now_button"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/averia_gruesa_libre"
+                android:text="Trending Items"
+                android:textColor="#020000"
+                android:textSize="24sp"
+                android:textStyle="bold" />
 
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/trendingRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/trendingItems"
-            android:layout_marginTop="10dp"
-            android:scrollbars="vertical" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/trendingRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/trendingItems"
+                android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false"
+                android:scrollbars="vertical" />
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

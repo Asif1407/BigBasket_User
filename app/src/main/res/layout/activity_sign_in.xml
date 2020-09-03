@@ -1,23 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:orientation="vertical"
-
     tools:context=".SignInActivity">
 
-    <ImageView
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/bungee"
+        android:layout_above="@id/imageView"
+        android:text="Welcome \nin,"
+        android:textColor="@color/colorWhite"
+        android:textSize="36dp"
+        android:textStyle="bold" />
+
+    <com.blogspot.atifsoftwares.circularimageview.CircularImageView
         android:id="@+id/imageView"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_centerInParent="true"
+        android:layout_margin="20dp"/>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/googleg_standard_color_18" />
+        android:layout_below="@id/imageView"
+        app:cardBackgroundColor="@color/colorWhite"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="40dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <com.google.android.gms.common.SignInButton
-        android:id="@+id/signin1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"></com.google.android.gms.common.SignInButton>
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/bevan"
+                android:text="Login"
+                android:textColor="@color/colorPrimary"
+                android:textSize="32dp"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"/>
 
-</LinearLayout>
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/signin1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:layout_below="@+id/text"
+            android:layout_gravity="center_vertical"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

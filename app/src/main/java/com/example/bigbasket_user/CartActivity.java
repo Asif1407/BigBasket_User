@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.example.bigbasket_user.Adapter.AdapterCart;
@@ -34,7 +35,6 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -45,6 +45,7 @@ public class CartActivity extends AppCompatActivity {
     private Button placeOrder;
     private RecyclerView cartItemRv;
     private TextView grandTotal, cartIsEmpty, detailCost, detailDelivery, detailTotal;
+    private TableLayout table;
     //firebase
     private FirebaseAuth mAuth;
     private FirebaseFirestore fstore;
@@ -68,10 +69,11 @@ public class CartActivity extends AppCompatActivity {
         detailCost = findViewById(R.id.detailCost);
         detailDelivery = findViewById(R.id.detailDelivery);
         detailTotal = findViewById(R.id.detailTotal);
+        table = findViewById(R.id.table);
         //init firebase
         mAuth = FirebaseAuth.getInstance();
         fstore = FirebaseFirestore.getInstance();
-        cartRefrence = fstore.collection("Users").document(mAuth.getUid()).collection("cart");
+        cartRefrence = fstore.collection("Cart").document(mAuth.getUid()).collection("newItems");
         //init progress dialog
         mProgressDialog = new ProgressDialog(this);
         mProgressDialog.setTitle("Please wait");
@@ -100,11 +102,13 @@ public class CartActivity extends AppCompatActivity {
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if(!value.isEmpty()) {
                     placeOrder.setVisibility(View.VISIBLE);
+                    table.setVisibility(View.VISIBLE);
                     cartIsEmpty.setVisibility(View.GONE);
                     grandTotalPrice();
                 } else {
                     grandTotal.setText("$0");
                     cartIsEmpty.setVisibility(View.VISIBLE);
+                    table.setVisibility(View.GONE);
                     placeOrder.setVisibility(View.GONE);
                 }
             }
@@ -118,7 +122,7 @@ public class CartActivity extends AppCompatActivity {
                 if (!queryDocumentSnapshots.isEmpty()) {
                     for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                         if (documentSnapshot.exists()) {
-                            sum += Integer.valueOf(documentSnapshot.getString("price").trim());
+                            sum += Float.valueOf(documentSnapshot.getString("Price").replace("rs","").trim());
                             Log.d("price", sum+" !!");
                         }
                     }

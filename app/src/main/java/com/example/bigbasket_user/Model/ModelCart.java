@@ -1,50 +1,50 @@
 package com.example.bigbasket_user.Model;
 
 public class ModelCart {
-    private String  price, category,
-            productImage, quantity, title, productId;
+    private String  Description, ImageUrl,
+            Price, Quantity, Title, SinglePrice;
 
     public ModelCart() {
     }
 
+    public String getDescription() {
+        return Description;
+    }
+
+    public String getImageUrl() {
+        return ImageUrl;
+    }
+
     public String getPrice() {
-        return price;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public String getProductImage() {
-        return productImage;
+        return Price;
     }
 
     public String getQuantity() {
-        return quantity;
+        return Quantity;
     }
 
     public String getTitle() {
-        return title;
-    }
-
-    public String getProductId() {
-        return productId;
+        return Title;
     }
 
     public void setQuantity(String quantity) {
-        this.quantity = quantity;
+        Quantity = quantity;
     }
 
     public void setPrice(String price) {
-        this.price = price;
+        Price = price;
     }
 
-    public ModelCart(String price, String category, String productImage, String quantity, String title, String productId) {
-        this.price = price;
-        this.category = category;
-        this.productImage = productImage;
-        this.quantity = quantity;
-        this.title = title;
-        this.productId = productId;
+    public String getSinglePrice() {
+        return SinglePrice;
+    }
+
+    public ModelCart(String description, String imageUrl, String price, String quantity, String title, String singlePrice) {
+        Description = description;
+        ImageUrl = imageUrl;
+        Price = price;
+        Quantity = quantity;
+        Title = title;
+        SinglePrice = singlePrice;
     }
 }
