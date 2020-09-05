@@ -14,10 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ItemDetailActivity" />
-        <activity
-            android:name=".Items"
-            android:label="@string/title_activity_items"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".PaymentModeActivity"></activity>
         <activity android:name=".ConfirmOrderActivity"></activity>
             android:theme="@style/AppTheme.NoActionBar" />
