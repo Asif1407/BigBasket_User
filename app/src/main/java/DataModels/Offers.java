@@ -7,20 +7,32 @@ public class Offers {
     String Quantity;
     String ImageUrl;
     String Description;
+    String SinglePrice;
+    String Unit;
 
     public Offers() {
     }
 
-    public Offers(String title, String price, String quantity, String imageUrl, String description) {
+    public Offers(String title, String price, String quantity, String imageUrl, String description, String singlePrice, String unit) {
         Title = title;
         Price = price;
         Quantity = quantity;
         ImageUrl = imageUrl;
         Description = description;
+        SinglePrice = singlePrice;
+        Unit = unit;
     }
 
     public String getTitle() {
         return Title;
+    }
+
+    public String getSinglePrice() {
+        return SinglePrice;
+    }
+
+    public String getUnit() {
+        return Unit;
     }
 
     public void setTitle(String title) {

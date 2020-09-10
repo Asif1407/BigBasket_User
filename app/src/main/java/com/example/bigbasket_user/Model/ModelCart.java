@@ -2,7 +2,7 @@ package com.example.bigbasket_user.Model;
 
 public class ModelCart {
     private String  Description, ImageUrl,
-            Price, Quantity, Title, SinglePrice;
+            Price, Quantity, Title, SinglePrice, Unit;
 
     public ModelCart() {
     }
@@ -39,12 +39,17 @@ public class ModelCart {
         return SinglePrice;
     }
 
-    public ModelCart(String description, String imageUrl, String price, String quantity, String title, String singlePrice) {
+    public String getUnit() {
+        return Unit;
+    }
+
+    public ModelCart(String description, String imageUrl, String price, String quantity, String title, String singlePrice, String unit) {
         Description = description;
         ImageUrl = imageUrl;
         Price = price;
         Quantity = quantity;
         Title = title;
         SinglePrice = singlePrice;
+        Unit = unit;
     }
 }

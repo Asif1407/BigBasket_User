@@ -13,19 +13,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".DeliveredItemsActivity"></activity>
         <activity android:name=".ItemDetailActivity" />
-        <activity android:name=".PaymentModeActivity"></activity>
-        <activity android:name=".ConfirmOrderActivity"></activity>
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".PaymentModeActivity" />
+        <activity android:name=".ConfirmOrderActivity" />
+        <activity android:name=".SignInActivity"></activity>
         <activity android:name=".CartActivity" />
-        <activity android:name=".SignInActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

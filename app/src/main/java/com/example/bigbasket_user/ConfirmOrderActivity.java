@@ -34,6 +34,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.Reference;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -85,6 +86,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
             paymentStatusTV.setText("Unpaid (COD)");
             amountTV.setText("₹" + totalPrice);
             loadData(transactionID, totalPrice);
+
         }
 
 
@@ -100,6 +102,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
             }
         });
     }
+
     private void loadData(final String transactionID, final String totalPrice) {
         final String tId = transactionID;
         final String tp = totalPrice;
@@ -118,22 +121,27 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         mProgressDialog.show();
         final String timestamp = ""+System.currentTimeMillis();
         Map<String, Object> map1 = new HashMap<>();
-        map1.put("Delivery_Done", "false");
-        map1.put("Time", timestamp);
-        map1.put("Total_products", "5");
-        map1.put("Transaction_Id", transactionID);
-        map1.put("Total_Price", totalPrice);
+        map1.put("name", name);
+        map1.put("address", address);
+        map1.put("orderStatus", "In Progress");
+        map1.put("transactionId", transactionID);
+        map1.put("totalPrice", totalPrice);
+        map1.put("pNumber", phone);
+        map1.put("pinCode", pinCode);
+        map1.put("timeStamp", timestamp);
+        map1.put("UId", mAuth.getUid());
         if (transactionID != null) {
-            map1.put("Payment", "True");
+            map1.put("paymentStatus", "Paid");
         } else {
-            map1.put("Payment", "False");
+            map1.put("paymentStatus", "Unpaid");
         }
 
-        final DocumentReference docRefs = fstore.collection("Delivery").document(mAuth.getUid());
-        docRefs.collection("History").document().set(map1)
+        final DocumentReference docRefs = fstore.collection("Delivery").document(timestamp);
+        docRefs.set(map1)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        Log.d("Store", "Successfull");
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -142,13 +150,6 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                 Toast.makeText(ConfirmOrderActivity.this, "" + e, Toast.LENGTH_SHORT).show();
             }
         });
-
-        Map<String, Object> map2 = new HashMap<>();
-        map2.put("Name", name);
-        map2.put("Address", address);
-        map2.put("Mobile_Number", phone);
-        map2.put("Pincode", pinCode);
-        docRefs.collection("User").document().set(map2);
 
         CollectionReference collRef = fstore.collection("Cart").document(mAuth.getUid()).collection("newItems");
         collRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
@@ -159,28 +160,33 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                     String quantity = ds.getString("Quantity");
                     String singlePrice = ds.getString("SinglePrice");
                     String title = ds.getString("Title");
+                    String unit = ds.getString("Unit");
 
                     final Map<String, Object> items = new HashMap<>();
                     items.put("price", price);
                     items.put("quantity", quantity);
                     items.put("title", title);
                     items.put("singlePrice", singlePrice);
+                    items.put("unit", unit);
 
-                    docRefs.collection("Item").document().set(items)
+                    fstore.collection("Cart").document(mAuth.getUid()).collection("newItems")
+                            .document(title).delete();
+
+                    docRefs.collection("Items").document(title).set(items)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     Log.d("Items", items+"");
                                 }
                             });
-                    fstore.collection("Cart").document(mAuth.getUid())
-                            .collection("newItems").document(title).delete();
+
                 }
                 mProgressDialog.dismiss();
                 Toast.makeText(ConfirmOrderActivity.this, "Order Placed Successfully...", Toast.LENGTH_SHORT).show();
                 return;
             }
         });
+
 
     }
 

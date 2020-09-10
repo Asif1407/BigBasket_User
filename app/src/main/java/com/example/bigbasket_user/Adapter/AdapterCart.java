@@ -42,17 +42,17 @@ public class AdapterCart extends FirestoreRecyclerAdapter<ModelCart, AdapterCart
     protected void onBindViewHolder(@NonNull final HolderCart holder, int position, @NonNull final ModelCart modelCart) {
 
         final String title = modelCart.getTitle();
-        String category = modelCart.getDescription();
+        String unit = modelCart.getUnit();
         String itemImage = modelCart.getImageUrl();
         final String[] quantity = {modelCart.getQuantity()};
-        quantity[0] = quantity[0].replace("dozen", "").replace("kg", "").replace("Kg","").trim();
+        quantity[0] = quantity[0].replace("dozen", "").replace("piece", "").replace("kg", "").replace("Kg","").trim();
         final String[] price = {modelCart.getPrice()};
         price[0] = price[0].replace("rs", "").trim();
-        final String singlePrice = modelCart.getSinglePrice().replace("rs", "").trim();
+        final String singlePrice = modelCart.getSinglePrice();
 //        singlePrice = singlePrice.replace("rs", "").trim();
 
         holder.titleTv.setText(title);
-//        holder.categoryTv.setText(category);
+        holder.unitTv.setText("Units in "+unit);
         holder.priceTv.setText(price[0]);
         holder.quantityTv.setText(quantity[0]);
         try {
@@ -163,7 +163,7 @@ public class AdapterCart extends FirestoreRecyclerAdapter<ModelCart, AdapterCart
     class HolderCart extends RecyclerView.ViewHolder{
 
         private ImageView productIconIv;
-        private TextView titleTv, categoryTv, priceTv, quantityTv;
+        private TextView titleTv, categoryTv, priceTv, quantityTv, unitTv;
         private ImageButton deleteBtn, increasBtn, decreaseBtn;
 
         public HolderCart(@NonNull View itemView) {
@@ -171,7 +171,7 @@ public class AdapterCart extends FirestoreRecyclerAdapter<ModelCart, AdapterCart
 
             productIconIv = itemView.findViewById(R.id.productIconIV);
             titleTv = itemView.findViewById(R.id.titleTV);
-//            categoryTv = itemView.findViewById(R.id.categoryTV);
+            unitTv = itemView.findViewById(R.id.unitTV);
             priceTv = itemView.findViewById(R.id.priceTV);
             quantityTv = itemView.findViewById(R.id.quantityTV);
             deleteBtn = itemView.findViewById(R.id.deleteBtn);

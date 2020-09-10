@@ -41,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private Fragment selectorFragment;
     private Toolbar toolbar;
 
+    FirebaseAuth mAuth;
+
     // Drawer Layout and navigation Slide.
     NavigationView navigationView;
     DrawerLayout drawerLayout;
@@ -57,6 +59,9 @@ public class MainActivity extends AppCompatActivity {
         btm_navigation = findViewById(R.id.btm_navigation);
         loadFragment(new HomeFragment());
         navigationView = findViewById(R.id.navSlideBar);
+
+        mAuth = FirebaseAuth.getInstance();
+        checkUser();
 
         setupNavSlide();
 
@@ -194,5 +199,15 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    private void checkUser() {
+        FirebaseUser user = mAuth.getCurrentUser();
+        if (user == null){
+            startActivity(new Intent(MainActivity.this, SignInActivity.class));
+            finish();;
+        }
+        else {
+        }
     }
 }

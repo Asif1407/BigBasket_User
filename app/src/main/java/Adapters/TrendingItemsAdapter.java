@@ -76,7 +76,7 @@ public class TrendingItemsAdapter extends RecyclerView.Adapter<TrendingItemsAdap
         holder.item_title.setText(mList.get(position).getTitle());
         holder.item_price.setText(mList.get(position).getPrice());
         holder.item_qty.setText(mList.get(position).getQuantity());
-
+        holder.unitTV.setText(mList.get(position).getUnit());
         Picasso.get().load(mList.get(position).getImageUrl()).into(holder.itemsCircleView);
 
         holder.trendingCart.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +90,7 @@ public class TrendingItemsAdapter extends RecyclerView.Adapter<TrendingItemsAdap
                 itemsDetailIntent.putExtra("Quantity",item.getQuantity());
                 itemsDetailIntent.putExtra("Description",item.getDescription());
                 itemsDetailIntent.putExtra("Image",item.getImageUrl());
+                itemsDetailIntent.putExtra("Unit",item.getUnit());
                 v.getContext().startActivity(itemsDetailIntent);
             }
         });
@@ -115,6 +116,7 @@ public class TrendingItemsAdapter extends RecyclerView.Adapter<TrendingItemsAdap
         cart.put("Quantity",item.getQuantity());
         cart.put("Description",item.getDescription());
         cart.put("ImageUrl",item.getImageUrl());
+        cart.put("Unit", item.getUnit());
 
         ref.document(Uid).collection("newItems").document(item.getTitle()).set(cart)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -159,6 +161,7 @@ public class TrendingItemsAdapter extends RecyclerView.Adapter<TrendingItemsAdap
         TextView item_price;
         TextView item_qty;
         TextView item_description;
+        TextView unitTV;
         Button add_to_cart_button;
         CardView trendingCart;
 
@@ -170,6 +173,7 @@ public class TrendingItemsAdapter extends RecyclerView.Adapter<TrendingItemsAdap
             item_price =itemView.findViewById(R.id.item_price);
             item_qty =itemView.findViewById(R.id.item_quantity);
             item_description =itemView.findViewById(R.id.item_description);
+            unitTV = itemView.findViewById(R.id.qUnitTV);
             add_to_cart_button = itemView.findViewById(R.id.add_to_cart_button);
 
             // Card View

@@ -28,7 +28,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.bigbasket_user.MainActivity;
 import com.example.bigbasket_user.R;
+import com.example.bigbasket_user.SignInActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -385,7 +387,5 @@ public class AccountFragment extends Fragment {
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
-
-
 
 }

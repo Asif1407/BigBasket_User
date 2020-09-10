@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".DeliveredItemsActivity">
+
+    <include
+        layout="@layout/main_toolbar"
+        android:id="@+id/toolbarMain">
+
+    </include>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Order Details"
+        android:gravity="center"
+        android:textSize="28dp" />
+
+    <TextView
+        android:id="@+id/orderidTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OrderId: 98765432103214"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp">
+
+            <TextView
+                android:id="@+id/nameTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Order By: Xyz Singh"
+                android:textSize="15dp"
+                android:textColor="@color/colorBlack"
+                android:layout_marginTop="2dp"/>
+
+            <TextView
+                android:id="@+id/numberTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Phone: +91 9522468974"
+                android:textSize="15dp"
+                android:textColor="@color/colorBlack"
+                android:layout_marginTop="2dp"/>
+
+            <TextView
+                android:id="@+id/addressTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Address: 490006, Raipur, cg"
+                android:textSize="15dp"
+                android:maxLines="1"
+                android:textColor="@color/colorBlack"
+                android:layout_marginTop="2dp"/>
+
+            <TextView
+                android:id="@+id/transactionIdTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Transaction ID: 91238756985"
+                android:textSize="15dp"
+                android:textColor="@color/colorBlack"
+                android:layout_marginTop="2dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="5dp">
+
+            <TextView
+                android:id="@+id/dateTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="dd/MM/yyyy"
+                android:layout_gravity="right"
+                android:textSize="15dp"
+                android:layout_marginTop="3dp"/>
+
+            <TextView
+                android:id="@+id/orderStatusTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Order Status"
+                android:textSize="15dp"
+                android:layout_gravity="right"
+                android:layout_marginTop="3dp"/>
+
+            <TextView
+                android:id="@+id/paymentStatusTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Payment Status"
+                android:textSize="15dp"
+                android:layout_gravity="right"
+                android:layout_marginTop="3dp"/>
+
+            <TextView
+                android:id="@+id/totalAmountTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Total amt: ₹450"
+                android:textSize="15dp"
+                android:gravity="right"
+                android:layout_marginTop="3dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Ordered Items List"
+        android:gravity="center"
+        android:layout_margin="5dp"
+        android:padding="5dp"
+        android:background="@color/colorPrimary"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        android:textColor="@color/colorWhite" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:text="Title"
+                android:textSize="15dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_marginLeft="5dp"
+                android:text="Quantity"
+                android:textSize="15dp"
+                android:layout_weight="1"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="Price"
+                android:textSize="15dp"
+                android:layout_weight="1"
+                android:gravity="center" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/itemListRV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/order_items_cardview" />
+
+</LinearLayout>

@@ -65,6 +65,7 @@ public class Offer_Adapter extends RecyclerView.Adapter<Offer_Adapter.ViewHolder
         holder.title.setText(mList.get(position).getTitle());
         holder.price.setText(mList.get(position).getPrice());
         holder.qty.setText(mList.get(position).getQuantity());
+        holder.qUnit.setText(mList.get(position).getUnit());
         Picasso.get().load(mList.get(position).getImageUrl()).into(holder.imageView);
 
         holder.offerCardView.setOnClickListener(new View.OnClickListener() {
@@ -78,6 +79,7 @@ public class Offer_Adapter extends RecyclerView.Adapter<Offer_Adapter.ViewHolder
                 itemsDetailIntent.putExtra("Quantity",offers.getQuantity());
                 itemsDetailIntent.putExtra("Description",offers.getDescription());
                 itemsDetailIntent.putExtra("Image",offers.getImageUrl());
+                itemsDetailIntent.putExtra("Unit", offers.getUnit());
                 v.getContext().startActivity(itemsDetailIntent);
             }
         });
@@ -103,6 +105,7 @@ public class Offer_Adapter extends RecyclerView.Adapter<Offer_Adapter.ViewHolder
         public TextView title;
         public TextView price;
         public TextView qty;
+        private TextView qUnit;
         public Button addToCartBtn;
         public ImageView imageView;
 
@@ -111,6 +114,7 @@ public class Offer_Adapter extends RecyclerView.Adapter<Offer_Adapter.ViewHolder
 
             offerCardView = itemView.findViewById(R.id.offerCardView);
             title = itemView.findViewById(R.id.title);
+            qUnit = itemView.findViewById(R.id.qUnitTV);
             price = itemView.findViewById(R.id.price);
             qty = itemView.findViewById(R.id.quantity);
             addToCartBtn = itemView.findViewById(R.id.addToCartButton);
@@ -129,6 +133,7 @@ public class Offer_Adapter extends RecyclerView.Adapter<Offer_Adapter.ViewHolder
         cart.put("Description",offers.getDescription());
         cart.put("ImageUrl",offers.getImageUrl());
         cart.put("SinglePrice",offers.getPrice());
+        cart.put("Unit", offers.getUnit());
 
         ref.document(Uid).collection("newItems").document(offers.getTitle()).set(cart).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

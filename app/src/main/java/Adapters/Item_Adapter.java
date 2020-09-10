@@ -69,6 +69,8 @@ public class Item_Adapter extends RecyclerView.Adapter<Item_Adapter.MyViewHolder
         // Setting Data.
         holder.title.setText(Items.get(position).getTitle());
         holder.price.setText((Items.get(position).getPrice()));
+        holder.unit.setText(Items.get(position).getUnit());
+        holder.quantity.setText(Items.get(position).getQuantity());
 
         Picasso.get().load(item.getImageUrl()).into(holder.item_image);
 
@@ -94,6 +96,7 @@ public class Item_Adapter extends RecyclerView.Adapter<Item_Adapter.MyViewHolder
                 itemsDetailIntent.putExtra("Quantity",item.getQuantity());
                 itemsDetailIntent.putExtra("Description",item.getDescription());
                 itemsDetailIntent.putExtra("Image",item.getImageUrl());
+                itemsDetailIntent.putExtra("Unit", item.getUnit());
                 v.getContext().startActivity(itemsDetailIntent);
             }
         });
@@ -107,7 +110,7 @@ public class Item_Adapter extends RecyclerView.Adapter<Item_Adapter.MyViewHolder
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         CardView cardView;
-        TextView title,price;
+        TextView title, price, unit, quantity;
         Button addToCart;
         ImageView item_image;// init the item view's
 
@@ -119,6 +122,8 @@ public class Item_Adapter extends RecyclerView.Adapter<Item_Adapter.MyViewHolder
             cardView = itemView.findViewById(R.id.cardView);
             title = itemView.findViewById(R.id.item_title);
             price = itemView.findViewById(R.id.item_price);
+            quantity = itemView.findViewById(R.id.quantity);
+            unit = itemView.findViewById(R.id.qUnitTV);
             item_image = itemView.findViewById(R.id.item_image);
             addToCart = itemView.findViewById(R.id.addToCartButton);
         }
@@ -131,9 +136,11 @@ public class Item_Adapter extends RecyclerView.Adapter<Item_Adapter.MyViewHolder
         Map<String, String> cart = new HashMap<>();
         cart.put("Title", item.getTitle());
         cart.put("Price", item.getPrice());
+        cart.put("SinglePrice", item.getSinglePrice());
         cart.put("Quantity", item.getQuantity());
         cart.put("Description", item.getDescription());
         cart.put("ImageUrl", item.getImageUrl());
+        cart.put("Unit", item.getUnit());
 
         ref.document(Uid).collection("newItems").document(item.getTitle()).set(cart)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {

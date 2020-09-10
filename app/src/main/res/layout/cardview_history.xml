@@ -1,65 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="200dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_margin="10dp"
+    android:elevation="4dp"
     app:cardCornerRadius="5dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Username"
-            android:textSize="18sp"
-            android:id="@+id/username"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginStart="10dp"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="2">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Date"
-            android:textSize="18sp"
-            android:id="@+id/date"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginStart="10dp"/>
+            <TextView
+                android:id="@+id/nameTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="15dp"
+                android:text="Name"
+                android:textColor="@color/colorBlack"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Time"
-            android:textSize="18sp"
-            android:id="@+id/time"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginStart="10dp"/>
+            <TextView
+                android:id="@+id/orderIdTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="15dp"
+                android:text="Order Id" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Total Products"
-            android:textSize="18sp"
-            android:id="@+id/totalProducts"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginStart="10dp"/>
+            <TextView
+                android:id="@+id/numberTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="15dp"
+                android:text="Number" />
 
-        <TextView
+            <TextView
+                android:id="@+id/totalAmountTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:textSize="15dp"
+                android:text="Total Amount" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Total Amount"
-            android:textSize="18sp"
-            android:id="@+id/totalAmount"
-            android:layout_marginTop="10dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
             android:layout_marginRight="10dp"
-            android:layout_marginStart="10dp"/>
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/dateTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:gravity="right"
+                android:textSize="15dp"
+                android:text="dd/MM/yyyy" />
+
+            <TextView
+                android:id="@+id/orderStatusTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:gravity="right"
+                android:text="Order Status"
+                android:textSize="15dp"
+                android:textColor="@color/colorGreen"/>
+
+            <TextView
+                android:id="@+id/paymentStatusTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:gravity="right"
+                android:text="Payment"
+                android:textSize="15dp"
+                android:textColor="@color/colorGreen"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 

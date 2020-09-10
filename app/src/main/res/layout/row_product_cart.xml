@@ -106,12 +106,20 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/unitTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="* Unit in kg"
+                    android:layout_below="@id/LL"
+                    android:layout_alignParentRight="true" />
+
                 <ImageButton
                     android:id="@+id/deleteBtn"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
-                    android:layout_below="@id/LL"
-                    android:layout_marginTop="12dp"
+                    android:layout_below="@id/unitTV"
                     android:layout_marginRight="2dp"
                     android:layout_alignParentRight="true"
                     android:background="@null"
