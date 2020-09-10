@@ -27,15 +27,19 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.WriteBatch;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.google.firestore.v1.DocumentDelete;
 import com.squareup.picasso.Picasso;
 
 import java.lang.ref.Reference;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nullable;
@@ -111,6 +115,34 @@ public class ConfirmOrderActivity extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 updateOrderDetails(tId, tp, documentSnapshot.getString("name"), documentSnapshot.getString("phone"), documentSnapshot.getString("address"), documentSnapshot.getString("pinCode"));
+                deleteFromCart();
+            }
+        });
+    }
+
+    private void deleteFromCart() {
+        fstore.collection("Cart").document(mAuth.getUid()).collection("newItems")
+                .get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                WriteBatch batch = FirebaseFirestore.getInstance().batch();
+                List<DocumentSnapshot> snapshots = queryDocumentSnapshots.getDocuments();
+                for (DocumentSnapshot snapshot : snapshots) {
+                    batch.delete(snapshot.getReference());
+                }
+
+                batch.commit().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.i("pratik", "Maja aa gaya");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.i("pratik", "Maja nahi");
+                    }
+                });
+                return;
             }
         });
     }
@@ -169,9 +201,6 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                     items.put("singlePrice", singlePrice);
                     items.put("unit", unit);
 
-                    fstore.collection("Cart").document(mAuth.getUid()).collection("newItems")
-                            .document(title).delete();
-
                     docRefs.collection("Items").document(title).set(items)
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -179,6 +208,9 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                                     Log.d("Items", items+"");
                                 }
                             });
+
+//                    fstore.collection("Cart").document(mAuth.getUid()).collection("newItems")
+//                            .document(title).delete();
 
                 }
                 mProgressDialog.dismiss();
