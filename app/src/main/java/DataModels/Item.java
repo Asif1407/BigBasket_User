@@ -14,6 +14,7 @@ public class Item {
     String SinglePrice;
     String Unit;
 
+
     public Item() {
         // So that App doesn't crash.
     }

@@ -45,11 +45,11 @@ public class SectionPagerClass extends FragmentPagerAdapter {
 
         switch(position){
             case 0:
-                return "REQUEST";
+                return "Vegetables";
             case 1:
-                return "CHAT";
+                return "Fruits";
             case 2:
-                return "FRIENDS";
+                return "Others";
             default:
                 return null;
         }

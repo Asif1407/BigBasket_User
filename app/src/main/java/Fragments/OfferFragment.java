@@ -78,7 +78,7 @@ public class OfferFragment extends Fragment {
         offerRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         offerRecyclerView.setAdapter(adapter);
 
-        ref.addSnapshotListener(new EventListener<QuerySnapshot>() {
+        ref.whereEqualTo("Tag","True").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (!value.isEmpty()) {

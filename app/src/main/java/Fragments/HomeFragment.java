@@ -33,6 +33,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -57,17 +58,13 @@ import DataModels.Search;
 
 public class HomeFragment  extends Fragment {
 
-//    // For Search Item Adapter.
-//    List<Search> searchList = new ArrayList<>();
-//    SearchAdapter searchAdapter;
-//    private RecyclerView searchRecyclerView;
-
     // For Trending Item Adapter.
     List<Item> mList = new ArrayList<>();
     TrendingItemsAdapter adapter;
+
+    // Firebase
     private FirebaseFirestore database= FirebaseFirestore.getInstance();
     private CollectionReference ref= database.collection("Trending");
-
 
     // Layout
     private AutoCompleteTextView  search_bar_Main;
@@ -97,18 +94,6 @@ public class HomeFragment  extends Fragment {
         // For RecyclerView of Trending Items.
         trendingRecyclerView= view.findViewById(R.id.trendingRecyclerView);
 
-        // For Search View
-//        searchRecyclerView = view.findViewById(R.id.recyclerViewSearch);
-
-        // SearchBar
-//        search_bar_Main.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent searchIntent = new Intent(v.getContext(),SearchFragment.class);
-//                v.getContext().startActivity(searchIntent);
-//            }
-//        });
-
         // Calling Various Functions here.
         carouselView();
         setUpTrendingItemAdapter(view.getContext());
@@ -117,35 +102,6 @@ public class HomeFragment  extends Fragment {
 
         return view;
     }
-
-//    private void search(String text) {
-//
-//        Query searchQuery = ref.orderBy("Title").startAt(text).endAt(text + "\uf8ff");
-//        searchRecyclerView.setVisibility(View.VISIBLE);
-//
-//        searchQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
-//            @Override
-//            public void onEvent(@androidx.annotation.Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-//                if (!value.isEmpty()) {
-//                    for (QueryDocumentSnapshot snapshot: value){
-//                        Search search = snapshot.toObject(Search.class);
-//                        searchList.add(search);
-//                    }
-//                    adapter.notifyDataSetChanged();
-//
-//                }else{
-//                    Log.d("Error",error.getMessage());
-//                    // request.time < timestamp.date(2020, 8, 28);
-//                }
-//                Log.d("DataAdapter",mList+"");
-//            }
-//        });
-//
-//        searchAdapter = new SearchAdapter(getContext(),searchList);
-//        searchRecyclerView.setHasFixedSize(true);
-//        searchRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        searchRecyclerView.setAdapter(searchAdapter);
-//    }
 
     private void shopNowButton() {
         shop_now_button.setOnClickListener(new View.OnClickListener() {
@@ -164,7 +120,7 @@ public class HomeFragment  extends Fragment {
 
     private void setUpTrendingItemAdapter(Context context) {
 
-        ref.addSnapshotListener(new EventListener<QuerySnapshot>() {
+        ref.whereEqualTo("Tag","True").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@androidx.annotation.Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (!value.isEmpty()) {
@@ -181,7 +137,6 @@ public class HomeFragment  extends Fragment {
                 Log.d("DataAdapter",mList+"");
             }
         });
-
 
         adapter = new TrendingItemsAdapter(getContext(),mList);
         trendingRecyclerView.setHasFixedSize(true);

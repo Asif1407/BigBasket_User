@@ -57,7 +57,7 @@ public class FruitFragment extends Fragment {
     }
 
     private void addDataToList() {
-        ref.addSnapshotListener(new EventListener<QuerySnapshot>() {
+        ref.whereEqualTo("Tag","True").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 for (QueryDocumentSnapshot snapshot:value){

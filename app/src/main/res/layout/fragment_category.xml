@@ -22,19 +22,19 @@
                 android:id="@+id/VegetableTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Request" />
+                android:text="Vegetables" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/FruitTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chat" />
+                android:text="Fruits" />
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/OtherTab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Friends" />
+                android:text="Other" />
         </com.google.android.material.tabs.TabLayout>
 
 

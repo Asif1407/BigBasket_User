@@ -11,12 +11,6 @@
         android:layout_height="40dp"
         android:padding="5dp" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewSearch"
-        android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_below="@+id/search_bar_Main"
-        android:visibility="invisible"></androidx.recyclerview.widget.RecyclerView>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -36,7 +30,7 @@
                 app:radius="6dp"
                 app:slideInterval="3000"
                 app:strokeColor="#FF777777"
-                app:strokeWidth="1dp"></com.synnapps.carouselview.CarouselView>
+                app:strokeWidth="1dp" />
 
             <Button
                 android:id="@+id/shop_now_button"

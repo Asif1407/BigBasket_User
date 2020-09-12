@@ -32,9 +32,6 @@ import Adapters.Item_Adapter;
 import DataModels.Item;
 import DataModels.Offers;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class CategoryFragment extends Fragment {
 
     private ViewPager main_TabPager;
@@ -45,7 +42,6 @@ public class CategoryFragment extends Fragment {
     public CategoryFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

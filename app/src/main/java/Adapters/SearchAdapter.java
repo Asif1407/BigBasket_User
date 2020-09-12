@@ -15,14 +15,15 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import DataModels.Item;
 import DataModels.Search;
 
 public class SearchAdapter extends  RecyclerView.Adapter<SearchAdapter.ViewHolder> {
 
     private Context mContext;
-    private List mList;
+    private List<Item> mList;
 
-    public SearchAdapter(Context mContext, List mList) {
+    public SearchAdapter(Context mContext, List<Item> mList) {
         this.mContext = mContext;
         this.mList = mList;
     }
@@ -37,10 +38,11 @@ public class SearchAdapter extends  RecyclerView.Adapter<SearchAdapter.ViewHolde
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        final Search search = (Search) mList.get(position);
-        holder.textView.setText(search.getTitle());
-        Picasso.get().load(search.getImageUrl()).into(holder.imageUrl);
+        final Item item = mList.get(position);
 
+        holder.title.setText(item.getTitle());
+
+        Picasso.get().load(item.getImageUrl()).into(holder.image);
     }
 
     @Override
@@ -50,14 +52,17 @@ public class SearchAdapter extends  RecyclerView.Adapter<SearchAdapter.ViewHolde
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView textView;
-        private ImageView imageUrl;
+        private TextView title;
+        private TextView price;
+        private ImageView image;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            textView = itemView.findViewById(R.id.textView);
-            imageUrl = itemView.findViewById(R.id.imageUrl);
+            title = itemView.findViewById(R.id.title);
+            price = itemView.findViewById(R.id.price);
+            image = itemView.findViewById(R.id.image);
         }
     }
 }

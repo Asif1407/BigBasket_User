@@ -4,23 +4,31 @@
     android:layout_height="match_parent"
     tools:context="Fragments.SearchFragment">
 
-    <EditText
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/searchBtn"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/search_bar"/>
+        android:layout_alignParentEnd="true"
+        android:text="Search">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:id="@+id/searchBtn"
-            android:text="Search"/>
+    </Button>
 
+    <EditText
+        android:id="@+id/searchText"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:hint="Search your Item from here."
+        android:textSize="18sp"
+        android:textStyle="bold">
+
+    </EditText>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@+id/search_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/recyclerViewSearch"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/searchText"
+        android:id="@+id/searchRecyclerView">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>
