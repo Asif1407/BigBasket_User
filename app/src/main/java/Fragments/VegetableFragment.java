@@ -50,7 +50,7 @@ public class VegetableFragment extends Fragment {
                 mList = new ArrayList<>();
         adapter = new Item_Adapter(getContext(),mList);
 
-        recyclerViewVegetable.setHasFixedSize(true);
+//        recyclerViewVegetable.setHasFixedSize(true);
         recyclerViewVegetable.setLayoutManager(new GridLayoutManager(view.getContext(),2));
         recyclerViewVegetable.setAdapter(adapter);
 
