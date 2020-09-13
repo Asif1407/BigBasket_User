@@ -46,6 +46,15 @@ public class ItemDetailActivity extends AppCompatActivity {
     private CollectionReference ref= database.collection("Cart");
     private FirebaseUser currentUSer;
 
+    private Item item = new Item();
+    String getTitle;
+    String getPrice;
+    String getQuantity;
+    String getDescription;
+    String getImage;
+    String getSinglePrice;
+    String unit;
+
     final int[] sampleImages= {R.drawable.carouselone, R.drawable.carouseltwo, R.drawable.carouselthree,
             R.drawable.carouselfour, R.drawable.carouselfive};
 
@@ -56,7 +65,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_item_detail);
 
         // Link XML to Java file.
-        toolbar = findViewById(R.id.toolbarMain);
+        toolbar = findViewById(R.id.toolbar);
         title= (TextView) findViewById(R.id.title);
         instockTextView = (TextView) findViewById(R.id.instockTextView);
         price = (TextView) findViewById(R.id.price);
@@ -67,7 +76,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         // For Toolbar
         setSupportActionBar(toolbar);
 //        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setTitle("Item Details");
+        getSupportActionBar().setTitle("Item Details");
 
 
         // FOR carousel View
@@ -84,7 +93,7 @@ public class ItemDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent ActIntent = new Intent(v.getContext(), CartActivity.class);
-//                addingDataToCart(item);
+                addingDataToCart(item);
                 v.getContext().startActivity(ActIntent);
             }
         });
@@ -96,11 +105,13 @@ public class ItemDetailActivity extends AppCompatActivity {
 
         // Getting Data's
         Intent getInfo = getIntent();
-        String getTitle = getInfo.getExtras().getString("Title");
-        String getPrice = getInfo.getExtras().getString("Price");
-        String getQuantity = getInfo.getExtras().getString("Quantity");
-        String getDescription = getInfo.getExtras().getString("Description");
-        String getImage = getInfo.getExtras().getString("Image");
+        getTitle = getInfo.getExtras().getString("Title");
+        getPrice = getInfo.getExtras().getString("Price");
+        getQuantity = getInfo.getExtras().getString("Quantity");
+        getDescription = getInfo.getExtras().getString("Description");
+        getImage = getInfo.getExtras().getString("Image");
+        getSinglePrice = getInfo.getExtras().getString("SinglePrice");
+        unit = getInfo.getExtras().getString("Unit");
 
         // Setting data
         title.setText(getTitle);
@@ -127,22 +138,24 @@ public class ItemDetailActivity extends AppCompatActivity {
     }
 
     private void addingDataToCart(Item item) {
+
         currentUSer = FirebaseAuth.getInstance().getCurrentUser();
         String Uid = currentUSer.getUid();
 
         Map<String, String> cart = new HashMap<>();
-        cart.put("Title", item.getTitle());
-        cart.put("Price", item.getPrice());
-        cart.put("Quantity", item.getQuantity());
-        cart.put("Description", item.getDescription());
-        cart.put("ImageUrl", item.getImageUrl());
+        cart.put("Title", getTitle);
+        cart.put("Price", getPrice);
+        cart.put("Quantity", getQuantity);
+        cart.put("Description", getDescription);
+        cart.put("SinglePrice",getSinglePrice);
+        cart.put("Unit",unit);
+        cart.put("ImageUrl", getImage);
 
-        ref.document(Uid).collection("newItems").document(item.getTitle()).set(cart)
+        ref.document(Uid).collection("newItems").document(getTitle).set(cart)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-
                             Log.d("DR", "DocumentSnapshot added with ID: " + ref.getId());
                             Toast.makeText(getApplicationContext() , "Item Added Successfully :)", Toast.LENGTH_SHORT).show();
                         }

@@ -7,9 +7,4 @@
         android:id="@+id/cartBtn"
         android:icon="@drawable/ic_cart_white"
         app:showAsAction="ifRoom"/>
-
-    <item
-        android:title="Log Out"
-        android:id="@+id/logOut"/>
-
 </menu>

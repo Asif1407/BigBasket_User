@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.example.bigbasket_user.GreenTokri;
 import com.example.bigbasket_user.MainActivity;
 import com.example.bigbasket_user.R;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -137,6 +138,7 @@ public class HomeFragment  extends Fragment {
                 Log.d("DataAdapter",mList+"");
             }
         });
+
 
         adapter = new TrendingItemsAdapter(getContext(),mList);
         trendingRecyclerView.setHasFixedSize(true);

@@ -1,6 +1,7 @@
 package Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,8 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.bigbasket_user.ItemDetailActivity;
 import com.example.bigbasket_user.R;
 import com.squareup.picasso.Picasso;
 
@@ -40,9 +43,25 @@ public class SearchAdapter extends  RecyclerView.Adapter<SearchAdapter.ViewHolde
 
         final Item item = mList.get(position);
 
-        holder.title.setText(item.getTitle());
-
+        holder.title.setText(mList.get(position).getTitle());
         Picasso.get().load(item.getImageUrl()).into(holder.image);
+
+        // when A item is clicked in searchBar
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Passing data
+                // Calling other Activity & sending data.
+                Intent itemsDetailIntent = new Intent(v.getContext(), ItemDetailActivity.class);
+                itemsDetailIntent.putExtra("Title",item.getTitle());
+                itemsDetailIntent.putExtra("Price",item.getPrice());
+                itemsDetailIntent.putExtra("Quantity",item.getQuantity());
+                itemsDetailIntent.putExtra("Description",item.getDescription());
+                itemsDetailIntent.putExtra("Image",item.getImageUrl());
+                itemsDetailIntent.putExtra("Unit", item.getUnit());
+                v.getContext().startActivity(itemsDetailIntent);
+            }
+        });
     }
 
     @Override
@@ -55,7 +74,7 @@ public class SearchAdapter extends  RecyclerView.Adapter<SearchAdapter.ViewHolde
         private TextView title;
         private TextView price;
         private ImageView image;
-
+        private CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -63,6 +82,7 @@ public class SearchAdapter extends  RecyclerView.Adapter<SearchAdapter.ViewHolde
             title = itemView.findViewById(R.id.title);
             price = itemView.findViewById(R.id.price);
             image = itemView.findViewById(R.id.image);
+            cardView = itemView.findViewById(R.id.cardView);
         }
     }
 }

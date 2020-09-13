@@ -1,6 +1,7 @@
 package com.example.bigbasket_user;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -9,17 +10,25 @@ import androidx.fragment.app.Fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.tv.TvView;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.squareup.picasso.Picasso;
 import com.synnapps.carouselview.CarouselView;
 import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
@@ -34,6 +43,7 @@ import NavFragments.AboutUsFragment;
 import NavFragments.ContactUsFragment;
 import NavFragments.ReviewFragment;
 import NavFragments.TermsFragment;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,8 +69,14 @@ public class MainActivity extends AppCompatActivity {
         btm_navigation = findViewById(R.id.btm_navigation);
         loadFragment(new HomeFragment());
         navigationView = findViewById(R.id.navSlideBar);
+        View headerView = navigationView.getHeaderView(0);
+        CircleImageView image = headerView.findViewById(R.id.imageView);
+        TextView name = headerView.findViewById(R.id.name);
+        TextView email = headerView.findViewById(R.id.email);
 
-        mAuth = FirebaseAuth.getInstance();
+        gettingUserData(image,name,email);
+
+         mAuth = FirebaseAuth.getInstance();
         checkUser();
 
         setupNavSlide();
@@ -177,6 +193,31 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    private void gettingUserData(final CircleImageView image, final TextView name, final TextView email) {
+
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String Uid = currentUser.getUid();
+
+        FirebaseFirestore.getInstance().collection("Users").document(Uid)
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        name.setText(value.getString("name"));
+                        email.setText(value.getString("address"));
+                        try {
+                            if (!value.getString("profileImage").isEmpty()) {
+                                Picasso.get().load(value.getString("profileImage")).placeholder(R.drawable.ic_account).into(image);
+                            } else {
+                                Picasso.get().load(R.drawable.ic_account).placeholder(R.drawable.ic_account).into(image);
+                            }
+                        } catch (Exception z) {
+                            Picasso.get().load(R.drawable.ic_account).placeholder(R.drawable.ic_account).into(image);
+                        }
+                    }
+                });
+    }
+
 
     private void setupNavSlide() {
         drawerLayout = findViewById(R.id.drawerLayout);

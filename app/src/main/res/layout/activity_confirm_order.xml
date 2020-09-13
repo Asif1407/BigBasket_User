@@ -12,14 +12,15 @@
 
     </include>
 
-    <com.blogspot.atifsoftwares.circularimageview.CircularImageView
+    <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/checkIV"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:layout_below="@id/toolbarMain"
         app:c_border="true"
         app:c_border_color="@color/colorPrimary"
-        android:src="@drawable/ic_check"
+        app:lottie_autoPlay="true"
+        app:lottie_rawRes="@raw/done"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp" />
 
