@@ -4,14 +4,16 @@
     android:layout_height="match_parent"
     tools:context="Fragments.SearchFragment">
 
-    <Button
+    <ImageButton
         android:id="@+id/searchBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_margin="5dp"
         android:layout_alignParentEnd="true"
-        android:text="Search">
+        android:background="@color/colorPrimary"
+        android:src="@drawable/ic_search_white"
+        android:text="Search"/>
 
-    </Button>
 
     <EditText
         android:id="@+id/searchText"

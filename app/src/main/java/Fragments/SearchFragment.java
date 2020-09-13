@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -40,7 +41,7 @@ public class SearchFragment extends Fragment {
 
     // Init.
     private EditText searchText;
-    private Button searchBtn;
+    private ImageButton searchBtn;
     private RecyclerView recyclerView;
 
     // RecyclerView
