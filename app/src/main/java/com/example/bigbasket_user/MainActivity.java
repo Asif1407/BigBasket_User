@@ -112,8 +112,10 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.logOut:
-                        Toast.makeText(MainActivity.this, "Log Out", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "Logging Out", Toast.LENGTH_SHORT).show();
                         drawerLayout.closeDrawers();
+                        FirebaseAuth.getInstance().signOut();
+                        movetoSigninActivity();
                         break;
 
                     case R.id.tnc:
@@ -250,5 +252,12 @@ public class MainActivity extends AppCompatActivity {
         }
         else {
         }
+    }
+
+    public void movetoSigninActivity(){
+
+        Intent intent = new Intent(MainActivity.this,SignInActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
