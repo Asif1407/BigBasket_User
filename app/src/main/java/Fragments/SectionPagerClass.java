@@ -20,15 +20,15 @@ public class SectionPagerClass extends FragmentPagerAdapter {
 
             case 0:
                VegetableFragment vegetableFragment = new VegetableFragment();
-               getPagerTitle(0);
+//               getPagerTitle(0);
                 return vegetableFragment;
             case 1:
                 FruitFragment fruitFragment = new FruitFragment();
-                getPagerTitle(1);
+//                getPagerTitle(1);
                 return fruitFragment;
             case 2:
                 OtherFragment otherFragment = new OtherFragment();
-                getPagerTitle(2);
+//                getPagerTitle(2);
                 return  otherFragment;
             default:
                 return null;
@@ -41,7 +41,7 @@ public class SectionPagerClass extends FragmentPagerAdapter {
         return 3;
     }
 
-    public CharSequence getPagerTitle(int position){
+    public CharSequence getPageTitle(int position){
 
         switch(position){
             case 0:

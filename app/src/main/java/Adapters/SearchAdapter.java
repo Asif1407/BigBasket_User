@@ -16,6 +16,7 @@ import com.example.bigbasket_user.ItemDetailActivity;
 import com.example.bigbasket_user.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import DataModels.Item;
@@ -67,6 +68,12 @@ public class SearchAdapter extends  RecyclerView.Adapter<SearchAdapter.ViewHolde
     @Override
     public int getItemCount() {
         return mList.size();
+    }
+
+    public void setFilter(List<Item> listItem){
+        mList = new ArrayList<>();
+        mList.addAll(listItem);
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

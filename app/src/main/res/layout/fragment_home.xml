@@ -5,11 +5,14 @@
     android:layout_height="match_parent"
     tools:context="Fragments.HomeFragment">
 
-    <AutoCompleteTextView
+    <TextView
         android:id="@+id/search_bar_Main"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:padding="5dp" />
+        android:padding="5dp"
+        android:text="Next Arrival at 0200 hours"
+        android:gravity="center"
+        android:textSize="24dp"/>
 
 
     <ScrollView

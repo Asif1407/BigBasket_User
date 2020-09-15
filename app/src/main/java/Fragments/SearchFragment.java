@@ -3,7 +3,7 @@ package Fragments;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SearchView;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.example.bigbasket_user.R;
@@ -24,14 +25,18 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import Adapters.SearchAdapter;
 import DataModels.Item;
@@ -40,7 +45,7 @@ import DataModels.Search;
 public class SearchFragment extends Fragment {
 
     // Init.
-    private EditText searchText;
+    private SearchView searchText;
     private ImageButton searchBtn;
     private RecyclerView recyclerView;
 
@@ -70,6 +75,7 @@ public class SearchFragment extends Fragment {
 
         //
         mainData = new ArrayList<>();
+
         adapter = new SearchAdapter(getContext(),mainData);
 
         // RecyclerView
@@ -77,15 +83,23 @@ public class SearchFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
-        // Search the Data.
-        searchBtn.setOnClickListener(new View.OnClickListener() {
+        searchText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
-            public void onClick(View v) {
-                String searchItem = searchText.getText().toString();
-                search(searchItem);
+            public boolean onQueryTextSubmit(String query) {
+                search(query);
+                Log.i("SearchItem",mainData.toString()+"1");
+                return true;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                search(newText);
+                final List<Item> filtermodelist = filter(mainData,newText);
+                adapter.setFilter(filtermodelist);
+                mainData.clear();
+                Log.i("SearchItem",mainData.toString()+"12");
+                return true;
             }
         });
-
 
         return view;
     }
@@ -93,121 +107,95 @@ public class SearchFragment extends Fragment {
     private void search(String text) {
 
         // To get the total List of Items.
-        // For Trending Items.
-
-        database.collection("Trending").orderBy("Title").startAt(text)
-                .endAt(text + "\uf8ff").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (!queryDocumentSnapshots.isEmpty()){
-//                   mainData.clear();
-                    for (QueryDocumentSnapshot snapshot: queryDocumentSnapshots){
-                        final Item item = snapshot.toObject(Item.class);
-                        mainData.add(item);
-                        Log.i("Data",item.toString());
-                    }
-                }
-
-                adapter.notifyDataSetChanged();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.w("Error",e.getMessage());
-            }
-        });
-
-        // For Vegetables Items.
-
-        database.collection("Vegetables").orderBy("Title").startAt(text)
-                .endAt(text + "\uf8ff").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (queryDocumentSnapshots.isEmpty()){
-//                    mainData.clear();
-                    for (QueryDocumentSnapshot snapshot: queryDocumentSnapshots){
-                        final Item item = snapshot.toObject(Item.class);
-                        mainData.add(item);
-                        Log.i("Data",item.toString());
-                    }
-                }
-                adapter.notifyDataSetChanged();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.w("Error",e.getMessage());
-            }
-        });
-
         // For Fruits Items.
-
-        database.collection("Fruits").orderBy("Title").startAt(text)
-                .endAt(text + "\uf8ff").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        database.collection("Fruits").orderBy("Title").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (queryDocumentSnapshots.isEmpty()){
-//                    mainData.clear();
-                    for (QueryDocumentSnapshot snapshot: queryDocumentSnapshots){
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (!value.isEmpty()){
+                    for (QueryDocumentSnapshot snapshot: value){
                         final Item item = snapshot.toObject(Item.class);
                         mainData.add(item);
                         Log.i("Data",item.toString());
                     }
+                }else{
+                    Log.w("Error",error.getMessage());
                 }
-                adapter.notifyDataSetChanged();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.w("Error",e.getMessage());
             }
         });
 
-        // For Others Items.
-
-        database.collection("Others").orderBy("Title").startAt(text)
-                .endAt(text + "\uf8ff").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        database.collection("Vegetables").orderBy("Title").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (!queryDocumentSnapshots.isEmpty()){
-                    mainData.clear();
-                    for (QueryDocumentSnapshot snapshot: queryDocumentSnapshots){
-                        final Item item = snapshot.toObject(Item.class);
-//                        mainData.add(item);
-                        Log.i("Data",item.toString());
-                    }
-                }
-                adapter.notifyDataSetChanged();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.w("Error",e.getMessage());
-            }
-        });
-
-        // For Offers Items.
-
-        database.collection("Offers").orderBy("Title").startAt(text)
-                .endAt(text + "\uf8ff").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if (!queryDocumentSnapshots.isEmpty()){
-//                    mainData.clear();
-                    for (QueryDocumentSnapshot snapshot: queryDocumentSnapshots){
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (!value.isEmpty()){
+                    for (QueryDocumentSnapshot snapshot: value){
                         final Item item = snapshot.toObject(Item.class);
                         mainData.add(item);
                         Log.i("Data",item.toString());
                     }
+                }else{
+                    Log.w("Error",error.getMessage());
                 }
-                adapter.notifyDataSetChanged();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.w("Error",e.getMessage());
             }
         });
+
+        database.collection("Trending").orderBy("Title").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (!value.isEmpty()){
+                    for (QueryDocumentSnapshot snapshot: value){
+                        final Item item = snapshot.toObject(Item.class);
+                        mainData.add(item);
+                        Log.i("Data",item.toString());
+                    }
+                }else{
+                    Log.w("Error",error.getMessage());
+                }
+            }
+        });
+
+        database.collection("Offers").orderBy("Title").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (!value.isEmpty()){
+                    for (QueryDocumentSnapshot snapshot: value){
+                        final Item item = snapshot.toObject(Item.class);
+                        mainData.add(item);
+                        Log.i("Data",item.toString());
+                    }
+                }else{
+                    Log.w("Error",error.getMessage());
+                }
+            }
+        });
+
+        database.collection("Others").orderBy("Title").addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (!value.isEmpty()){
+                    for (QueryDocumentSnapshot snapshot: value){
+                        final Item item = snapshot.toObject(Item.class);
+                        mainData.add(item);
+                        Log.i("Data",item.toString());
+                    }
+                }else{
+                    Log.w("Error",error.getMessage());
+                }
+            }
+        });
+
+    }
+
+    private List<Item> filter(List<Item> list, String query){
+        query = query.toLowerCase();
+
+        final List<Item> filterModelList = new ArrayList<>();
+        for (Item model:list){
+            final String text = model.getTitle().toLowerCase();
+            if (text.startsWith(query)){
+                filterModelList.add(model);
+            }
+        }
+        return  filterModelList;
     }
 }
 

@@ -15,15 +15,12 @@
         android:text="Search"/>
 
 
-    <EditText
+    <SearchView
         android:id="@+id/searchText"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:hint="Search your Item from here."
-        android:textSize="18sp"
-        android:textStyle="bold">
-
-    </EditText>
+        android:layout_height="wrap_content"
+        android:queryHint="Search your Products"
+        android:layout_margin="8dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"

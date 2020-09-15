@@ -23,6 +23,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bigbasket_user.GreenTokri;
@@ -68,7 +69,7 @@ public class HomeFragment  extends Fragment {
     private CollectionReference ref= database.collection("Trending");
 
     // Layout
-    private AutoCompleteTextView  search_bar_Main;
+    private TextView search_bar_Main;
     private CarouselView carouselView;
     private Button shop_now_button;
 

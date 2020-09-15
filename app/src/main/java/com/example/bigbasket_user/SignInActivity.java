@@ -64,10 +64,6 @@ public class SignInActivity extends AppCompatActivity {
 
     private GoogleSignInClient mGoogleSignInClient;
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,7 +136,6 @@ public class SignInActivity extends AppCompatActivity {
             Intent mainIntent = new Intent(SignInActivity.this,MainActivity.class);
             startActivity(mainIntent);
         }
-
     }
 
     private void firebaseAuthWithGoogle(String idToken) {
@@ -161,12 +156,9 @@ public class SignInActivity extends AppCompatActivity {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
 
                         }
-
                         // ...
                     }
                 });
-
-
     }
     public void movetoUsernameScreen(){
 
