@@ -8,15 +8,14 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher_foreground"
+        android:icon="@mipmap/ic_new_tokri_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_foreground"
+        android:roundIcon="@mipmap/ic_new_tokri_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:name=".GreenTokri">
 
         <activity android:name=".DeliveredItemsActivity" />
-        android:theme="@style/AppTheme">
         <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,11 +30,6 @@
         <activity android:name=".CartActivity" />
         <activity android:name=".MainActivity"
             android:windowSoftInputMode="stateAlwaysHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data
