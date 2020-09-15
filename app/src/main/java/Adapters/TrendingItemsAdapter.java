@@ -91,6 +91,7 @@ public class TrendingItemsAdapter extends RecyclerView.Adapter<TrendingItemsAdap
                 itemsDetailIntent.putExtra("Description",item.getDescription());
                 itemsDetailIntent.putExtra("Image",item.getImageUrl());
                 itemsDetailIntent.putExtra("Unit",item.getUnit());
+                itemsDetailIntent.putExtra("SinglePrice",item.getUnit());
                 v.getContext().startActivity(itemsDetailIntent);
             }
         });
@@ -116,6 +117,7 @@ public class TrendingItemsAdapter extends RecyclerView.Adapter<TrendingItemsAdap
         cart.put("Quantity",item.getQuantity());
         cart.put("Description",item.getDescription());
         cart.put("ImageUrl",item.getImageUrl());
+        cart.put("SinglePrice",item.getSinglePrice());
         cart.put("Unit", item.getUnit());
 
         ref.document(Uid).collection("newItems").document(item.getTitle()).set(cart)
