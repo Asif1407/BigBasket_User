@@ -3,6 +3,7 @@ package com.example.bigbasket_user;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,7 +47,12 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import Fragments.HomeFragment;
 
@@ -55,11 +61,13 @@ public class SignInActivity extends AppCompatActivity {
 
     SignInButton SignIn;
     ImageView imageView;
+    ProgressDialog mProgressDialog;
     private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
 
     // [START declare_auth]
     private FirebaseAuth mAuth;
+    private FirebaseFirestore fstore;
     // [END declare_auth]
 
     private GoogleSignInClient mGoogleSignInClient;
@@ -69,10 +77,12 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
-
+        mProgressDialog = new ProgressDialog(SignInActivity.this);
+        mProgressDialog.setCanceledOnTouchOutside(false);
 // ...
 // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        fstore = FirebaseFirestore.getInstance();
         imageView = findViewById(R.id.imageView);
         String img = "https://firebasestorage.googleapis.com/v0/b/bigbasket-user.appspot.com/o/logo%2Fnewbblogo.png?alt=media&token=dbdbe2f2-4a5d-4684-a0ca-799b6508fdce";
         Picasso.get().load(img).placeholder(R.drawable.newbblogo).into(imageView);
@@ -95,6 +105,8 @@ public class SignInActivity extends AppCompatActivity {
         SignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mProgressDialog.setTitle("Please wait....");
+                mProgressDialog.show();
                 signIn();
             }
         });
@@ -111,6 +123,7 @@ public class SignInActivity extends AppCompatActivity {
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
+            mProgressDialog.dismiss();
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
             try {
                 // Google Sign In was successful, authenticate with Firebase
@@ -139,12 +152,15 @@ public class SignInActivity extends AppCompatActivity {
     }
 
     private void firebaseAuthWithGoogle(String idToken) {
+        mProgressDialog.setTitle("Signin In...");
+        mProgressDialog.show();
         AuthCredential credential = GoogleAuthProvider.getCredential(idToken, null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            mProgressDialog.dismiss();
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             movetoUsernameScreen();
@@ -152,6 +168,7 @@ public class SignInActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
 
                         } else {
+                            mProgressDialog.dismiss();
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
 

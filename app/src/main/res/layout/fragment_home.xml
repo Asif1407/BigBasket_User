@@ -35,28 +35,51 @@
                 app:strokeColor="#FF777777"
                 app:strokeWidth="1dp" />
 
-            <Button
-                android:id="@+id/shop_now_button"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_margin="2dp"
                 android:layout_below="@+id/carouselView"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/circular_button"
-                android:gravity="center"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:text="Shop Now" />
+                android:background="@drawable/shape_rect"
+                android:id="@+id/LL">
+
+                <ImageView
+                    android:layout_weight="1"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@mipmap/ic_green_tokri" />
+
+                <Button
+                    android:layout_weight="5"
+                    android:id="@+id/shop_now_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:background="@null"
+                    android:layout_margin="5dp"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="Shop Now" />
+
+                <ImageView
+                    android:layout_weight="1"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@mipmap/ic_green_tokri" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/trendingItems"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/shop_now_button"
-                android:layout_centerInParent="true"
-                android:layout_marginStart="5dp"
+                android:layout_below="@+id/LL"
+                android:background="@drawable/circular_button"
+                android:gravity="center"
+                android:padding="5dp"
                 android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
                 android:layout_marginBottom="5dp"
                 android:fontFamily="@font/averia_gruesa_libre"
                 android:text="Trending Items"

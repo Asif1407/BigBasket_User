@@ -3,6 +3,9 @@ package com.example.bigbasket_user;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,8 +15,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bigbasket_user.Adapter.AdapterCart;
 import com.example.bigbasket_user.Model.ModelCart;
@@ -39,6 +44,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.Map;
 
+import Fragments.AccountFragment;
+
 public class CartActivity extends AppCompatActivity {
 
     //views
@@ -46,6 +53,7 @@ public class CartActivity extends AppCompatActivity {
     private RecyclerView cartItemRv;
     private TextView grandTotal, cartIsEmpty, detailCost, detailDelivery, detailTotal;
     private TableLayout table;
+    RelativeLayout RL;
     //firebase
     private FirebaseAuth mAuth;
     private FirebaseFirestore fstore;
@@ -54,7 +62,8 @@ public class CartActivity extends AppCompatActivity {
     //Model adapter class
     private AdapterCart adapterCart;
     private CollectionReference cartRefrence;
-    int sum=0;
+    int sum = 0;
+    private String name = "", phone = "", address = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +79,7 @@ public class CartActivity extends AppCompatActivity {
         detailDelivery = findViewById(R.id.detailDelivery);
         detailTotal = findViewById(R.id.detailTotal);
         table = findViewById(R.id.table);
+        RL = findViewById(R.id.RL);
         //init firebase
         mAuth = FirebaseAuth.getInstance();
         fstore = FirebaseFirestore.getInstance();
@@ -84,9 +94,21 @@ public class CartActivity extends AppCompatActivity {
         placeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CartActivity.this, PaymentModeActivity.class);
-                intent.putExtra("totalPrice", sum+"");
-                startActivity(intent);
+                fstore.collection("Users").document(mAuth.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
+                        if (documentSnapshot.exists()) {
+                            Intent intent = new Intent(CartActivity.this, PaymentModeActivity.class);
+                            intent.putExtra("totalPrice", sum + "");
+                            startActivity(intent);
+                        } else {
+                            RL.setVisibility(View.GONE);
+                            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                            fragmentTransaction.replace(R.id.cartContainer, new AccountFragment()).commit();
+                            Toast.makeText(CartActivity.this, "Do fill the credentials first in accounts to continue", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
             }
         });
     }
@@ -100,7 +122,7 @@ public class CartActivity extends AppCompatActivity {
         cartRefrence.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                if(!value.isEmpty()) {
+                if (!value.isEmpty()) {
                     placeOrder.setVisibility(View.VISIBLE);
                     table.setVisibility(View.VISIBLE);
                     cartIsEmpty.setVisibility(View.GONE);
@@ -114,21 +136,28 @@ public class CartActivity extends AppCompatActivity {
             }
         });
     }
+
     private void grandTotalPrice() {
-        sum=0;
+        sum = 0;
         cartRefrence.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 if (!queryDocumentSnapshots.isEmpty()) {
                     for (DocumentSnapshot documentSnapshot : queryDocumentSnapshots) {
                         if (documentSnapshot.exists()) {
-                            sum += Float.valueOf(documentSnapshot.getString("Price").replace("rs","").trim());
-                            Log.d("price", sum+" !!");
+                            sum += Float.valueOf(documentSnapshot.getString("Price").replace("rs", "").trim());
+                            Log.d("price", sum + " !!");
                         }
                     }
-                    grandTotal.setText("₹"+sum);
-                    detailCost.setText("₹"+sum);
-                    detailTotal.setText("₹"+sum);
+                    detailCost.setText("₹" + sum);
+                    if (sum<150) {
+                        sum = sum+30;
+                        detailDelivery.setText("₹30");
+                    } else {
+                        detailDelivery.setText("₹0");
+                    }
+                    detailTotal.setText("₹" + sum);
+                    grandTotal.setText("₹" + sum);
                 }
             }
         });

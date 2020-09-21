@@ -5,20 +5,21 @@
     android:layout_height="wrap_content"
     android:background="#40423E"
     android:orientation="vertical"
-    android:padding="26dp">
+    android:padding="15dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="64dp"
-        android:layout_height="64dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:src="@mipmap/ic_launcher"
         android:id="@+id/imageView"
-        android:layout_margin="10dp"/>
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Profile Name"
-        android:layout_marginLeft="10dp"
+        android:textStyle="bold"
         android:textColor="@color/colorWhite"
         android:id="@+id/name"/>
 
@@ -28,7 +29,6 @@
         android:layout_height="match_parent"
         android:text="Pichu.singh@gmail.com"
         android:textColor="@color/colorWhite"
-        android:layout_marginLeft="10dp"
         android:id="@+id/email"/>
 
 </LinearLayout>

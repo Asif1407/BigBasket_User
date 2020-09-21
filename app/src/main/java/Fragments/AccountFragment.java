@@ -191,7 +191,7 @@ public class AccountFragment extends Fragment {
 
     private void updateDetails() {
 
-        mProgressDialog.setMessage("Update product...");
+        mProgressDialog.setMessage("Update details...");
         mProgressDialog.show();
         int code = Arrays.asList(pinCodeAreaArray).indexOf(pinCodeSpinner.getSelectedItem().toString());
         final String pinCode = pinCodeArray[code];
@@ -237,7 +237,7 @@ public class AccountFragment extends Fragment {
                                 map.put("profileImage", ""+downlodeImageUri);
 
                                 DocumentReference docRef = fstore.collection("Users").document(mAuth.getUid());
-                                docRef.update(map)
+                                docRef.set(map)
                                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                                             @Override
                                             public void onSuccess(Void aVoid) {
@@ -354,7 +354,7 @@ public class AccountFragment extends Fragment {
             case STORAGE_REQUEST_CODE:{
 
                 if (grantResults.length >  0){
-                    boolean writeStorageAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+                    boolean writeStorageAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     if (writeStorageAccepted) {
                         pickFromGallery();
                     }
