@@ -1,5 +1,6 @@
 package NavFragments;
 
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,13 +13,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bigbasket_user.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -27,6 +37,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import DataModels.Item;
@@ -45,20 +56,17 @@ public class ReviewFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_review, container, false);
 
+        // Connecting to the Java File.
         recyclerView = view.findViewById(R.id.recyclerViewReview);
-
         mList = new ArrayList<>();
-
         gettingData();
-
-
-
         return view;
     }
 
+
     private void gettingData() {
 
-        Toast.makeText(getContext(), "PRoblem is here", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), "Problem is here", Toast.LENGTH_SHORT).show();
         adapter = new ReviewAdapter(getContext(),mList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -72,6 +80,7 @@ public class ReviewFragment extends Fragment {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (value!= null){
+
                 for (QueryDocumentSnapshot snapshot:value){
                     ReviewModel review = snapshot.toObject(ReviewModel.class);
                     mList.add(review);

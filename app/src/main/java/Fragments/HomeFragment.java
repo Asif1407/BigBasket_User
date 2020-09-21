@@ -162,6 +162,5 @@ public class HomeFragment  extends Fragment {
                 Toast.makeText(getActivity(), "Clicked Item =" + position + " will be applied soon.", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 }

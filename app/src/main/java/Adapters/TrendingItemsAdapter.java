@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bigbasket_user.CartActivity;
@@ -43,6 +44,7 @@ import java.util.Map;
 import javax.annotation.Nullable;
 
 import DataModels.Item;
+import Util.DiffUtilCallbacks;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.grpc.internal.FailingClientStream;
 
@@ -61,6 +63,31 @@ public class TrendingItemsAdapter extends RecyclerView.Adapter<TrendingItemsAdap
         this.mContext = mContext;
         this.mList = mList;
     }
+
+    // Applying DiffUtil Methods
+    public void insertData(List<Item> insertList){
+
+        DiffUtilCallbacks callbacks = new DiffUtilCallbacks(mList,insertList);
+        DiffUtil.DiffResult result = DiffUtil.calculateDiff(callbacks);
+
+        mList.addAll(insertList);
+        result.dispatchUpdatesTo(this);
+        // Here this indicates to the whole adapter Class.
+    }
+
+    public void updateData(List<Item> newList){
+
+        DiffUtilCallbacks callbacks = new DiffUtilCallbacks(mList,newList);
+        DiffUtil.DiffResult result = DiffUtil.calculateDiff(callbacks);
+
+        // Clearing previous Data.
+        mList.clear();
+        mList.addAll(newList);
+        result.dispatchUpdatesTo(this);
+        // Here this indicates to the whole adapter Class.
+
+    }
+
 
     @NonNull
     @Override
@@ -137,17 +164,6 @@ public class TrendingItemsAdapter extends RecyclerView.Adapter<TrendingItemsAdap
             }
         });
 
-//        ref.document(Uid).collection(item.getTitle()).add(cart).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//            @Override
-//            public void onSuccess(DocumentReference documentReference) {
-//
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//
-//            }
-//        });
     }
 
     @Override

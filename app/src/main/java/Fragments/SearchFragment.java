@@ -46,7 +46,6 @@ public class SearchFragment extends Fragment {
 
     // Init.
     private SearchView searchText;
-    private ImageButton searchBtn;
     private RecyclerView recyclerView;
 
     // RecyclerView
@@ -70,7 +69,6 @@ public class SearchFragment extends Fragment {
 
         // Connecting To java file
         searchText = view.findViewById(R.id.searchText);
-        searchBtn = view.findViewById(R.id.searchBtn);
         recyclerView = view.findViewById(R.id.searchRecyclerView);
 
         //

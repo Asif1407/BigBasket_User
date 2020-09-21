@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,6 +42,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
        holder.name.setText(review.getName());
        holder.description.setText(review.getDescription());
 
+       holder.ratingBar.setRating(5);
+
        Picasso.get().load(review.getImageUrl()).into(holder.imageView);
     }
 
@@ -54,6 +57,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         private CircleImageView imageView;
         private TextView name;
         private TextView description;
+        private RatingBar ratingBar;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -61,6 +65,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
             imageView = itemView.findViewById(R.id.imageView);
             name= itemView.findViewById(R.id.name);
             description= itemView.findViewById(R.id.description);
+            ratingBar = itemView.findViewById(R.id.ratingBar);
+
         }
     }
 }

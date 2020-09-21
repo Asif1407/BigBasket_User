@@ -4,25 +4,16 @@
     android:layout_height="match_parent"
     tools:context="Fragments.SearchFragment">
 
-    <ImageButton
-        android:id="@+id/searchBtn"
-        android:layout_width="35dp"
-        android:layout_height="35dp"
-        android:layout_margin="5dp"
-        android:layout_alignParentEnd="true"
-        android:background="@color/colorPrimary"
-        android:src="@drawable/ic_search_white"
-        android:text="Search"/>
-
-
     <SearchView
         android:id="@+id/searchText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:queryHint="Search your Products"
-        android:layout_margin="8dp"/>
+        android:layout_margin="8dp"
+        android:background="@drawable/shape_rect_right_gray"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_margin="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/searchText"

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bigbasket_user.CartActivity;
@@ -33,6 +34,7 @@ import java.util.List;
 import java.util.Map;
 
 import DataModels.Item;
+import Util.DiffUtilCallbacks;
 
 public class Item_Adapter extends RecyclerView.Adapter<Item_Adapter.MyViewHolder> {
 
@@ -47,6 +49,30 @@ public class Item_Adapter extends RecyclerView.Adapter<Item_Adapter.MyViewHolder
     public Item_Adapter(Context context, ArrayList<Item> itemNames) {
         this.context = context;
         this.Items = itemNames;
+    }
+
+    // Applying DifUtil Method
+    public void insertData(List<Item> insertList){
+
+        DiffUtilCallbacks callbacks = new DiffUtilCallbacks(Items,insertList);
+        DiffUtil.DiffResult result = DiffUtil.calculateDiff(callbacks);
+
+        Items.addAll(insertList);
+        result.dispatchUpdatesTo(this);
+        // Here this indicates to the whole adapter Class.
+    }
+
+    public void updateData(List<Item> newList){
+
+        DiffUtilCallbacks callbacks = new DiffUtilCallbacks(Items,newList);
+        DiffUtil.DiffResult result = DiffUtil.calculateDiff(callbacks);
+
+        // Clearing previous Data.
+        Items.clear();
+        Items.addAll(newList);
+        result.dispatchUpdatesTo(this);
+        // Here this indicates to the whole adapter Class.
+
     }
 
     @Override

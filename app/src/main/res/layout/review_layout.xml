@@ -36,6 +36,13 @@
                 android:maxLines="5"
                 android:id="@+id/description"/>
 
+            <RatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/ratingBar" />
+
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

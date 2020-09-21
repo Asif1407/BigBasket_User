@@ -8,12 +8,10 @@
     <TextView
         android:id="@+id/search_bar_Main"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:padding="5dp"
-        android:text="Next Arrival at 0200 hours"
+        android:layout_height="24dp"
+        android:text="Next Arrivals at 0600 hours"
         android:gravity="center"
-        android:textSize="24dp"/>
-
+        android:textSize="12dp"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,10 +22,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="240dp"
+                android:layout_height="120dp"
+                app:lottie_rawRes="@raw/delivery"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                android:id="@+id/lottie_layer_name"
+                android:background="@color/colorPrimary"
+                android:layout_marginBottom="8dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:text="Fast and Safe Delivery"
+                android:textSize="34sp"
+                android:textStyle="bold"
+                android:background="@color/colorPrimary"
+                android:layout_toRightOf="@+id/lottie_layer_name" />
+
             <com.synnapps.carouselview.CarouselView
+                android:layout_below="@+id/lottie_layer_name"
                 android:id="@+id/carouselView"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_height="160dp"
                 app:fillColor="#ffffff"
                 app:pageColor="#000"
                 app:radius="6dp"
@@ -44,34 +62,39 @@
                 android:background="@drawable/shape_rect"
                 android:id="@+id/LL">
 
-                <ImageView
+                <com.airbnb.lottie.LottieAnimationView
                     android:layout_weight="1"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@mipmap/ic_green_tokri" />
+                    app:lottie_rawRes="@raw/vegetables"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true" />
 
                 <Button
-                    android:layout_weight="5"
                     android:id="@+id/shop_now_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:background="@null"
                     android:layout_margin="5dp"
+                    android:layout_weight="5"
+                    android:background="#C3C82D"
                     android:gravity="center"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:text="Shop Now" />
 
-                <ImageView
-                    android:layout_weight="1"
+                <com.airbnb.lottie.LottieAnimationView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@mipmap/ic_green_tokri" />
+                    android:layout_weight="1"
+                    app:lottie_rawRes="@raw/vegetables"
+                    app:lottie_autoPlay="true"
+                    app:lottie_loop="true"/>
 
             </LinearLayout>
 
             <TextView
+
                 android:id="@+id/trendingItems"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -86,7 +109,6 @@
                 android:textColor="#020000"
                 android:textSize="24sp"
                 android:textStyle="bold" />
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/trendingRecyclerView"
