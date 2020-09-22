@@ -10,8 +10,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +30,7 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -97,10 +102,14 @@ public class CartActivity extends AppCompatActivity {
                 fstore.collection("Users").document(mAuth.getUid()).addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
-                        if (documentSnapshot.exists()) {
-                            Intent intent = new Intent(CartActivity.this, PaymentModeActivity.class);
-                            intent.putExtra("totalPrice", sum + "");
-                            startActivity(intent);
+                        if (documentSnapshot.exists() ) {
+                            if (isConnected(CartActivity.this)) {
+                                Intent intent = new Intent(CartActivity.this, PaymentModeActivity.class);
+                                intent.putExtra("totalPrice", sum + "");
+                                startActivity(intent);
+                            } else {
+                                startActivity(new Intent(CartActivity.this, NoInternetActivity.class));
+                            }
                         } else {
                             RL.setVisibility(View.GONE);
                             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -111,6 +120,17 @@ public class CartActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    private boolean isConnected(CartActivity cartActivity) {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+        if (activeNetwork!=null) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     private void loadCartItems() {

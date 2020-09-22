@@ -104,7 +104,7 @@ public class DeliveredItemsActivity extends AppCompatActivity {
                 if (orderStatus.equals("In Progress")) {
                     orderStatusTv.setTextColor(Color.parseColor("#F9B100"));
                 } else if (orderStatus.equals("Delivered")) {
-                    orderStatusTv.setTextColor(Color.GREEN);
+                    orderStatusTv.setTextColor(Color.parseColor("#43A047"));
                 } else if (orderStatus.equals("Cancelled")) {
                     orderStatusTv.setTextColor(Color.RED);
                 }
@@ -114,6 +114,8 @@ public class DeliveredItemsActivity extends AppCompatActivity {
                     paymentStatusTv.setTextColor(Color.parseColor("#F9B100"));
                 } else if (paymentStatus.equals("Paid")) {
                     paymentStatusTv.setTextColor(Color.parseColor("#43A047"));
+                } else if (paymentStatus.equals("Refund")) {
+                    paymentStatusTv.setTextColor(Color.RED);
                 }
                 paymentStatusTv.setText(paymentStatus);
                 totalAmountTv.setText("Amt: ₹" + value.getString("totalPrice"));

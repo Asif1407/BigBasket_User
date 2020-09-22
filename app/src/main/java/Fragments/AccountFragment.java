@@ -153,10 +153,15 @@ public class AccountFragment extends Fragment {
                 phoneEt.setText(documentSnapshot.getString("phone"));
                 addressEt.setText(documentSnapshot.getString("address"));
                 String pinCode = documentSnapshot.getString("pinCode");
-                pinCodeSpinner.setSelection(Arrays.asList(pinCodeAreaArray).indexOf(pinCode));
+                pinCodeSpinner.setSelection(Arrays.asList(pinCodeArray).indexOf(pinCode));
+                Log.i("pinCode", pinCode);
+                Log.i("pinCode" ,Arrays.asList(pinCodeArray).indexOf(pinCode)+"");
                 try {
                     if (!documentSnapshot.getString("profileImage").isEmpty()) {
                         Picasso.get().load(documentSnapshot.getString("profileImage")).placeholder(R.drawable.ic_account).into(profileIv);
+//                        image_uri= Uri.parse(documentSnapshot.getString("profileImage"));
+                        image_uri = Uri.parse(documentSnapshot.getString("profileImage"));
+//                        Log.i("ImageXyz", image_uri+"");
                     } else {
                         Picasso.get().load(R.drawable.ic_account).placeholder(R.drawable.ic_account).into(profileIv);
                     }
@@ -214,54 +219,83 @@ public class AccountFragment extends Fragment {
                 @Override
                 public void onFailure(@NonNull Exception e) {
                     mProgressDialog.dismiss();
-                    Toast.makeText(getActivity(), ""+e, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), ""+e, Toast.LENGTH_LONG).show();
                 }
             });
         } else {
-            String fileAndPath = "profile_image/"+ ""+ mAuth.getUid();
-            StorageReference storageReference = FirebaseStorage.getInstance().getReference(fileAndPath);
-            storageReference.putFile(image_uri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Task<Uri> uriTask =  taskSnapshot.getStorage().getDownloadUrl();
-                            while (!uriTask.isSuccessful());
-                            Uri downlodeImageUri = uriTask.getResult();
+            if (!image_uri.toString().contains("https://firebasestorage")) {
+                Log.i("ImageXyz", image_uri+"");
+                String fileAndPath = "profile_image/"+ ""+ mAuth.getUid();
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference(fileAndPath);
+                storageReference.putFile(image_uri)
+                        .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                            @Override
+                            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                Task<Uri> uriTask =  taskSnapshot.getStorage().getDownloadUrl();
+                                while (!uriTask.isSuccessful());
+                                Uri downlodeImageUri = uriTask.getResult();
 
-                            if (uriTask.isSuccessful()){
-                                Map<String, Object> map = new HashMap<>();
-                                map.put("name", name);
-                                map.put("phone", phone);
-                                map.put("address", address);
-                                map.put("pinCode", pinCode);
-                                map.put("profileImage", ""+downlodeImageUri);
+                                if (uriTask.isSuccessful()){
+                                    Map<String, Object> map = new HashMap<>();
+                                    map.put("name", name);
+                                    map.put("phone", phone);
+                                    map.put("address", address);
+                                    map.put("pinCode", pinCode);
+                                    map.put("profileImage", ""+downlodeImageUri);
 
-                                DocumentReference docRef = fstore.collection("Users").document(mAuth.getUid());
-                                docRef.set(map)
-                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                            @Override
-                                            public void onSuccess(Void aVoid) {
-                                                mProgressDialog.dismiss();
-                                                Toast.makeText(getActivity(), "Details Updated...", Toast.LENGTH_SHORT).show();
-                                            }
-                                        }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        mProgressDialog.dismiss();
-                                        Toast.makeText(getActivity(), ""+e, Toast.LENGTH_SHORT).show();
-                                        Log.d("Error", e+"");
-                                    }
-                                });
+                                    DocumentReference docRef = fstore.collection("Users").document(mAuth.getUid());
+                                    docRef.set(map)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    mProgressDialog.dismiss();
+                                                    Toast.makeText(getActivity(), "Details Updated...", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            mProgressDialog.dismiss();
+                                            Toast.makeText(getActivity(), ""+e, Toast.LENGTH_SHORT).show();
+                                            Log.d("Error", e+"");
+                                        }
+                                    });
+                                }
                             }
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    mProgressDialog.dismiss();
-                    Toast.makeText(getActivity(), ""+e.getMessage(), Toast.LENGTH_SHORT).show();
-                    Log.d("Error", e+"");
-                }
-            });;
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        mProgressDialog.dismiss();
+                        Toast.makeText(getActivity(), ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Log.d("Error", e+"");
+                    }
+                });
+            }
+            else {
+                Map<String, Object> map = new HashMap<>();
+                map.put("name", name);
+                map.put("phone", phone);
+                map.put("address", address);
+                map.put("pinCode", pinCode);
+                map.put("profileImage", ""+image_uri);
+
+                DocumentReference docRef = fstore.collection("Users").document(mAuth.getUid());
+                docRef.set(map)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                mProgressDialog.dismiss();
+                                Toast.makeText(getActivity(), "Details Updated...", Toast.LENGTH_SHORT).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        mProgressDialog.dismiss();
+                        Toast.makeText(getActivity(), ""+e, Toast.LENGTH_SHORT).show();
+                        Log.d("Error", e+"");
+                    }
+                });
+            }
+
         }
     }
 

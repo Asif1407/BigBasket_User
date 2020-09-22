@@ -7,4 +7,35 @@
     <string name="tab_text_1">Vegetables</string>
     <string name="tab_text_2">Fruits</string>
     <string name="tab_text_3">Others</string>
+    <string name="web_site_link"><a herf="thegreentokri.in">thegreentokri.in</a></string>
+    <string name="terms">The Green Tokri is an Indian Firm with its base in Durg, Chhattisgarh and is licensed owner of website ‘thegreentokri.in’ and while using our services we assume that our customers have gone through the Terms and Condition policy and do not have any problem against it.
+    \n \u2022 As a part of registration process, we may collect few personal information like name, mobile no., email address, postal address, etc. to provide our services to you.
+    \n \u2022 Our Services is currently available only in selected cities in India.
+    \n \u2022 Persons who are “incompetent to contract” within the meaning of the Indian Contract Act, 1872 including un-discharged insolvents etc. are not eligible to use our services.
+    \n \u2022 If the person is a minor i.e. under the age of 18 years, then he may use the Site only under the supervision of a parent or legal guardian who agrees to be bound by these Terms of Use and their parents or legal guardians can transact on behalf of them if they are registered users.
+    \n \u2022 All the shoppers have to register and login for placing order through the website with giving current and correct information for communication related to purchase of our services.
+    \n \u2022 Prices are subjected to change daily as per market availability and company’s pricing policy which states that no additional price would be collected or refunded if there is a change in price during delivery of the product from the rate at which order is placed.
+    \n \u2022 Offers are only applicable while ordering through website/application.
+    \n \u2022 The company is not responsible for any damages incurred after the delivery of the item to the customer in case the product is not stored as per storage instruction.
+    \n \u2022 The company is not responsible for any damages incurred after the delivery of the item to the customer in case the product is not stored as per storage instruction.
+    \n \u2022 In case of any dispute, the decision made by governing body of the company is final with respect to Durg Jurisdiction.
+    \n \u2022 Customers are requested to recheck the prices of items kept in cart, in case items are kept in cart for more than 24hours.</string>
+    
+    <string name="cancellation">\u2022 You as our customer can cancel your order anytime till our cut-off time i.e. till 9 PM the same day by contacting us through WhatsApp on +91 7879412987 or via email info@thegreentokri.in (on grounds of genuine reasons) and we will refund any payment of the order if already made.
+    \n \u2022 But if we suspect any fraudulent transaction by any customer or any transaction which defies the terms and conditions of using the website, we at our sole discretion could cancel such orders and maintain a negative list of all fraudulent transactions and customers who would be denied access to cancel any orders placed by them in future.</string>
+    <string name="replacement">\u2022 In case of any damages incurred during passage or from mishandling at our end, the company would be responsible for timely replacement of the product.
+    \n \u2022 The customer can directly claim the replacement to the delivery boy or can contact us through WhatsApp on +91 7879412987 or via email info@thegreentokri.in</string>
+    <string name="modification">\u2022 We may modify any Terms or Conditions without any prior notice to the customer as per the requirement of the company keeping in mind the faith of the customer.
+    \n \u2022 One can access the latest update of these Terms or Conditions through the website.
+    \n \u2022 In the event if modified terms and conditions are not accepted by the customer, the customer has the right to stop using our services.
+    \n \u2022 However, if the customer continues to use our services than they shall be deemed to have agreed and abide by the modified Terms or Conditions.</string>
+    <string name="Delivery">The Green Tokri takes care of its delivery arm itself and has employed skilled delivery executive for hassle free delivery of their products. Our executives also take care of all the necessary prevention methods against COVID-19 by practicing physical distancing and using mask, face-shield and gloves.
+    \n \u2022 The present delivery range is subjected to a distance of 10 kms from Durg Railway Station, Order’s beyond 10kms range will not be entertained.
+    \n \u2022 We will deliver all the orders received to us by 9 PM (IST) on the next day afternoon.
+    \n \u2022 Customer are requested to provide correct delivery address, contact details and other essential informations, so that hassle-less delivery can be made.
+    \n \u2022 It’s the customer’s duty to properly check the delivery content while receiving it from the delivery boy who will also provide a detailed bill of the items.
+    \n \u2022 We encourage Contact-less-delivery and thus request customers to prepay the orders through digital mediums provided by us.
+    \n \u2022 In case of Cash on Delivery (COD), the customers are requested to arrange the required cash with them pre-requisite to the delivery.
+    \n \u2022 In case of an event of non-delivery occurred due to the mistake by customer’s end (wrong name or address or any other wrong information) than we are entitled to ask for an extra cost incurred from the customer.</string>
+
 </resources>

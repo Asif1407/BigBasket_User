@@ -16,11 +16,13 @@ public class TermsFragment extends Fragment {
         // Required empty public constructor
     }
 
+    String term, Cancellation, Replacement, Modification;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_terms, container, false);
+        View view =  inflater.inflate(R.layout.fragment_terms, container, false);
+        return view;
     }
 }

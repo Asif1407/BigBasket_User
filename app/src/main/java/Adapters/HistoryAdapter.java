@@ -2,6 +2,7 @@ package Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.text.format.DateFormat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,7 +61,21 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HolderHi
         holder.numberTv.setText(number);
         holder.totalAmountTv.setText("Total amount: ₹"+totalAmount);
         holder.dateTv.setText(formatedData);
+        if (orderStatus.equals("In Progress")) {
+            holder.orderStatusTv.setTextColor(Color.parseColor("#F9B100"));
+        } else if (orderStatus.equals("Delivered")) {
+            holder.orderStatusTv.setTextColor(Color.parseColor("#43A047"));
+        } else if (orderStatus.equals("Cancelled")) {
+            holder.orderStatusTv.setTextColor(Color.RED);
+        }
         holder.orderStatusTv.setText(orderStatus);
+        if (paymentStatus.equals("Unpaid")) {
+            holder.paymentStatusTv.setTextColor(Color.parseColor("#F9B100"));
+        } else if (paymentStatus.equals("Paid")) {
+            holder.paymentStatusTv.setTextColor(Color.parseColor("#43A047"));
+        } else if (paymentStatus.equals("Refund")) {
+            holder.paymentStatusTv.setTextColor(Color.RED);
+        }
         holder.paymentStatusTv.setText(paymentStatus);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
