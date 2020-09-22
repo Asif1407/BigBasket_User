@@ -4,30 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F4B4A0"
     android:orientation="vertical"
-    android:background="@color/colorPrimary"
     tools:context=".NoInternetActivity">
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/checkIV"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        app:c_border="true"
-        app:c_border_color="@color/colorPrimary"
-        android:layout_centerInParent="true"
-        app:lottie_autoPlay="true"
-        app:lottie_rawRes="@raw/done" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/checkIV"
         android:layout_margin="30dp"
         android:fontFamily="@font/abril_fatface"
-        android:text="Please check the Internet connection"
-        android:layout_below="@id/checkIV"
         android:gravity="center"
+        android:text="Please check the Internet connection"
         android:textColor="@color/colorBlack"
         android:textSize="24dp"
         android:textStyle="bold" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_centerHorizontal="true"
+        android:id="@+id/checkIV"
+        android:layout_width="match_parent"
+        android:layout_height="540dp"
+        app:c_border="true"
+        app:c_border_color="@color/colorPrimary"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/no_internet" />
 
 </RelativeLayout>

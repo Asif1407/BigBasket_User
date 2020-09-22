@@ -22,27 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.airbnb.lottie.LottieAnimationView
-                android:layout_width="240dp"
-                android:layout_height="120dp"
-                app:lottie_rawRes="@raw/delivery"
-                app:lottie_autoPlay="true"
-                app:lottie_loop="true"
-                android:id="@+id/lottie_layer_name"
-                android:background="@color/colorPrimary"
-                android:layout_marginBottom="8dp"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:text="Fast and Safe Delivery"
-                android:textSize="34sp"
-                android:textStyle="bold"
-                android:background="@color/colorPrimary"
-                android:layout_toRightOf="@+id/lottie_layer_name" />
-
             <com.synnapps.carouselview.CarouselView
-                android:layout_below="@+id/lottie_layer_name"
                 android:id="@+id/carouselView"
                 android:layout_width="match_parent"
                 android:layout_height="160dp"
@@ -53,12 +33,35 @@
                 app:strokeColor="#FF777777"
                 app:strokeWidth="1dp" />
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_marginTop="8dp"
+                android:layout_width="240dp"
+                android:layout_height="120dp"
+                app:lottie_rawRes="@raw/delivery"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                android:id="@+id/lottie_layer_name"
+                android:background="@color/colorPrimary"
+                android:layout_marginBottom="8dp"
+                android:layout_below="@+id/carouselView"/>
+
+            <TextView
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:text="Fast and Safe Delivery"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:background="@color/colorPrimary"
+                android:layout_below="@+id/carouselView"
+                android:layout_toRightOf="@+id/lottie_layer_name" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_margin="2dp"
-                android:layout_below="@+id/carouselView"
+                android:layout_below="@+id/lottie_layer_name"
                 android:background="@drawable/shape_rect"
                 android:id="@+id/LL">
 

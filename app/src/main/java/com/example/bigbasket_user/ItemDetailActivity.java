@@ -56,8 +56,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     String getSinglePrice;
     String unit;
 
-    final int[] sampleImages= {R.drawable.carouselone, R.drawable.carouseltwo, R.drawable.carouselthree,
-            R.drawable.carouselfour, R.drawable.carouselfive};
+    final int[] sampleImages= {R.drawable.vege,R.drawable.fruit,R.drawable.fssai,R.drawable.carouselone};
 
 
     @Override
