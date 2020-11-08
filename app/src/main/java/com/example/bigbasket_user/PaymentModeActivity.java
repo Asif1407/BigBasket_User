@@ -67,8 +67,6 @@ public class PaymentModeActivity extends AppCompatActivity {
                     intent.putExtra("totalPrice", totalPrice);
                     startActivity(intent);
                     finish();
-                } else {
-                    Toast.makeText(PaymentModeActivity.this, "We are Working on this service\nSoon you will get this facility", Toast.LENGTH_SHORT).show();
                 }
             }
         });

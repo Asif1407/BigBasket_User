@@ -60,25 +60,25 @@
             android:onClick="checkButton"
             android:text="Cash On Delivery (COD)" />
 
-        <RadioButton
-            android:id="@+id/debitCard"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:checked="false"
-            android:onClick="checkButton"
-            android:text="Debit / ATM Card" />
+<!--        <RadioButton-->
+<!--            android:id="@+id/debitCard"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:checked="false"-->
+<!--            android:onClick="checkButton"-->
+<!--            android:text="Debit / ATM Card" />-->
 
-        <RadioButton
-            android:id="@+id/netBanking"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="10dp"
-            android:checked="false"
-            android:onClick="checkButton"
-            android:text="Net Banking" />
+<!--        <RadioButton-->
+<!--            android:id="@+id/netBanking"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:checked="false"-->
+<!--            android:onClick="checkButton"-->
+<!--            android:text="Net Banking" />-->
 
     </RadioGroup>
 

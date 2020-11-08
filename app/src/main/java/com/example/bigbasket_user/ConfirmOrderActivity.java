@@ -165,7 +165,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         if (transactionID != null) {
             map1.put("paymentStatus", "Paid");
         } else {
-            map1.put("paymentStatus", "Unpaid");
+            map1.put("paymentStatus", "COD");
         }
 
         final DocumentReference docRefs = fstore.collection("Delivery").document(timestamp);

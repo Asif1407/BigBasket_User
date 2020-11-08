@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SplashActivity"
-    android:background="@color/colorPrimary">
+    android:background="#121212">
 
     <com.blogspot.atifsoftwares.circularimageview.CircularImageView
         android:id="@+id/imageView"
@@ -23,6 +23,7 @@
         android:textSize="18dp"
         android:text="from"
         android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
         android:layout_centerHorizontal="true" />
 
     <TextView

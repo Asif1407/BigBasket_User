@@ -69,7 +69,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HolderHi
             holder.orderStatusTv.setTextColor(Color.RED);
         }
         holder.orderStatusTv.setText(orderStatus);
-        if (paymentStatus.equals("Unpaid")) {
+        if (paymentStatus.equals("COD")) {
             holder.paymentStatusTv.setTextColor(Color.parseColor("#F9B100"));
         } else if (paymentStatus.equals("Paid")) {
             holder.paymentStatusTv.setTextColor(Color.parseColor("#43A047"));

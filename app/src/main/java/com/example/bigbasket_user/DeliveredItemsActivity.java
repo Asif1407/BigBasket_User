@@ -1,5 +1,6 @@
 package com.example.bigbasket_user;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -11,17 +12,21 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import Adapters.AdapterItemList;
 import Adapters.HistoryAdapter;
@@ -110,7 +115,7 @@ public class DeliveredItemsActivity extends AppCompatActivity {
                 }
                 orderStatusTv.setText(orderStatus);
                 String paymentStatus = value.getString("paymentStatus").trim();
-                if (paymentStatus.equals("Unpaid")) {
+                if (paymentStatus.equals("COD")) {
                     paymentStatusTv.setTextColor(Color.parseColor("#F9B100"));
                 } else if (paymentStatus.equals("Paid")) {
                     paymentStatusTv.setTextColor(Color.parseColor("#43A047"));
@@ -121,6 +126,5 @@ public class DeliveredItemsActivity extends AppCompatActivity {
                 totalAmountTv.setText("Amt: ₹" + value.getString("totalPrice"));
             }
         });
-
     }
 }
