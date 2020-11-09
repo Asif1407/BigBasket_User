@@ -36,7 +36,7 @@ import DataModels.ModelItemList;
 public class DeliveredItemsActivity extends AppCompatActivity {
 
     private String id;
-    private TextView orderidTv, nameTv, numberTv, addressTv, transactionIdTv, dateTv, orderStatusTv, paymentStatusTv, totalAmountTv;
+    private TextView orderidTv, nameTv, numberTv, addressTv, transactionIdTv, dateTv, orderStatusTv, paymentStatusTv, totalAmountTv, paymentModeTv;
     private RecyclerView itemListRv;
     private Toolbar toolbar;
 
@@ -67,6 +67,7 @@ public class DeliveredItemsActivity extends AppCompatActivity {
         dateTv = findViewById(R.id.dateTV);
         orderStatusTv = findViewById(R.id.orderStatusTV);
         paymentStatusTv = findViewById(R.id.paymentStatusTV);
+        paymentModeTv = findViewById(R.id.paymentModeTV);
         totalAmountTv = findViewById(R.id.totalAmountTV);
         itemListRv = findViewById(R.id.itemListRV);
 
@@ -115,7 +116,7 @@ public class DeliveredItemsActivity extends AppCompatActivity {
                 }
                 orderStatusTv.setText(orderStatus);
                 String paymentStatus = value.getString("paymentStatus").trim();
-                if (paymentStatus.equals("COD")) {
+                if (paymentStatus.equals("Unpaid")) {
                     paymentStatusTv.setTextColor(Color.parseColor("#F9B100"));
                 } else if (paymentStatus.equals("Paid")) {
                     paymentStatusTv.setTextColor(Color.parseColor("#43A047"));
@@ -123,6 +124,13 @@ public class DeliveredItemsActivity extends AppCompatActivity {
                     paymentStatusTv.setTextColor(Color.RED);
                 }
                 paymentStatusTv.setText(paymentStatus);
+                String paymentMode = value.getString("paymentMode").trim();
+                if (paymentMode.equals("COD")) {
+                    paymentModeTv.setTextColor(Color.parseColor("#F9B100"));
+                } else if (paymentMode.equals("UPI")) {
+                    paymentModeTv.setTextColor(Color.parseColor("#43A047"));
+                }
+                paymentModeTv.setText(paymentMode);
                 totalAmountTv.setText("Amt: ₹" + value.getString("totalPrice"));
             }
         });
