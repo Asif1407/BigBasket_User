@@ -2,9 +2,12 @@ package Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,7 +41,6 @@ public class CategoryFragment extends Fragment {
     private TabLayout main_Tabs;
 
     private SectionPagerClass sectionPagerClass;
-
     public CategoryFragment() {
         // Required empty public constructor
     }
@@ -48,16 +50,16 @@ public class CategoryFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_category, container, false);
-
-
         main_TabPager= (ViewPager) view.findViewById(R.id.main_TabPager);
         main_Tabs= (TabLayout) view.findViewById(R.id.main_Tabs);
 
 
        sectionPagerClass = new SectionPagerClass(getActivity().getSupportFragmentManager());
-        main_TabPager.setAdapter(sectionPagerClass);
 
+       // to link the TabLayout to the ViewPager
         main_Tabs.setupWithViewPager(main_TabPager);
+
+        main_TabPager.setAdapter(sectionPagerClass);
         return (view);
     }
 }

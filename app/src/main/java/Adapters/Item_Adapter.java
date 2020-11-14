@@ -38,7 +38,7 @@ import Util.DiffUtilCallbacks;
 
 public class Item_Adapter extends RecyclerView.Adapter<Item_Adapter.MyViewHolder> {
 
-   ArrayList<Item> Items;
+    ArrayList<Item> Items;
     Context context;
 
     private FirebaseUser currentUSer;
@@ -72,7 +72,6 @@ public class Item_Adapter extends RecyclerView.Adapter<Item_Adapter.MyViewHolder
         Items.addAll(newList);
         result.dispatchUpdatesTo(this);
         // Here this indicates to the whole adapter Class.
-
     }
 
     @Override

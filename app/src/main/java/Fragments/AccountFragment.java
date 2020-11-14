@@ -146,7 +146,7 @@ public class AccountFragment extends Fragment {
     private void loadDetails() {
 
         DocumentReference docRef = fstore.collection("Users").document(mAuth.getUid());
-        docRef.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+        docRef.addSnapshotListener( new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 nameEt.setText(documentSnapshot.getString("name"));

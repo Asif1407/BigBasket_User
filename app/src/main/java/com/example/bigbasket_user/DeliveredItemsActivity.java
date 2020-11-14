@@ -101,9 +101,11 @@ public class DeliveredItemsActivity extends AppCompatActivity {
                 numberTv.setText(value.getString("pNumber"));
                 addressTv.setText(value.getString("pinCode") + ", " + value.getString("address"));
                 transactionIdTv.setText(value.getString("transactionId"));
+
                 Calendar calendar = Calendar.getInstance();
                 calendar.setTimeInMillis(Long.parseLong(value.getString("timeStamp")));
                 String formatedData = DateFormat.format("dd/MM/yyyy", calendar).toString();
+
                 dateTv.setText(formatedData);
                 String orderStatus = value.getString("orderStatus");
                 if (orderStatus.equals("In Progress")) {

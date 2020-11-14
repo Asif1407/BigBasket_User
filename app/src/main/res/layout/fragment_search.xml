@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:queryHint="Search your Products"
         android:layout_margin="8dp"
-        android:background="@drawable/shape_rect_right_gray"/>
+        android:background="@color/colorAccent"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_margin="8dp"

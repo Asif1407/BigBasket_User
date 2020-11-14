@@ -173,7 +173,7 @@ public class SignInActivity extends AppCompatActivity {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
 
                         }
-                        // ...
+
                     }
                 });
     }

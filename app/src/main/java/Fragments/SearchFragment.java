@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,13 +36,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 import Adapters.SearchAdapter;
 import DataModels.Item;
-import DataModels.Search;
 
 public class SearchFragment extends Fragment {
 
@@ -84,9 +83,10 @@ public class SearchFragment extends Fragment {
         searchText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                search(query);
-                Log.i("SearchItem",mainData.toString()+"1");
-                return true;
+//                search(query);
+//                Log.i("SearchItem",mainData.toString()+"1");
+//                return true;
+                return false;
             }
             @Override
             public boolean onQueryTextChange(String newText) {
@@ -98,7 +98,6 @@ public class SearchFragment extends Fragment {
                 return true;
             }
         });
-
         return view;
     }
 

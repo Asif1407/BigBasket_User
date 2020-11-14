@@ -1,5 +1,6 @@
 package Fragments;
 
+import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -17,23 +18,21 @@ public class SectionPagerClass extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         switch (position){
-
             case 0:
                VegetableFragment vegetableFragment = new VegetableFragment();
-//               getPagerTitle(0);
+                Log.i("VegetableFrag","Fragment Changed To Vegetables");
                 return vegetableFragment;
             case 1:
                 FruitFragment fruitFragment = new FruitFragment();
-//                getPagerTitle(1);
+                Log.i("FruitsFrag","Fragment Changed To Fruits");
                 return fruitFragment;
             case 2:
                 OtherFragment otherFragment = new OtherFragment();
-//                getPagerTitle(2);
+                Log.i("OtherFrag","Fragment Changed To Others");
                 return  otherFragment;
             default:
                 return null;
         }
-
     }
 
     @Override
