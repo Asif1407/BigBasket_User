@@ -58,7 +58,6 @@ public class ReviewFragment extends Fragment {
     ReviewManager manager;
     ReviewInfo info;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

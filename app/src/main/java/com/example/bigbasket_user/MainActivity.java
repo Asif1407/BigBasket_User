@@ -12,9 +12,12 @@ import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.IntentSender;
 import android.media.tv.TvView;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,9 +28,15 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.android.play.core.review.ReviewInfo;
 import com.google.android.play.core.review.ReviewManager;
 import com.google.android.play.core.review.ReviewManagerFactory;
+import com.google.android.play.core.tasks.OnFailureListener;
 import com.google.android.play.core.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -71,6 +80,9 @@ public class MainActivity extends AppCompatActivity {
     // For Review
     ReviewManager manager;
     ReviewInfo info;
+
+    // For Update
+    public int RequestCode = 11;
 
 
     @Override
@@ -265,6 +277,48 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void getUpdates(){
+
+        final AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(MainActivity.this);
+
+        final com.google.android.play.core.tasks.Task<AppUpdateInfo> updateInfoTask = appUpdateManager.getAppUpdateInfo();
+
+        updateInfoTask.addOnSuccessListener(new OnSuccessListener<AppUpdateInfo>() {
+            @Override
+            public void onSuccess(AppUpdateInfo result) {
+
+                if (result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                        && result.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE));
+
+                try {
+                    appUpdateManager.startUpdateFlowForResult(result,AppUpdateType.FLEXIBLE,MainActivity.this,RequestCode);
+                } catch (IntentSender.SendIntentException e) {
+                    e.printStackTrace();
+                    Log.w("UpdateError",e.getMessage());
+                }
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(Exception e) {
+                Log.w("Error Updates",e.getMessage());
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == RequestCode){
+            Toast.makeText(this, "Start Downloading Updates", Toast.LENGTH_SHORT).show();
+        }
+
+        if (resultCode != RESULT_OK){
+            Log.w("ErrorUpdate","There is error Updating our App try later.");
+        }
+    }
 
     private void gettingUserData(final CircleImageView image, final TextView name, final TextView email) {
 
