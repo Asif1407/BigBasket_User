@@ -25,6 +25,10 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.play.core.review.ReviewInfo;
+import com.google.android.play.core.review.ReviewManager;
+import com.google.android.play.core.review.ReviewManagerFactory;
+import com.google.android.play.core.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -63,6 +67,11 @@ public class MainActivity extends AppCompatActivity {
     NavigationView navigationView;
     DrawerLayout drawerLayout;
     ActionBarDrawerToggle actionBarDrawerToggle;
+
+    // For Review
+    ReviewManager manager;
+    ReviewInfo info;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,6 +239,32 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    public void getReview(){
+        manager = ReviewManagerFactory.create(this);
+        com.google.android.play.core.tasks.Task<ReviewInfo> request = manager.requestReviewFlow();
+
+        request.addOnCompleteListener(new com.google.android.play.core.tasks.OnCompleteListener<ReviewInfo>() {
+            @Override
+            public void onComplete(com.google.android.play.core.tasks.Task<ReviewInfo> task) {
+
+                if (task.isSuccessful()){
+                    info = task.getResult();
+                    com.google.android.play.core.tasks.Task<Void> flow = manager.launchReviewFlow(MainActivity.this,info);
+
+                    flow.addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void result) {
+
+                        }
+                    });
+                }else{
+                    Toast.makeText(MainActivity.this, "Error Review", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
 
     private void gettingUserData(final CircleImageView image, final TextView name, final TextView email) {
 

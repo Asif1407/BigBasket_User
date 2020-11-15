@@ -19,10 +19,14 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bigbasket_user.MainActivity;
 import com.example.bigbasket_user.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
+import com.google.android.play.core.review.ReviewInfo;
+import com.google.android.play.core.review.ReviewManager;
+import com.google.android.play.core.review.ReviewManagerFactory;
+import com.google.android.play.core.tasks.OnCompleteListener;
+import com.google.android.play.core.tasks.OnSuccessListener;
+import com.google.android.play.core.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
@@ -50,6 +54,11 @@ public class ReviewFragment extends Fragment {
     private ReviewAdapter adapter;
     private List<ReviewModel> mList;
 
+    // For Review
+    ReviewManager manager;
+    ReviewInfo info;
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,7 +69,37 @@ public class ReviewFragment extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerViewReview);
         mList = new ArrayList<>();
         gettingData();
+        postReview();
         return view;
+    }
+
+    private void postReview() {
+        manager = ReviewManagerFactory.create(getContext());
+        Task<ReviewInfo> request = manager.requestReviewFlow();
+
+        request.addOnCompleteListener(new OnCompleteListener<ReviewInfo>() {
+            @Override
+            public void onComplete(Task<ReviewInfo> task) {
+
+                if (task.isSuccessful()){
+                    info = task.getResult();
+
+//                    This code works in a Activity only
+
+//                    Task<Void> flow = manager.launchReviewFlow(MainActivity.this,info);
+//
+//                    flow.addOnSuccessListener(new OnSuccessListener<Void>() {
+//                        @Override
+//                        public void onSuccess(Void result) {
+//
+//                        }
+//                    });
+                }else{
+                    Toast.makeText(getContext(), "Error Review", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
     }
 
 
