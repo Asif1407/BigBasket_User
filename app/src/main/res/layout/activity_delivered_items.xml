@@ -139,6 +139,15 @@
 
     </LinearLayout>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Download InVoice"
+        android:id="@+id/pdfBtn"
+        android:layout_margin="4dp">
+
+    </Button>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -41,6 +41,7 @@ public class CategoryFragment extends Fragment {
     private TabLayout main_Tabs;
 
     private SectionPagerClass sectionPagerClass;
+
     public CategoryFragment() {
         // Required empty public constructor
     }

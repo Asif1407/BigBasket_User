@@ -7,8 +7,11 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
-public class SectionPagerClass extends FragmentPagerAdapter {
+public class SectionPagerClass extends FragmentStatePagerAdapter {
+
+    // I just updated FragmentPagerAdapter to FragmentStatePagerAdapter and Tabs start Working Properly.
 
     public SectionPagerClass(@NonNull FragmentManager fm) {
         super(fm);
