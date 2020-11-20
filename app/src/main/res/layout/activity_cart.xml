@@ -177,10 +177,22 @@
                 android:layout_marginTop="2dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginBottom="2dp"
-                android:background="@drawable/circular_button"
+                android:background="@drawable/shape_rect_green"
                 android:padding="5dp"
                 android:text="Place Order"
-                android:textColor="@color/colorWhite" />
+                android:textColor="@color/colorPrimary" />
+            <TextView
+                android:id="@+id/acceptOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="2dp"
+                android:gravity="center"
+                android:text="Sorry, Currently \nwe are not accept orders"
+                android:textColor="@color/colorBlack"
+                android:visibility="gone" />
 
         </LinearLayout>
 

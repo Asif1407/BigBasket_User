@@ -56,7 +56,7 @@ public class CartActivity extends AppCompatActivity {
     //views
     private Button placeOrder;
     private RecyclerView cartItemRv;
-    private TextView grandTotal, cartIsEmpty, detailCost, detailDelivery, detailTotal;
+    private TextView grandTotal, cartIsEmpty, detailCost, detailDelivery, detailTotal, acceptOrders;
     private TableLayout table;
     RelativeLayout RL;
     //firebase
@@ -66,6 +66,7 @@ public class CartActivity extends AppCompatActivity {
     private ProgressDialog mProgressDialog;
     //Model adapter class
     private AdapterCart adapterCart;
+    final String[] acceptOrder = {"a"};
     private CollectionReference cartRefrence;
     int sum = 0;
     private String name = "", phone = "", address = "";
@@ -82,6 +83,7 @@ public class CartActivity extends AppCompatActivity {
         cartIsEmpty = findViewById(R.id.cartIsEmpty);
         detailCost = findViewById(R.id.detailCost);
         detailDelivery = findViewById(R.id.detailDelivery);
+        acceptOrders = findViewById(R.id.acceptOrder);
         detailTotal = findViewById(R.id.detailTotal);
         table = findViewById(R.id.table);
         RL = findViewById(R.id.RL);
@@ -94,8 +96,16 @@ public class CartActivity extends AppCompatActivity {
         mProgressDialog.setTitle("Please wait");
         mProgressDialog.setCanceledOnTouchOutside(false);
 
-        loadCartItems();
+        fstore.collection("OrderOptions").document("QGWvyuszvUl3ipn3FFRh")
+                .addSnapshotListener(new EventListener<DocumentSnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable DocumentSnapshot value, @Nullable FirebaseFirestoreException error) {
+                        acceptOrder[0] = value.getString("Open");
+                        Log.d("AcceptOrder", acceptOrder[0]);
+                    }
+                });
 
+        loadCartItems();
         placeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,12 +153,20 @@ public class CartActivity extends AppCompatActivity {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                 if (!value.isEmpty()) {
-                    placeOrder.setVisibility(View.VISIBLE);
+                    Log.d("AcceptOrder123", acceptOrder[0]);
+                    if (acceptOrder[0].equals("false")) {
+                        placeOrder.setVisibility(View.GONE);
+                        acceptOrders.setVisibility(View.VISIBLE);
+                    } else {
+                        placeOrder.setVisibility(View.VISIBLE);
+                        acceptOrders.setVisibility(View.GONE);
+                    }
                     table.setVisibility(View.VISIBLE);
                     cartIsEmpty.setVisibility(View.GONE);
                     grandTotalPrice();
                 } else {
                     grandTotal.setText("$0");
+                    acceptOrders.setVisibility(View.GONE);
                     cartIsEmpty.setVisibility(View.VISIBLE);
                     table.setVisibility(View.GONE);
                     placeOrder.setVisibility(View.GONE);

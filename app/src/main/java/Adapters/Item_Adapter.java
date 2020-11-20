@@ -90,12 +90,21 @@ public class Item_Adapter extends RecyclerView.Adapter<Item_Adapter.MyViewHolder
         // set the data in items
 
         final Item item = Items.get(position);
+        String tag;
 
         // Setting Data.
         holder.title.setText(Items.get(position).getTitle());
         holder.price.setText((Items.get(position).getPrice()));
         holder.unit.setText(Items.get(position).getUnit());
         holder.quantity.setText(Items.get(position).getQuantity());
+        tag = Items.get(position).getTag();
+        if (tag.equals("True")) {
+            holder.addToCart.setVisibility(View.VISIBLE);
+            holder.stock.setVisibility(View.GONE);
+        } else {
+            holder.addToCart.setVisibility(View.GONE);
+            holder.stock.setVisibility(View.VISIBLE);
+        }
 
         Picasso.get().load(item.getImageUrl()).into(holder.item_image);
 
@@ -122,6 +131,7 @@ public class Item_Adapter extends RecyclerView.Adapter<Item_Adapter.MyViewHolder
                 itemsDetailIntent.putExtra("Description",item.getDescription());
                 itemsDetailIntent.putExtra("Image",item.getImageUrl());
                 itemsDetailIntent.putExtra("Unit", item.getUnit());
+                itemsDetailIntent.putExtra("Tag", item.getTag());
                 v.getContext().startActivity(itemsDetailIntent);
             }
         });
@@ -135,7 +145,7 @@ public class Item_Adapter extends RecyclerView.Adapter<Item_Adapter.MyViewHolder
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
         CardView cardView;
-        TextView title, price, unit, quantity;
+        TextView title, price, unit, quantity, stock;
         Button addToCart;
         ImageView item_image;// init the item view's
 
@@ -151,6 +161,7 @@ public class Item_Adapter extends RecyclerView.Adapter<Item_Adapter.MyViewHolder
             unit = itemView.findViewById(R.id.qUnitTV);
             item_image = itemView.findViewById(R.id.item_image);
             addToCart = itemView.findViewById(R.id.addToCartButton);
+            stock = itemView.findViewById(R.id.stock);
         }
     }
 

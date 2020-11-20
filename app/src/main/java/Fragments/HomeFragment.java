@@ -89,7 +89,7 @@ public class HomeFragment  extends Fragment {
         carouselView = view.findViewById(R.id.carouselView);
         carouselView.setPageCount(sampleImages.length);
 
-        shop_now_button= view.findViewById(R.id.shop_now_button);
+//        shop_now_button= view.findViewById(R.id.shop_now_button);
 
 
         // For RecyclerView of Trending Items.
@@ -98,26 +98,26 @@ public class HomeFragment  extends Fragment {
         // Calling Various Functions here.
         carouselView();
         setUpTrendingItemAdapter(view.getContext());
-        shopNowButton();
+//        shopNowButton();
 
 
         return view;
     }
 
-    private void shopNowButton() {
-        shop_now_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                // Fragment HomeFragment= new HomeFragment<>();
-                Fragment CategoryFragment = new CategoryFragment();
-                FragmentManager fragmentManager = getFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container,CategoryFragment).commit();
-
-            }
-        });
-    }
+//    private void shopNowButton() {
+//        shop_now_button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                // Fragment HomeFragment= new HomeFragment<>();
+//                Fragment CategoryFragment = new CategoryFragment();
+//                FragmentManager fragmentManager = getFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.fragment_container,CategoryFragment).commit();
+//
+//            }
+//        });
+//    }
 
     private void setUpTrendingItemAdapter(Context context) {
 

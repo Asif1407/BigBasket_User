@@ -37,7 +37,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     TextView title;
     TextView price;
     TextView quantity;
-    TextView description;
+    TextView description, stocks;
     TextView instockTextView;
     CarouselView carouselView;
     Button addToCart;
@@ -55,6 +55,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     String getImage;
     String getSinglePrice;
     String unit;
+    String tag;
 
     final int[] sampleImages= {R.drawable.vege,R.drawable.fruit,R.drawable.fssai,R.drawable.carouselone};
 
@@ -72,6 +73,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         quantity = (TextView) findViewById(R.id.quantity);
         description = (TextView) findViewById(R.id.description);
         addToCart = findViewById(R.id.addToCartButton);
+        stocks = findViewById(R.id.stock);
 
         // To help reading data effectively.
         description.setMovementMethod(new ScrollingMovementMethod());
@@ -115,12 +117,20 @@ public class ItemDetailActivity extends AppCompatActivity {
         getImage = getInfo.getExtras().getString("Image");
         getSinglePrice = getInfo.getExtras().getString("SinglePrice");
         unit = getInfo.getExtras().getString("Unit");
+        tag = getInfo.getExtras().getString("Tag");
 
         // Setting data
         title.setText(getTitle);
         price.setText(getPrice);
         quantity.setText(getQuantity);
         description.setText(getDescription);
+        if (tag.equals("True")) {
+            addToCart.setVisibility(View.VISIBLE);
+            stocks.setVisibility(View.GONE);
+        } else {
+            addToCart.setVisibility(View.GONE);
+            stocks.setVisibility(View.VISIBLE);
+        }
     }
 
     private void carouselView() {

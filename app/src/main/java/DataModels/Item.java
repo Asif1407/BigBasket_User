@@ -13,13 +13,14 @@ public class Item {
     String InStock;
     String SinglePrice;
     String Unit;
+    String Tag;
 
 
     public Item() {
         // So that App doesn't crash.
     }
 
-    public Item(String title, String price, String quantity, String description, String imageUrl, ArrayList<String> images, String inStock, String singlePrice, String unit) {
+    public Item(String title, String price, String quantity, String description, String imageUrl, ArrayList<String> images, String inStock, String singlePrice, String unit, String tag) {
         Title = title;
         Price = price;
         Quantity = quantity;
@@ -29,6 +30,7 @@ public class Item {
         InStock = inStock;
         SinglePrice = singlePrice;
         Unit = unit;
+        Tag = tag;
     }
 
     public String getTitle() {
@@ -93,5 +95,9 @@ public class Item {
 
     public void setInStock(String inStock) {
         InStock = inStock;
+    }
+
+    public String getTag() {
+        return Tag;
     }
 }

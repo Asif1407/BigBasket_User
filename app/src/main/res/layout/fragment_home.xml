@@ -46,6 +46,7 @@
                 android:layout_below="@+id/carouselView"/>
 
             <TextView
+                android:id="@+id/text"
                 android:layout_marginTop="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
@@ -56,52 +57,14 @@
                 android:layout_below="@+id/carouselView"
                 android:layout_toRightOf="@+id/lottie_layer_name" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_margin="2dp"
-                android:layout_below="@+id/lottie_layer_name"
-                android:background="@drawable/shape_rect"
-                android:id="@+id/LL">
 
-                <com.airbnb.lottie.LottieAnimationView
-                    android:layout_weight="1"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    app:lottie_rawRes="@raw/vegetables"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="true" />
-
-                <Button
-                    android:id="@+id/shop_now_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_margin="5dp"
-                    android:layout_weight="5"
-                    android:background="#C3C82D"
-                    android:gravity="center"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:text="Shop Now" />
-
-                <com.airbnb.lottie.LottieAnimationView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_weight="1"
-                    app:lottie_rawRes="@raw/vegetables"
-                    app:lottie_autoPlay="true"
-                    app:lottie_loop="true"/>
-
-            </LinearLayout>
 
             <TextView
 
                 android:id="@+id/trendingItems"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/LL"
+                android:layout_below="@+id/text"
                 android:background="@drawable/circular_button"
                 android:gravity="center"
                 android:padding="5dp"

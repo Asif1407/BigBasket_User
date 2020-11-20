@@ -17,6 +17,7 @@
         android:layout_margin="8dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/green_bg"
         android:layout_below="@+id/searchText"
         android:id="@+id/searchRecyclerView">
 
