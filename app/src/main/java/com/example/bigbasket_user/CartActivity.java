@@ -70,6 +70,7 @@ public class CartActivity extends AppCompatActivity {
     private CollectionReference cartRefrence;
     int sum = 0;
     private String name = "", phone = "", address = "";
+    private String abc = "Pratik";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
