@@ -124,12 +124,16 @@ public class ItemDetailActivity extends AppCompatActivity {
         price.setText(getPrice);
         quantity.setText(getQuantity);
         description.setText(getDescription);
-        if (tag.equals("True")) {
-            addToCart.setVisibility(View.VISIBLE);
-            stocks.setVisibility(View.GONE);
-        } else {
-            addToCart.setVisibility(View.GONE);
-            stocks.setVisibility(View.VISIBLE);
+        try {
+            if (tag.equals("True")) {
+                addToCart.setVisibility(View.VISIBLE);
+                stocks.setVisibility(View.GONE);
+            } else {
+                addToCart.setVisibility(View.GONE);
+                stocks.setVisibility(View.VISIBLE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
