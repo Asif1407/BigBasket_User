@@ -22,17 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.synnapps.carouselview.CarouselView
-                android:id="@+id/carouselView"
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                app:fillColor="#ffffff"
-                app:pageColor="#000"
-                app:radius="6dp"
-                app:slideInterval="3000"
-                app:strokeColor="#FF777777"
-                app:strokeWidth="1dp" />
-
             <com.airbnb.lottie.LottieAnimationView
                 android:layout_marginTop="8dp"
                 android:layout_width="240dp"
@@ -43,7 +32,7 @@
                 android:id="@+id/lottie_layer_name"
                 android:background="@color/colorPrimary"
                 android:layout_marginBottom="8dp"
-                android:layout_below="@+id/carouselView"/>
+                android:layout_marginStart="8dp"/>
 
             <TextView
                 android:id="@+id/text"
@@ -54,21 +43,80 @@
                 android:textSize="32sp"
                 android:textStyle="bold"
                 android:background="@color/colorPrimary"
-                android:layout_below="@+id/carouselView"
-                android:layout_toRightOf="@+id/lottie_layer_name" />
+                android:layout_toRightOf="@+id/lottie_layer_name"
+                android:layout_marginEnd="8dp"/>
 
 
+            <com.synnapps.carouselview.CarouselView
+                android:id="@+id/carouselView"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                app:fillColor="#ffffff"
+                app:pageColor="#000"
+                app:radius="6dp"
+                app:slideInterval="3000"
+                app:strokeColor="#FF777777"
+                app:strokeWidth="1dp"
+                android:layout_below="@+id/lottie_layer_name"/>
 
             <TextView
-
-                android:id="@+id/trendingItems"
+                android:id="@+id/buyItemsTv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/text"
+                android:layout_below="@+id/carouselView"
                 android:background="@drawable/circular_button"
                 android:gravity="center"
                 android:padding="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/averia_gruesa_libre"
+                android:text="Select from wide variety"
+                android:textColor="#020000"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="120dp"
+                    android:id="@+id/fruitCardView"
+                    android:src="@drawable/fruit_cardview"
+                    android:layout_below="@id/buyItemsTv" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fruitCardView"
+                android:text="Fruits"
+                android:layout_marginStart="140dp"/>
+
+
+                <ImageView
+                    android:layout_width="72dp"
+                    android:layout_height="80dp"
+                    android:layout_marginStart="40dp"
+                    android:id="@+id/vegetableCardView"
+                    android:src="@drawable/veg_cardview"
+                    android:layout_below="@id/buyItemsTv"
+                    android:layout_toRightOf="@id/fruitCardView"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fruitCardView"
+                android:text="Vegetables"
+                android:layout_marginStart="240dp"/>
+
+
+            <TextView
+                android:id="@+id/trendingItems"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/fruitCardView"
+                android:background="@drawable/circular_button"
+                android:gravity="center"
+                android:padding="5dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginBottom="5dp"
                 android:fontFamily="@font/averia_gruesa_libre"
                 android:text="Trending Items"

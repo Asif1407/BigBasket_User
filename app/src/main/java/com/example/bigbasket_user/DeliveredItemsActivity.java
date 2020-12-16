@@ -225,6 +225,8 @@ public class DeliveredItemsActivity extends AppCompatActivity {
                     paymentModeTv.setTextColor(Color.parseColor("#F9B100"));
                 } else if (paymentMode.equals("UPI")) {
                     paymentModeTv.setTextColor(Color.parseColor("#43A047"));
+                } else {
+                    paymentModeTv.setTextColor(Color.parseColor("#43A047"));
                 }
                 paymentModeTv.setText(paymentMode);
                 totalAmountTv.setText("Amt: ₹" + value.getString("totalPrice"));
