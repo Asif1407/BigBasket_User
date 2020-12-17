@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,7 +38,9 @@ import com.synnapps.carouselview.ImageListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import Adapters.Item_Adapter;
 import Adapters.TrendingItemsAdapter;
+import Adapters.UpcomingAdapter;
 import DataModels.Item;
 
 public class HomeFragment extends Fragment {
@@ -46,10 +49,17 @@ public class HomeFragment extends Fragment {
     List<Item> mList = new ArrayList<>();
     TrendingItemsAdapter adapter;
 
-
     // Firebase
     private FirebaseFirestore database = FirebaseFirestore.getInstance();
     private CollectionReference ref = database.collection("Trending");
+
+    // For UpComing Items Adapter.
+    private RecyclerView upComingRecyclerView;
+    List<Item> upComingList = new ArrayList<>();
+    UpcomingAdapter upComingAdapter;
+
+    // Firebase
+    private CollectionReference upComingRef = database.collection("UpcomingItems");
 
     // Layout
     private TextView search_bar_Main;
@@ -123,7 +133,36 @@ public class HomeFragment extends Fragment {
 //      Calling Various Functions here.
         setUpTrendingItemAdapter(view.getContext());
 
+        //UpcomingItem Implementation.
+        upComingRecyclerView = view.findViewById(R.id.upComingRecyclerView);
+        upcomingItems();
         return view;
+    }
+
+    private void upcomingItems() {
+        // Sending Data to Adapter.
+        upComingRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@androidx.annotation.Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if (!value.isEmpty()) {
+                    for (QueryDocumentSnapshot snapshot : value) {
+                        Item item = snapshot.toObject(Item.class);
+                        upComingList.add(item);
+                    }
+                    upComingAdapter.notifyDataSetChanged();
+
+                } else {
+                    Log.d("Error", error.getMessage());
+                }
+                Log.d("DataAdapter", mList + "");
+            }
+        });
+
+
+        upComingAdapter = new UpcomingAdapter(getContext(), upComingList);
+        upComingRecyclerView.setHasFixedSize(true);
+        upComingRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+        upComingRecyclerView.setAdapter(upComingAdapter);
     }
 
     private void setUpTrendingItemAdapter(Context context) {
@@ -148,8 +187,7 @@ public class HomeFragment extends Fragment {
 
         adapter = new TrendingItemsAdapter(getContext(), mList);
         trendingRecyclerView.setHasFixedSize(true);
-        trendingRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        trendingRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
         trendingRecyclerView.setAdapter(adapter);
-
     }
 }

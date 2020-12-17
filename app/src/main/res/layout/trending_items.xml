@@ -13,6 +13,7 @@
         android:id="@+id/trendingCard">
 
         <androidx.cardview.widget.CardView
+            android:padding="12dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
@@ -21,14 +22,15 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:padding="12dp">
 
                 <ImageView
                     android:id="@+id/itemsCircleView"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_margin="5dp"
-                    android:gravity="center_horizontal"
+                    android:gravity="center"
                     android:layout_weight="1"
                     android:src="@mipmap/ic_launcher" />
 
@@ -121,11 +123,11 @@
 
                 <Button
                     android:id="@+id/add_to_cart_button"
-                    android:layout_width="40dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
                     android:layout_below="@+id/item_description"
                     android:background="@drawable/shape_rect_green"
                     android:textColor="@color/colorPrimary"

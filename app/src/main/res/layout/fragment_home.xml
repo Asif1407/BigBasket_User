@@ -133,6 +133,31 @@
                 android:nestedScrollingEnabled="false"
                 android:scrollbars="vertical" />
 
+            <TextView
+                android:id="@+id/upComingItems"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/trendingRecyclerView"
+                android:background="@drawable/circular_button"
+                android:gravity="center"
+                android:padding="5dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="@font/averia_gruesa_libre"
+                android:text="Upcoming Items"
+                android:textColor="#020000"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/upComingRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/upComingItems"
+                android:layout_marginTop="10dp"
+                android:nestedScrollingEnabled="false"
+                android:scrollbars="vertical" />
+
         </RelativeLayout>
 
     </ScrollView>
