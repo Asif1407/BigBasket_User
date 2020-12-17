@@ -24,7 +24,7 @@ import com.squareup.picasso.Picasso;
 public class SplashActivity extends AppCompatActivity {
 
     FirebaseAuth mAuth;
-    ImageView imageView;
+    ImageView imageView, bananaIv, grapesIv, avocadoIv, cabbageIv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +32,23 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         imageView = findViewById(R.id.imageView);
-        String img = "https://firebasestorage.googleapis.com/v0/b/bigbasket-user.appspot.com/o/logo%2Fnewbblogo.png?alt=media&token=dbdbe2f2-4a5d-4684-a0ca-799b6508fdce";
-        Picasso.get().load(R.drawable.newbblogo).placeholder(R.drawable.newbblogo).into(imageView);
+        bananaIv = findViewById(R.id.bananaIV);
+        grapesIv = findViewById(R.id.grapesIV);
+        avocadoIv = findViewById(R.id.avocadoIV);
+        cabbageIv =findViewById(R.id.cabbageIV);
+//        imageView.setX(-1000);
+        bananaIv.setX(-600);
+        bananaIv.animate().translationXBy(250).setDuration(5000);
+        avocadoIv.setX(-600);
+        avocadoIv.animate().translationXBy(250).setDuration(5000);
+        cabbageIv.setX(1200);
+        cabbageIv.animate().translationXBy(-250).setDuration(5000);
+        grapesIv.setX(1200);
+        grapesIv.animate().translationXBy(-250).setDuration(5000);
+
+        imageView.animate().rotation(1800).translationZ(1.5f).setDuration(2000);
+//        String img = "https://firebasestorage.googleapis.com/v0/b/bigbasket-user.appspot.com/o/logo%2Fnewbblogo.png?alt=media&token=dbdbe2f2-4a5d-4684-a0ca-799b6508fdce";
+//        Picasso.get().load(R.drawable.newbblogo).placeholder(R.drawable.newbblogo).into(imageView);
 
         checkInternet();
 
@@ -60,7 +75,7 @@ public class SplashActivity extends AppCompatActivity {
                         finish();
                     }
                 }
-            }, 1000);
+            }, 5000);
         }
     }
 

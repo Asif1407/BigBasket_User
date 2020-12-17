@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment {
     private CollectionReference upComingRef = database.collection("UpcomingItems");
 
     // Layout
-    private TextView search_bar_Main;
+//    private TextView search_bar_Main;
     private CarouselView carouselView;
     private Button shop_now_button;
 
@@ -77,7 +77,7 @@ public class HomeFragment extends Fragment {
 //      Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, null, false);
 
-        search_bar_Main = view.findViewById(R.id.search_bar_Main);
+//        search_bar_Main = view.findViewById(R.id.search_bar_Main);
 //      Carousel Image from Firebase;
         cList = new ArrayList<>();
         database.collection("Carousel").addSnapshotListener(new EventListener<QuerySnapshot>() {

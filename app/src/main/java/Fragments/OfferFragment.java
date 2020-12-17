@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
@@ -75,7 +76,7 @@ public class OfferFragment extends Fragment {
 
         adapter = new Offer_Adapter(getContext(),mList);
         offerRecyclerView.setHasFixedSize(true);
-        offerRecyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
+        offerRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         offerRecyclerView.setAdapter(adapter);
 
         ref.whereEqualTo("Tag","True").addSnapshotListener(new EventListener<QuerySnapshot>() {

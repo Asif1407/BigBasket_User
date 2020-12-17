@@ -154,8 +154,8 @@ public class AccountFragment extends Fragment {
                 addressEt.setText(documentSnapshot.getString("address"));
                 String pinCode = documentSnapshot.getString("pinCode");
                 pinCodeSpinner.setSelection(Arrays.asList(pinCodeArray).indexOf(pinCode));
-                Log.i("pinCode", pinCode);
-                Log.i("pinCode" ,Arrays.asList(pinCodeArray).indexOf(pinCode)+"");
+//                Log.i("pinCode", pinCode);
+//                Log.i("pinCode" ,Arrays.asList(pinCodeArray).indexOf(pinCode)+"");
                 try {
                     if (!documentSnapshot.getString("profileImage").isEmpty()) {
                         Picasso.get().load(documentSnapshot.getString("profileImage")).placeholder(R.drawable.ic_account).into(profileIv);
