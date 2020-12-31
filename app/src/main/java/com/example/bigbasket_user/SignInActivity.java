@@ -79,8 +79,8 @@ public class SignInActivity extends AppCompatActivity {
 
         mProgressDialog = new ProgressDialog(SignInActivity.this);
         mProgressDialog.setCanceledOnTouchOutside(false);
-// ...
-// Initialize Firebase Auth
+        // ...
+        // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         fstore = FirebaseFirestore.getInstance();
         imageView = findViewById(R.id.imageView);
@@ -89,14 +89,13 @@ public class SignInActivity extends AppCompatActivity {
 
 
         // Configure sign-in to request the user's ID, email address, and basic
-// profile. ID and basic profile are included in DEFAULT_SIGN_IN.
+        // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
 
         SignIn= findViewById(R.id.signin1);
-
 
         // Build a GoogleSignInClient with the options specified by gso.
 
@@ -166,19 +165,15 @@ public class SignInActivity extends AppCompatActivity {
                             movetoUsernameScreen();
                             Toast.makeText(SignInActivity.this,"Signnded in",Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-
                         } else {
                             mProgressDialog.dismiss();
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
-
                         }
-
                     }
                 });
     }
     public void movetoUsernameScreen(){
-
         Intent intent = new Intent(SignInActivity.this,MainActivity.class);
         startActivity(intent);
         finish();

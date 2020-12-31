@@ -3,23 +3,23 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/home_btm"
-        android:icon="@drawable/home_bubble"
+        android:icon="@mipmap/ic_home_bubble"
         android:title="Home" />
     <item
         android:id="@+id/categories_btm"
-        android:icon="@drawable/category_bubble"
+        android:icon="@mipmap/ic_category_bubble"
         android:title="Categories" />
     <item
         android:id="@+id/offers_btm"
-        android:icon="@drawable/offer_no_bubble"
+        android:icon="@mipmap/ic_offer_nav_bar"
         android:title="Offers" />
 
     <item
         android:id="@+id/history_btm"
-        android:icon="@drawable/search_bubble"
-        android:title="History"/>
+        android:icon="@mipmap/ic_search_bubble"
+        android:title="Search"/>
     <item
         android:id="@+id/accounts_btm"
-        android:icon="@drawable/account_bubble"
+        android:icon="@mipmap/ic_account_bubble"
         android:title="Accounts" />
 </menu>
