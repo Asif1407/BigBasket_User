@@ -33,7 +33,7 @@ public class UpcomingAdapter extends RecyclerView.Adapter<UpcomingAdapter.ViewHo
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // inflate the item Layout
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_adapter, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.upcoming_item_card, parent, false);
         // set the view's size, margins, padding and layout parameters.
 
         UpcomingAdapter.ViewHolder vh = new UpcomingAdapter.ViewHolder(v); // pass the view to View Holder
@@ -45,6 +45,7 @@ public class UpcomingAdapter extends RecyclerView.Adapter<UpcomingAdapter.ViewHo
         Item item = (Item) upComingItemList.get(position);
 
         Picasso.get().load(item.getImageUrl()).into(holder.imageView);
+        holder.upcomingItemTitle.setText(item.getTitle());
     }
 
     @Override
@@ -56,13 +57,14 @@ public class UpcomingAdapter extends RecyclerView.Adapter<UpcomingAdapter.ViewHo
 
         ImageView imageView;
         CardView cardView;
+        TextView upcomingItemTitle;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             imageView =itemView.findViewById(R.id.item_image);
-            // Card View
             cardView = itemView.findViewById(R.id.cardView);
+            upcomingItemTitle = itemView.findViewById(R.id.upcomingTitleTv);
         }
     }
 }

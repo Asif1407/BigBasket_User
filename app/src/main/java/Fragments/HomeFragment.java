@@ -187,7 +187,7 @@ public class HomeFragment extends Fragment {
 
         adapter = new TrendingItemsAdapter(getContext(), mList);
         trendingRecyclerView.setHasFixedSize(true);
-        trendingRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+        trendingRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(),2));
         trendingRecyclerView.setAdapter(adapter);
     }
 }
