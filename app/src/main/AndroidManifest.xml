@@ -16,22 +16,31 @@
         android:roundIcon="@mipmap/ic_green_tokri"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NoInternetActivity"></activity>
-        <activity android:name=".DeliveredItemsActivity" />
-        <activity android:name=".SplashActivity">
+        <activity android:name=".NoInternetActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".DeliveredItemsActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ItemDetailActivity" />
-        <activity android:name=".PaymentModeActivity" />
-        <activity android:name=".ConfirmOrderActivity" />
-        <activity android:name=".SignInActivity" />
-        <activity android:name=".CartActivity" />
+        <activity android:name=".ItemDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".PaymentModeActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ConfirmOrderActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".SignInActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".CartActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:screenOrientation="portrait"></activity>
 
         <meta-data
             android:name="preloaded_fonts"

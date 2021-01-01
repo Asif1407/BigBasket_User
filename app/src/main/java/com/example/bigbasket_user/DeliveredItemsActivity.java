@@ -62,36 +62,14 @@ public class DeliveredItemsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivered_items);
 
-        id = getIntent().getStringExtra("timeStamp");
-
-        toolbar = findViewById(R.id.toolbarMain);
+        init();
         setSupportActionBar(toolbar);
-
-        fstore = FirebaseFirestore.getInstance();
-        mAuth = FirebaseAuth.getInstance();
-
-        orderidTv = findViewById(R.id.orderidTv);
-        nameTv = findViewById(R.id.nameTV);
-        numberTv = findViewById(R.id.numberTV);
-        addressTv = findViewById(R.id.addressTV);
-        transactionIdTv = findViewById(R.id.transactionIdTV);
-        dateTv = findViewById(R.id.dateTV);
-        orderStatusTv = findViewById(R.id.orderStatusTV);
-        paymentStatusTv = findViewById(R.id.paymentStatusTV);
-        paymentModeTv = findViewById(R.id.paymentModeTV);
-        totalAmountTv = findViewById(R.id.totalAmountTV);
-        itemListRv = findViewById(R.id.itemListRV);
-        pdfBtn = findViewById(R.id.pdfBtn);
-
         loadData(id);
+        buttonOnClick();
+        DeliveryItemAdapter();
+    }
 
-        pdfBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                formPdf();
-            }
-        });
-
+    private void DeliveryItemAdapter() {
         orderList = new ArrayList<>();
         adapterItemList = new AdapterItemList(this, orderList);
 
@@ -108,6 +86,37 @@ public class DeliveredItemsActivity extends AppCompatActivity {
                 });
         itemListRv.setHasFixedSize(true);
         itemListRv.setAdapter(adapterItemList);
+    }
+
+    private void buttonOnClick() {
+        pdfBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                formPdf();
+            }
+        });
+    }
+
+    private void init() {
+        //intent extra data
+        id = getIntent().getStringExtra("timeStamp");
+        //init firestore
+        fstore = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        //init views
+        orderidTv = findViewById(R.id.orderidTv);
+        nameTv = findViewById(R.id.nameTV);
+        numberTv = findViewById(R.id.numberTV);
+        addressTv = findViewById(R.id.addressTV);
+        transactionIdTv = findViewById(R.id.transactionIdTV);
+        dateTv = findViewById(R.id.dateTV);
+        orderStatusTv = findViewById(R.id.orderStatusTV);
+        paymentStatusTv = findViewById(R.id.paymentStatusTV);
+        paymentModeTv = findViewById(R.id.paymentModeTV);
+        totalAmountTv = findViewById(R.id.totalAmountTV);
+        itemListRv = findViewById(R.id.itemListRV);
+        pdfBtn = findViewById(R.id.pdfBtn);
+        toolbar = findViewById(R.id.toolbarMain);
     }
 
     private void formPdf() {

@@ -55,7 +55,7 @@
             <com.blogspot.atifsoftwares.circularimageview.CircularImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:src="@drawable/newbblogo"
+                android:src="@mipmap/newbblogo"
                 android:layout_gravity="center"/>
 
             <TextView

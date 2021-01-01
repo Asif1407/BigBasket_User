@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +49,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private TextView transactionIdTv, paymentStatusTV, amountTV, transactionTV;
+    private Button continueShopping;
     String transactionID, totalPrice;
 
     FirebaseAuth mAuth;
@@ -59,24 +61,35 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_confirm_order);
 
-        transactionID = getIntent().getStringExtra("transactionID");
-        totalPrice = getIntent().getStringExtra("totalPrice");
+        init();
+        progressDialog();
+        checkTransactionId();
 
-        mAuth = FirebaseAuth.getInstance();
-        fstore = FirebaseFirestore.getInstance();
-
-        toolbar = findViewById(R.id.toolbarMain);
-        transactionIdTv = findViewById(R.id.transactionIdTV);
-        paymentStatusTV = findViewById(R.id.paymentStatusTV);
-        amountTV = findViewById(R.id.amountTV);
-        transactionTV = findViewById(R.id.transactionTV);
-
-        mProgressDialog = new ProgressDialog(this);
-        mProgressDialog.setTitle("Please wait");
-        mProgressDialog.setCanceledOnTouchOutside(false);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
 
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.homeBtn:
+                        startActivity(new Intent(ConfirmOrderActivity.this, MainActivity.class));
+                        finish();
+                }
+                return true;
+            }
+        });
+
+        continueShopping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ConfirmOrderActivity.this, MainActivity.class));
+                finish();
+            }
+        });
+    }
+
+    private void checkTransactionId() {
         if (transactionID != null) {
             transactionIdTv.setVisibility(View.VISIBLE);
             transactionTV.setVisibility(View.VISIBLE);
@@ -90,21 +103,29 @@ public class ConfirmOrderActivity extends AppCompatActivity {
             paymentStatusTV.setText("Unpaid (COD)");
             amountTV.setText("₹" + totalPrice);
             loadData(transactionID, totalPrice);
-
         }
+    }
 
+    private void progressDialog() {
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setTitle("Please wait");
+        mProgressDialog.setCanceledOnTouchOutside(false);
+    }
 
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.homeBtn:
-                        startActivity(new Intent(ConfirmOrderActivity.this, MainActivity.class));
-                        finish();
-                }
-                return true;
-            }
-        });
+    private void init() {
+        //intent extra data
+        transactionID = getIntent().getStringExtra("transactionID");
+        totalPrice = getIntent().getStringExtra("totalPrice");
+        //init firebase
+        mAuth = FirebaseAuth.getInstance();
+        fstore = FirebaseFirestore.getInstance();
+        //init views
+        toolbar = findViewById(R.id.toolbarMain);
+        transactionIdTv = findViewById(R.id.transactionIdTV);
+        paymentStatusTV = findViewById(R.id.paymentStatusTV);
+        amountTV = findViewById(R.id.amountTV);
+        transactionTV = findViewById(R.id.transactionTV);
+        continueShopping = findViewById(R.id.continueShopping);
     }
 
     private void loadData(final String transactionID, final String totalPrice) {
@@ -210,9 +231,6 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                                     Log.d("Items", items+"");
                                 }
                             });
-
-//                    fstore.collection("Cart").document(mAuth.getUid()).collection("newItems")
-//                            .document(title).delete();
 
                 }
                 mProgressDialog.dismiss();

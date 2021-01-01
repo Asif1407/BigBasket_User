@@ -55,9 +55,7 @@ public class HistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_history, container, false);
 
-        historyRV = view.findViewById(R.id.historyRV);
-        fstore = FirebaseFirestore.getInstance();
-        mAuth = FirebaseAuth.getInstance();
+        init(view);
         orderList = new ArrayList<>();
         adapterHistory = new HistoryAdapter(getContext(), orderList);
 
@@ -77,6 +75,14 @@ public class HistoryFragment extends Fragment {
         historyRV.setAdapter(adapterHistory);
 
         return view;
+    }
+
+    private void init(View view) {
+        //init view
+        historyRV = view.findViewById(R.id.historyRV);
+        //init firebase
+        fstore = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
     }
 
 }
