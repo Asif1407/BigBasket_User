@@ -85,7 +85,7 @@ public class SignInActivity extends AppCompatActivity {
         fstore = FirebaseFirestore.getInstance();
         imageView = findViewById(R.id.imageView);
         String img = "https://firebasestorage.googleapis.com/v0/b/bigbasket-user.appspot.com/o/logo%2Fnewbblogo.png?alt=media&token=dbdbe2f2-4a5d-4684-a0ca-799b6508fdce";
-        Picasso.get().load(img).placeholder(R.drawable.newbblogo).into(imageView);
+        Picasso.get().load(img).placeholder(R.mipmap.newbblogo).into(imageView);
 
 
         // Configure sign-in to request the user's ID, email address, and basic

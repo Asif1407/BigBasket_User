@@ -120,6 +120,16 @@
 
         </TableRow>
 
+        <Button
+            android:id="@+id/continueShopping"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Continue Shopping"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorWhite"
+            android:textSize="18dp"
+            android:layout_marginTop="10dp"/>
+
     </TableLayout>
 
 </RelativeLayout>

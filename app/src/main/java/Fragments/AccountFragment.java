@@ -102,27 +102,12 @@ public class AccountFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_account, container, false);
 
-        //init database
-        mAuth = FirebaseAuth.getInstance();
-        fstore = FirebaseFirestore.getInstance();
-        //init views
-        profileIv = view.findViewById(R.id.profileImage);
-        nameEt = view.findViewById(R.id.nameEt);
-        phoneEt = view.findViewById(R.id.phoneEt);
-        addressEt = view.findViewById(R.id.addressEt);
-        pinCodeSpinner = view.findViewById(R.id.pinCodeSpinner);
-        saveBtn = view.findViewById(R.id.saveBtn);
+        init(view);
+
         pinCodeArray = new String[]{"491001", "490020", "490006", "490001", "490009", "490022", "490023", "490029"};
         pinCodeAreaArray = new String[]{"491001(Durg city)", "490020(Nehru Nagar)", "490006(Risali)", "490001 (Adarsh Nagar)", "490009 (Hudco)", "490022 (Jawahar Nagar)", "490023 (Supela)", "490029 (Surya Vihar)"};
         spinnerAdapter = new ArrayAdapter<>(this.getActivity(), R.layout.support_simple_spinner_dropdown_item, pinCodeAreaArray);
         pinCodeSpinner.setAdapter(spinnerAdapter);
-        //init progress dialog
-        mProgressDialog = new ProgressDialog(getActivity());
-        mProgressDialog.setTitle("Please wait");
-        mProgressDialog.setCanceledOnTouchOutside(false);
-        //init permission array
-        cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-        storagePermission = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
         loadDetails();
         //proile image view click listener
@@ -143,6 +128,32 @@ public class AccountFragment extends Fragment {
         return view;
     }
 
+    private void init(View view) {
+        //init database
+        mAuth = FirebaseAuth.getInstance();
+        fstore = FirebaseFirestore.getInstance();
+        //init views
+        profileIv = view.findViewById(R.id.profileImage);
+        nameEt = view.findViewById(R.id.nameEt);
+        phoneEt = view.findViewById(R.id.phoneEt);
+        addressEt = view.findViewById(R.id.addressEt);
+        pinCodeSpinner = view.findViewById(R.id.pinCodeSpinner);
+        saveBtn = view.findViewById(R.id.saveBtn);
+        //init progress dialog
+        mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setTitle("Please wait");
+        mProgressDialog.setCanceledOnTouchOutside(false);
+        //init permission array
+        cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        storagePermission = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};//init progress dialog
+        mProgressDialog = new ProgressDialog(getActivity());
+        mProgressDialog.setTitle("Please wait");
+        mProgressDialog.setCanceledOnTouchOutside(false);
+        //init permission array
+        cameraPermission = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        storagePermission = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    }
+
     private void loadDetails() {
 
         DocumentReference docRef = fstore.collection("Users").document(mAuth.getUid());
@@ -154,14 +165,10 @@ public class AccountFragment extends Fragment {
                 addressEt.setText(documentSnapshot.getString("address"));
                 String pinCode = documentSnapshot.getString("pinCode");
                 pinCodeSpinner.setSelection(Arrays.asList(pinCodeArray).indexOf(pinCode));
-//                Log.i("pinCode", pinCode);
-//                Log.i("pinCode" ,Arrays.asList(pinCodeArray).indexOf(pinCode)+"");
                 try {
                     if (!documentSnapshot.getString("profileImage").isEmpty()) {
                         Picasso.get().load(documentSnapshot.getString("profileImage")).placeholder(R.drawable.ic_account).into(profileIv);
-//                        image_uri= Uri.parse(documentSnapshot.getString("profileImage"));
                         image_uri = Uri.parse(documentSnapshot.getString("profileImage"));
-//                        Log.i("ImageXyz", image_uri+"");
                     } else {
                         Picasso.get().load(R.drawable.ic_account).placeholder(R.drawable.ic_account).into(profileIv);
                     }

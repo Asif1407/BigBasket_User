@@ -31,27 +31,32 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        init();
+        animation();
+        String img = "https://firebasestorage.googleapis.com/v0/b/bigbasket-user.appspot.com/o/logo%2Fnewbblogo.png?alt=media&token=dbdbe2f2-4a5d-4684-a0ca-799b6508fdce";
+        Picasso.get().load(R.mipmap.newbblogo).placeholder(R.mipmap.newbblogo).into(imageView);
+
+        checkInternet();
+    }
+
+    private void animation() {
+        bananaIv.setX(-500);
+        bananaIv.animate().translationXBy(250).setDuration(2500);
+        avocadoIv.setX(-500);
+        avocadoIv.animate().translationXBy(250).setDuration(2500);
+        cabbageIv.setX(1000);
+        cabbageIv.animate().translationXBy(-250).setDuration(2500);
+        grapesIv.setX(1000);
+        grapesIv.animate().translationXBy(-250).setDuration(2500);
+        imageView.animate().rotation(1800).translationZ(1.5f).setDuration(2000);
+    }
+
+    private void init() {
         imageView = findViewById(R.id.imageView);
         bananaIv = findViewById(R.id.bananaIV);
         grapesIv = findViewById(R.id.grapesIV);
         avocadoIv = findViewById(R.id.avocadoIV);
         cabbageIv =findViewById(R.id.cabbageIV);
-//        imageView.setX(-1000);
-        bananaIv.setX(-600);
-        bananaIv.animate().translationXBy(250).setDuration(5000);
-        avocadoIv.setX(-600);
-        avocadoIv.animate().translationXBy(250).setDuration(5000);
-        cabbageIv.setX(1200);
-        cabbageIv.animate().translationXBy(-250).setDuration(5000);
-        grapesIv.setX(1200);
-        grapesIv.animate().translationXBy(-250).setDuration(5000);
-
-        imageView.animate().rotation(1800).translationZ(1.5f).setDuration(2000);
-//        String img = "https://firebasestorage.googleapis.com/v0/b/bigbasket-user.appspot.com/o/logo%2Fnewbblogo.png?alt=media&token=dbdbe2f2-4a5d-4684-a0ca-799b6508fdce";
-//        Picasso.get().load(R.drawable.newbblogo).placeholder(R.drawable.newbblogo).into(imageView);
-
-        checkInternet();
-
         mAuth = FirebaseAuth.getInstance();
     }
 
@@ -75,7 +80,7 @@ public class SplashActivity extends AppCompatActivity {
                         finish();
                     }
                 }
-            }, 5000);
+            }, 3000);
         }
     }
 

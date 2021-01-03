@@ -77,26 +77,16 @@ public class CartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
 
-        //init views
-        cartItemRv = findViewById(R.id.cartItemRV);
-        grandTotal = findViewById(R.id.grandTotalTV);
-        placeOrder = findViewById(R.id.placeOrder);
-        cartIsEmpty = findViewById(R.id.cartIsEmpty);
-        detailCost = findViewById(R.id.detailCost);
-        detailDelivery = findViewById(R.id.detailDelivery);
-        acceptOrders = findViewById(R.id.acceptOrder);
-        detailTotal = findViewById(R.id.detailTotal);
-        table = findViewById(R.id.table);
-        RL = findViewById(R.id.RL);
-        //init firebase
-        mAuth = FirebaseAuth.getInstance();
-        fstore = FirebaseFirestore.getInstance();
-        cartRefrence = fstore.collection("Cart").document(mAuth.getUid()).collection("newItems");
-        //init progress dialog
-        mProgressDialog = new ProgressDialog(this);
-        mProgressDialog.setTitle("Please wait");
-        mProgressDialog.setCanceledOnTouchOutside(false);
 
+        init();
+        progressBar();
+        cartRefrence = fstore.collection("Cart").document(mAuth.getUid()).collection("newItems");
+        AcceptOrderCheck();
+        loadCartItems();
+        buttonOnClick();
+    }
+
+    private void AcceptOrderCheck() {
         fstore.collection("OrderOptions").document("QGWvyuszvUl3ipn3FFRh")
                 .addSnapshotListener(new EventListener<DocumentSnapshot>() {
                     @Override
@@ -105,8 +95,16 @@ public class CartActivity extends AppCompatActivity {
                         Log.d("AcceptOrder", acceptOrder[0]);
                     }
                 });
+    }
 
-        loadCartItems();
+    private void progressBar() {
+        //init progress dialog
+        mProgressDialog = new ProgressDialog(this);
+        mProgressDialog.setTitle("Please wait");
+        mProgressDialog.setCanceledOnTouchOutside(false);
+    }
+
+    private void buttonOnClick() {
         placeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,7 +112,7 @@ public class CartActivity extends AppCompatActivity {
                     @Override
                     public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
                         if (documentSnapshot.exists() ) {
-                            if (isConnected(CartActivity.this)) {
+                            if (isConnected()) {
                                 Intent intent = new Intent(CartActivity.this, PaymentModeActivity.class);
                                 intent.putExtra("totalPrice", sum + "");
                                 startActivity(intent);
@@ -133,7 +131,24 @@ public class CartActivity extends AppCompatActivity {
         });
     }
 
-    private boolean isConnected(CartActivity cartActivity) {
+    private void init() {
+        //init views
+        cartItemRv = findViewById(R.id.cartItemRV);
+        grandTotal = findViewById(R.id.grandTotalTV);
+        placeOrder = findViewById(R.id.placeOrder);
+        cartIsEmpty = findViewById(R.id.cartIsEmpty);
+        detailCost = findViewById(R.id.detailCost);
+        detailDelivery = findViewById(R.id.detailDelivery);
+        acceptOrders = findViewById(R.id.acceptOrder);
+        detailTotal = findViewById(R.id.detailTotal);
+        table = findViewById(R.id.table);
+        RL = findViewById(R.id.RL);
+        //init firebase
+        mAuth = FirebaseAuth.getInstance();
+        fstore = FirebaseFirestore.getInstance();
+    }
+
+    private boolean isConnected() {
         ConnectivityManager connectivityManager = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
         if (activeNetwork!=null) {

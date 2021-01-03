@@ -20,7 +20,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:layout_marginBottom="20dp"
-        android:src="@drawable/newbblogo" />
+        android:src="@mipmap/newbblogo" />
 
     <TextView
         android:id="@+id/text"

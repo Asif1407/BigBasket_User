@@ -37,20 +37,30 @@ public class PaymentModeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_mode);
 
-        totalPrice = getIntent().getStringExtra("totalPrice");
-        Log.d("PayPrice", totalPrice+" !!");
-
-        radioGroup = findViewById(R.id.radioGroup);
-        cartTotalTV = findViewById(R.id.cartTotal);
-        placrOrderBtn = findViewById(R.id.placeOrder);
-
-        toolbar = findViewById(R.id.toolbarMain);
+        init();
         setSupportActionBar(toolbar);
         // As we don't want to go back from here. And we have already given the title.
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-
         cartTotalTV.setText("₹"+totalPrice);
+        buttonOnClick();
 
+    }
+
+    private void buttonOnClick() {
+
+    }
+
+    private void init() {
+        //intent extra data
+        totalPrice = getIntent().getStringExtra("totalPrice");
+        //init views
+        radioGroup = findViewById(R.id.radioGroup);
+        cartTotalTV = findViewById(R.id.cartTotal);
+        placrOrderBtn = findViewById(R.id.placeOrder);
+        toolbar = findViewById(R.id.toolbarMain);
+    }
+
+    public void checkButton(View v) {
         placrOrderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,11 +80,6 @@ public class PaymentModeActivity extends AppCompatActivity {
                 }
             }
         });
-
-    }
-
-    public void checkButton(View v) {
-
     }
 
     private void payUsingUpi(String amount, String name) {
