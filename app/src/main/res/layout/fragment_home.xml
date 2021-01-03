@@ -9,7 +9,7 @@
         android:id="@+id/search_bar_Main"
         android:layout_width="match_parent"
         android:layout_height="24dp"
-        android:text="Next Arrivals at 0600 hours"
+        android:text="New Arrivals tomorrow at 7:00 AM"
         android:gravity="center"
         android:textSize="12dp"/>
 
@@ -23,9 +23,9 @@
             android:layout_height="wrap_content">
 
             <com.airbnb.lottie.LottieAnimationView
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="2dp"
                 android:layout_width="240dp"
-                android:layout_height="120dp"
+                android:layout_height="100dp"
                 app:lottie_rawRes="@raw/delivery"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
@@ -36,11 +36,11 @@
 
             <TextView
                 android:id="@+id/text"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="2dp"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:text="Fast and Safe Delivery"
-                android:textSize="32sp"
+                android:layout_height="100dp"
+                android:text="Fast and Safe \nDelivery"
+                android:textSize="26sp"
                 android:textStyle="bold"
                 android:background="@color/colorPrimary"
                 android:layout_toRightOf="@+id/lottie_layer_name"
@@ -67,7 +67,7 @@
                 android:background="@drawable/circular_button"
                 android:gravity="center"
                 android:padding="5dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="5dp"
                 android:fontFamily="@font/averia_gruesa_libre"
                 android:text="Select from wide variety"
@@ -75,48 +75,119 @@
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
-                <ImageView
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_marginStart="120dp"
-                    android:id="@+id/fruitCardView"
-                    android:src="@drawable/fruit_cardview"
-                    android:layout_below="@id/buyItemsTv" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/home_items_layout"
+                    android:layout_below="@+id/buyItemsTv">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/fruitCardView"
-                android:text="Fruits"
-                android:layout_marginStart="140dp"/>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="64dp"
+                        android:layout_gravity="center">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="4dp"
+                            android:layout_margin="4dp"
+                            android:background="#cae4db">
+
+                            <ImageView
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
+                                android:src="@drawable/veg_cardview"
+                                android:layout_gravity="center"
+                                android:padding="2dp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Vegetables"
+                                android:layout_marginTop="4dp"
+                                android:layout_gravity="center"/>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="172dp"
+                        android:layout_gravity="center">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="4dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="4dp"
+                            android:background="#cae4db">
+
+                            <ImageView
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
+                                android:src="@drawable/fruit_cardview"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Fruits"
+                                android:layout_marginTop="4dp"
+                                android:layout_gravity="center"/>
 
 
-                <ImageView
-                    android:layout_width="72dp"
-                    android:layout_height="80dp"
-                    android:layout_marginStart="40dp"
-                    android:id="@+id/vegetableCardView"
-                    android:src="@drawable/veg_cardview"
-                    android:layout_below="@id/buyItemsTv"
-                    android:layout_toRightOf="@id/fruitCardView"/>
+                        </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/fruitCardView"
-                android:text="Vegetables"
-                android:layout_marginStart="240dp"/>
+                    </androidx.cardview.widget.CardView>
 
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="274dp"
+                        android:layout_gravity="center">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="4dp"
+                            android:layout_margin="4dp"
+                            android:background="#cae4db">
+
+                            <ImageView
+                                android:layout_width="64dp"
+                                android:layout_height="64dp"
+                                android:src="@drawable/dry_fruits_cardview"
+                                android:layout_gravity="center"
+                                android:padding="2dp"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Dry Fruits"
+                                android:layout_marginTop="4dp"
+                                android:layout_gravity="center"/>
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                </RelativeLayout>
 
             <TextView
                 android:id="@+id/trendingItems"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/fruitCardView"
+                android:layout_below="@+id/home_items_layout"
                 android:background="@drawable/circular_button"
                 android:gravity="center"
                 android:padding="5dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="5dp"
                 android:fontFamily="@font/averia_gruesa_libre"
                 android:text="Trending Items"
@@ -129,7 +200,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/trendingItems"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_margin="8dp"
                 android:nestedScrollingEnabled="false"
                 android:scrollbars="vertical" />
 
@@ -141,7 +213,7 @@
                 android:background="@drawable/circular_button"
                 android:gravity="center"
                 android:padding="5dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="5dp"
                 android:fontFamily="@font/averia_gruesa_libre"
                 android:text="Upcoming Items"
@@ -154,7 +226,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/upComingItems"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
+                android:layout_margin="8dp"
                 android:nestedScrollingEnabled="false"
                 android:scrollbars="vertical" />
 
