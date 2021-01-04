@@ -45,40 +45,46 @@ import DataModels.Item;
 
 public class HomeFragment extends Fragment {
 
+    // Main Screen of the App. Two RV, Carousel.
+
+    // Firebase Setup.
+    final private FirebaseFirestore database = FirebaseFirestore.getInstance();
+    final private CollectionReference ref = database.collection("Trending");
+    final private CollectionReference upComingRef = database.collection("UpcomingItems");
+
+    // List for Carousel Images.
+    public ArrayList<String> cList;
+
     // For Trending Item Adapter.
     List<Item> mList = new ArrayList<>();
     TrendingItemsAdapter adapter;
 
-    // Firebase
-    private FirebaseFirestore database = FirebaseFirestore.getInstance();
-    private CollectionReference ref = database.collection("Trending");
-
     // For UpComing Items Adapter.
-    private RecyclerView upComingRecyclerView;
     List<Item> upComingList = new ArrayList<>();
     UpcomingAdapter upComingAdapter;
 
-    // Firebase
-    private CollectionReference upComingRef = database.collection("UpcomingItems");
-
-    // Layout
-//    private TextView search_bar_Main;
+    // Declaration of XML views.
     private CarouselView carouselView;
-    private Button shop_now_button;
-
     private RecyclerView trendingRecyclerView;
-
-    final int[] sampleImages = {R.drawable.vege, R.drawable.fruit, R.drawable.fssai, R.drawable.carouselone};
-    public ArrayList<String> cList;
+    private RecyclerView upComingRecyclerView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-//      Inflate the layout for this fragment
+        //Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, null, false);
 
-//        search_bar_Main = view.findViewById(R.id.search_bar_Main);
-//      Carousel Image from Firebase;
+        Init(view);
+        SetUpCarousel(view);
+
+        //Calling Various Functions here.
+        setUpTrending();
+        UpcomingItems();
+        return view;
+    }
+
+    private void SetUpCarousel(View view) {
+        // Getting Data from Firebase.
         cList = new ArrayList<>();
         database.collection("Carousel").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -95,30 +101,27 @@ public class HomeFragment extends Fragment {
                 }
             }
         });
-//      FOR carousel View
-//        carouselView.setPageCount(sampleImages.length);
-        carouselView = view.findViewById(R.id.carouselView);
+
+        // Setting the Images to Carousel View.
         carouselView.setImageListener(new ImageListener() {
             @Override
             public void setImageForPosition(final int position, final ImageView imageView) {
-            Glide.with(getContext())
-                    .asBitmap()
-                    .load(cList.get(position))
-//                    .load(sampleImages[position])
-                    .into(new CustomTarget<Bitmap>() {
-                        @Override
-                        public void onResourceReady(@Nullable Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                            imageView.setImageBitmap(resource);
-                        }
+                Glide.with(getContext())
+                        .asBitmap()
+                        .load(cList.get(position))
+                        .into(new CustomTarget<Bitmap>() {
+                            @Override
+                            public void onResourceReady(@Nullable Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                imageView.setImageBitmap(resource);
+                            }
 
-                        @Override
-                        public void onLoadCleared(@Nullable Drawable placeholder) {
+                            @Override
+                            public void onLoadCleared(@Nullable Drawable placeholder) {
 
-                        }
+                            }
 
-                    });
+                        });
 
-//                Picasso.get().load(cList.get(position)).into(imageView);
                 carouselView.setImageClickListener(new ImageClickListener() {
                     @Override
                     public void onClick(int position) {
@@ -127,19 +130,17 @@ public class HomeFragment extends Fragment {
                 });
             }
         });
-//      For RecyclerView of Trending Items.
-        trendingRecyclerView = view.findViewById(R.id.trendingRecyclerView);
-
-//      Calling Various Functions here.
-        setUpTrendingItemAdapter(view.getContext());
-
-        //UpcomingItem Implementation.
-        upComingRecyclerView = view.findViewById(R.id.upComingRecyclerView);
-        upcomingItems();
-        return view;
     }
 
-    private void upcomingItems() {
+    private void Init(View v) {
+        carouselView = v.findViewById(R.id.carouselView);
+        // For RecyclerView of Trending Items.
+        trendingRecyclerView = v.findViewById(R.id.trendingRecyclerView);
+        //UpcomingItem Implementation.
+        upComingRecyclerView = v.findViewById(R.id.upComingRecyclerView);
+    }
+
+    private void UpcomingItems() {
         // Sending Data to Adapter.
         upComingRef.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -165,8 +166,7 @@ public class HomeFragment extends Fragment {
         upComingRecyclerView.setAdapter(upComingAdapter);
     }
 
-    private void setUpTrendingItemAdapter(Context context) {
-
+    private void setUpTrending() {
         ref.whereEqualTo("Tag", "True").addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@androidx.annotation.Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {

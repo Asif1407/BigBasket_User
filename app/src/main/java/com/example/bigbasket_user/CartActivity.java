@@ -69,14 +69,11 @@ public class CartActivity extends AppCompatActivity {
     final String[] acceptOrder = {"a"};
     private CollectionReference cartRefrence;
     int sum = 0;
-    private String name = "", phone = "", address = "";
-    private String abc = "Pratik";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart);
-
 
         init();
         progressBar();
