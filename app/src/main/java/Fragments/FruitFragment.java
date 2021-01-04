@@ -34,7 +34,7 @@ import DataModels.Item;
 public class FruitFragment extends Fragment {
 
     // Layouts
-    private RecyclerView recyclerViewVegetable;
+    private RecyclerView recyclerViewFruit;
     private ArrayList<Item> mList;
     private Item_Adapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
@@ -52,24 +52,16 @@ public class FruitFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_vegetable, container, false);
+        View view = inflater.inflate(R.layout.fragment_fruit, container, false);
 
+        Init(view);
         addDataToList();
+        InitRV(view);
+        SwipeRefresh();
+        return view;
+    }
 
-        swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
-
-        recyclerViewVegetable = view.findViewById(R.id.recyclerViewVegetable);
-        mList = new ArrayList<>();
-        adapter = new Item_Adapter(getContext(),mList);
-
-        recyclerViewVegetable.setHasFixedSize(true);
-        recyclerViewVegetable.setLayoutManager(new GridLayoutManager(view.getContext(),2));
-
-        // Adding Already Existed data.
-        adapter.insertData(mList);
-
-        recyclerViewVegetable.setAdapter(adapter);
-
+    private void SwipeRefresh() {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -88,8 +80,24 @@ public class FruitFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+    }
 
-        return view;
+    private void InitRV(View view) {
+        mList = new ArrayList<>();
+        adapter = new Item_Adapter(getContext(),mList);
+
+        recyclerViewFruit.setHasFixedSize(true);
+        recyclerViewFruit.setLayoutManager(new GridLayoutManager(view.getContext(),2));
+
+        // Adding Already Existed data.
+        adapter.insertData(mList);
+
+        recyclerViewFruit.setAdapter(adapter);
+    }
+
+    private void Init(View view) {
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
+        recyclerViewFruit = view.findViewById(R.id.recyclerViewFruits);
     }
 
     private void addDataToList() {

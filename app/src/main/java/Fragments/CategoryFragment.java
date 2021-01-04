@@ -37,10 +37,11 @@ import DataModels.Offers;
 
 public class CategoryFragment extends Fragment {
 
-    private ViewPager main_TabPager;
-    private TabLayout main_Tabs;
+    ViewPager main_TabPager;
+    TabLayout main_Tabs;
 
-    private SectionPagerClass sectionPagerClass;
+    // A Adapter to change the Fragments according to Swipes.
+    SectionPagerClass sectionPagerClass;
 
     public CategoryFragment() {
         // Required empty public constructor
@@ -51,16 +52,19 @@ public class CategoryFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_category, container, false);
+
+        Init(view);
+        return (view);
+    }
+
+    private void Init(View view) {
         main_TabPager= (ViewPager) view.findViewById(R.id.main_TabPager);
         main_Tabs= (TabLayout) view.findViewById(R.id.main_Tabs);
 
-
-       sectionPagerClass = new SectionPagerClass(getActivity().getSupportFragmentManager());
-
-       // to link the TabLayout to the ViewPager
+        sectionPagerClass = new SectionPagerClass(getActivity().getSupportFragmentManager());
+        // to link the TabLayout to the ViewPager
         main_Tabs.setupWithViewPager(main_TabPager);
-
+        // Adapter to change the Fragments.
         main_TabPager.setAdapter(sectionPagerClass);
-        return (view);
     }
 }
