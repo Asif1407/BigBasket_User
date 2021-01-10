@@ -175,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btm_navigation.setItemIconTintList(null);
         btm_navigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
