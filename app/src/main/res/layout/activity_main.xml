@@ -44,10 +44,9 @@
              android:layout_gravity="bottom"
              app:menu="@menu/menu_bottom"
              app:labelVisibilityMode="unlabeled"
-             app:itemIconSize="48dp"
-             android:background="@color/colorPrimary"/>
+             app:itemIconSize="36dp"
+             android:background="?android:attr/windowBackground"/>
 
-<!--         ?android:attr/windowBackground-->
 
       </com.google.android.material.appbar.AppBarLayout>
 

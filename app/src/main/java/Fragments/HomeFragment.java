@@ -2,6 +2,7 @@ package Fragments;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
@@ -112,6 +113,7 @@ public class HomeFragment extends Fragment {
                         .into(new CustomTarget<Bitmap>() {
                             @Override
                             public void onResourceReady(@Nullable Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                                 imageView.setImageBitmap(resource);
                             }
 

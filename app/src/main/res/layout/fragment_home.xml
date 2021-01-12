@@ -57,7 +57,8 @@
                 app:slideInterval="3000"
                 app:strokeColor="#FF777777"
                 app:strokeWidth="1dp"
-                android:layout_below="@+id/lottie_layer_name"/>
+                android:layout_below="@+id/lottie_layer_name"
+                android:adjustViewBounds="true" />
 
             <TextView
                 android:id="@+id/buyItemsTv"

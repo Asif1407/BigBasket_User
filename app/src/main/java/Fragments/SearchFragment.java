@@ -80,6 +80,14 @@ public class SearchFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(adapter);
 
+        searchText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // This will start the search.
+                searchText.onActionViewExpanded();
+            }
+        });
+
         searchText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -98,6 +106,7 @@ public class SearchFragment extends Fragment {
                 return true;
             }
         });
+
         return view;
     }
 
