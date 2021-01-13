@@ -28,15 +28,15 @@ import DataModels.Item;
 
 public class OtherFragment extends Fragment {
 
+    // Firebase
+    private FirebaseFirestore database = FirebaseFirestore.getInstance();
+    private CollectionReference ref = database.collection("Others");
+
     // Layouts
     private RecyclerView recyclerViewOther;
     private ArrayList<Item> mList;
     private Item_Adapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
-
-    // Firebase
-    private FirebaseFirestore database = FirebaseFirestore.getInstance();
-    private CollectionReference ref = database.collection("Others");
 
     public OtherFragment() {
         // Required empty public constructor
@@ -48,14 +48,15 @@ public class OtherFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_other, container, false);
 
+        Init(view);
         addDataToList();
+        InitRV(view);
+        return view;
+    }
 
-        swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
-        recyclerViewOther = view.findViewById(R.id.recyclerViewOther);
+    private void InitRV(View view) {
         mList = new ArrayList<>();
         adapter = new Item_Adapter(getContext(),mList);
-
-
         recyclerViewOther.setHasFixedSize(true);
         recyclerViewOther.setLayoutManager(new GridLayoutManager(view.getContext(),2));
 
@@ -72,6 +73,7 @@ public class OtherFragment extends Fragment {
                 ref.addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
                         for (QueryDocumentSnapshot snapshot:value){
                             Item item = snapshot.toObject(Item.class);
                             updated.add(item);
@@ -82,14 +84,18 @@ public class OtherFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+    }
 
-        return view;
+    private void Init(View view) {
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
+        recyclerViewOther = view.findViewById(R.id.recyclerViewOther);
     }
 
     private void addDataToList() {
         ref.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                mList.clear(); // So that it loads up completely.
                 for (QueryDocumentSnapshot snapshot:value){
                     Item item = snapshot.toObject(Item.class);
                     mList.add(item);

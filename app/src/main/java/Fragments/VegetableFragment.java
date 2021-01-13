@@ -29,14 +29,15 @@ import DataModels.Item;
 
 public class VegetableFragment extends Fragment {
 
+    // Firebase
+    private FirebaseFirestore database = FirebaseFirestore.getInstance();
+    private CollectionReference ref = database.collection("Vegetables");
+
     // Layouts
     private RecyclerView recyclerViewVegetable;
     private ArrayList<Item> mList;
     private Item_Adapter adapter;
     private SwipeRefreshLayout swipeRefreshLayout;
-    // Firebase
-    private FirebaseFirestore database = FirebaseFirestore.getInstance();
-    private CollectionReference ref = database.collection("Vegetables");
 
     public VegetableFragment() {
         // Required empty public constructor
@@ -48,12 +49,14 @@ public class VegetableFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_vegetable, container, false);
 
+        Init(view);
         addDataToList();
+        InitRV(view);
+        return view;
+    }
 
-        swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
-
-        recyclerViewVegetable = view.findViewById(R.id.recyclerViewVegetable);
-                mList = new ArrayList<>();
+    private void InitRV(View view) {
+        mList = new ArrayList<>();
         adapter = new Item_Adapter(getContext(),mList);
 
         recyclerViewVegetable.setHasFixedSize(true);
@@ -82,14 +85,18 @@ public class VegetableFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+    }
 
-        return view;
+    private void Init(View view) {
+        swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
+        recyclerViewVegetable = view.findViewById(R.id.recyclerViewVegetable);
     }
 
     private void addDataToList() {
         ref.addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                mList.clear(); // So that it loads up completely.
                 for (QueryDocumentSnapshot snapshot:value){
                     Item item = snapshot.toObject(Item.class);
                     mList.add(item);

@@ -44,7 +44,7 @@
              android:layout_gravity="bottom"
              app:menu="@menu/menu_bottom"
              app:labelVisibilityMode="unlabeled"
-             app:itemIconSize="36dp"
+             app:itemIconSize="40dp"
              android:background="?android:attr/windowBackground"/>
 
 
