@@ -84,6 +84,9 @@ public class MainActivity extends AppCompatActivity {
     // For Update
     public int RequestCode = 11;
 
+    // BackButton
+    private static final int TIME_INTERVAL = 2000; // time passed between two back presses.
+    private long mBackPressed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -384,5 +387,16 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this,SignInActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis()){
+            super.onBackPressed();
+            return;
+        }else{
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        }
+        mBackPressed = System.currentTimeMillis();
     }
 }

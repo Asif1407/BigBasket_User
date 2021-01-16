@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.example.bigbasket_user.MainActivity;
 import com.example.bigbasket_user.R;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -46,6 +48,8 @@ public class SearchFragment extends Fragment {
     // Init.
     private SearchView searchText;
     private RecyclerView recyclerView;
+    private LottieAnimationView searchAnimation;
+    private TextView textView;
 
     // RecyclerView
     private List<Item> mainData;
@@ -66,11 +70,9 @@ public class SearchFragment extends Fragment {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_search, container, false);
 
-        // Connecting To java file
-        searchText = view.findViewById(R.id.searchText);
-        recyclerView = view.findViewById(R.id.searchRecyclerView);
-
-        //
+        Init(view);
+        searchAnimation.setVisibility(View.VISIBLE);
+        textView.setVisibility(View.VISIBLE);
         mainData = new ArrayList<>();
 
         adapter = new SearchAdapter(getContext(),mainData);
@@ -85,6 +87,8 @@ public class SearchFragment extends Fragment {
             public void onClick(View v) {
                 // This will start the search.
                 searchText.onActionViewExpanded();
+                searchAnimation.setVisibility(View.GONE);
+                textView.setVisibility(View.GONE);
             }
         });
 
@@ -108,6 +112,14 @@ public class SearchFragment extends Fragment {
         });
 
         return view;
+    }
+
+    private void Init(View view) {
+        // Connecting To java file
+        searchText = view.findViewById(R.id.searchText);
+        recyclerView = view.findViewById(R.id.searchRecyclerView);
+        searchAnimation = view.findViewById(R.id.searchAnimationView);
+        textView = view.findViewById(R.id.headingTextView);
     }
 
     private void search(String text) {
