@@ -33,7 +33,6 @@ public class SplashActivity extends AppCompatActivity {
 
         init();
         animation();
-        String img = "https://firebasestorage.googleapis.com/v0/b/bigbasket-user.appspot.com/o/logo%2Fnewbblogo.png?alt=media&token=dbdbe2f2-4a5d-4684-a0ca-799b6508fdce";
         Picasso.get().load(R.mipmap.newbblogo).placeholder(R.mipmap.newbblogo).into(imageView);
 
         checkInternet();
@@ -41,14 +40,14 @@ public class SplashActivity extends AppCompatActivity {
 
     private void animation() {
         bananaIv.setX(-500);
-        bananaIv.animate().translationXBy(250).setDuration(2500);
+        bananaIv.animate().translationXBy(250).setDuration(1500);
         avocadoIv.setX(-500);
-        avocadoIv.animate().translationXBy(250).setDuration(2500);
+        avocadoIv.animate().translationXBy(250).setDuration(1500);
         cabbageIv.setX(1000);
-        cabbageIv.animate().translationXBy(-250).setDuration(2500);
+        cabbageIv.animate().translationXBy(-250).setDuration(1500);
         grapesIv.setX(1000);
-        grapesIv.animate().translationXBy(-250).setDuration(2500);
-        imageView.animate().rotation(1800).translationZ(1.5f).setDuration(2000);
+        grapesIv.animate().translationXBy(-250).setDuration(1500);
+//        imageView.animate().rotation(1800).translationZ(1.5f).setDuration(2000);
     }
 
     private void init() {
@@ -80,7 +79,7 @@ public class SplashActivity extends AppCompatActivity {
                         finish();
                     }
                 }
-            }, 3000);
+            }, 2000);
         }
     }
 
@@ -94,21 +93,4 @@ public class SplashActivity extends AppCompatActivity {
             return false;
         }
     }
-//    private  void showCustomDialod(){
-//        AlertDialog.Builder builder = new AlertDialog.Builder(SplashActivity.this);
-//        builder.setMessage("Please connect to the internet")
-//                .setCancelable(false)
-//                .setPositiveButton("Connect", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
-//                    }
-//                })
-//                .setNegativeButton("Cancle", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        finish();
-//                    }
-//                }).create().show();
-//    }
 }

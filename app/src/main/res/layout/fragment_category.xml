@@ -16,7 +16,11 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/main_Tabs"
             android:layout_width="match_parent"
-            android:layout_height="36dp">
+            android:layout_height="36dp"
+            app:tabIndicatorHeight="2dp"
+            app:tabIndicatorColor="@color/colorBlack"
+            app:tabMode="fixed"
+            app:tabGravity="fill">
 
             <com.google.android.material.tabs.TabItem
                 android:id="@+id/VegetableTab"
@@ -35,6 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Other" />
+
         </com.google.android.material.tabs.TabLayout>
 
 
