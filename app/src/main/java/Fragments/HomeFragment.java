@@ -127,7 +127,7 @@ public class HomeFragment extends Fragment {
                 carouselView.setImageClickListener(new ImageClickListener() {
                     @Override
                     public void onClick(int position) {
-                        Toast.makeText(getActivity(), "Clicked Item =" + position + " will be applied soon.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "UpComing! ", Toast.LENGTH_SHORT).show();
                     }
                 });
             }

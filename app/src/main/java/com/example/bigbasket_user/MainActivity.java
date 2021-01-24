@@ -119,30 +119,25 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.home:
                         selectorFragment = new HomeFragment();
-                        Toast.makeText(MainActivity.this, "Home", Toast.LENGTH_SHORT).show();
                         drawerLayout.closeDrawers();
                         break;
 
                     case R.id.category:
                         selectorFragment = new CategoryFragment();
-                        Toast.makeText(MainActivity.this, "Category", Toast.LENGTH_SHORT).show();
                         drawerLayout.closeDrawers();
                         break;
 
                     case R.id.history:
                         selectorFragment = new HistoryFragment();
-                        Toast.makeText(MainActivity.this, "History", Toast.LENGTH_SHORT).show();
                         drawerLayout.closeDrawers();
                         break;
 
                     case R.id.review:
                         selectorFragment = new ReviewFragment();
-                        Toast.makeText(MainActivity.this, "Review", Toast.LENGTH_SHORT).show();
                         drawerLayout.closeDrawers();
                         break;
 
                     case R.id.logOut:
-                        Toast.makeText(MainActivity.this, "Logging Out", Toast.LENGTH_SHORT).show();
                         drawerLayout.closeDrawers();
                         FirebaseAuth.getInstance().signOut();
                         movetoSigninActivity();
@@ -150,19 +145,16 @@ public class MainActivity extends AppCompatActivity {
 
                     case R.id.tnc:
                         selectorFragment = new TermsFragment();
-                        Toast.makeText(MainActivity.this, "Terms And Condition", Toast.LENGTH_SHORT).show();
                         drawerLayout.closeDrawers();
                         break;
 
                     case R.id.aboutUs:
                         selectorFragment = new AboutUsFragment();
-                        Toast.makeText(MainActivity.this, "About Us", Toast.LENGTH_SHORT).show();
                         drawerLayout.closeDrawers();
                         break;
 
                     case R.id.contactUs:
                         selectorFragment = new ContactUsFragment();
-                        Toast.makeText(MainActivity.this, "Contact Us", Toast.LENGTH_SHORT).show();
                         drawerLayout.closeDrawers();
                         break;
                 }
