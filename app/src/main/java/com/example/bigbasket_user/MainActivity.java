@@ -99,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
         btm_navigation = findViewById(R.id.btm_navigation);
         loadFragment(new HomeFragment());
         navigationView = findViewById(R.id.navSlideBar);
+
+        // to manipulate the header data.
         View headerView = navigationView.getHeaderView(0);
         CircleImageView image = headerView.findViewById(R.id.imageView);
         TextView name = headerView.findViewById(R.id.name);
@@ -375,9 +377,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void movetoSigninActivity(){
-
         Intent intent = new Intent(MainActivity.this,SignInActivity.class);
         startActivity(intent);
+        FirebaseAuth.getInstance().signOut();
         finish();
     }
 
