@@ -212,9 +212,8 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.cartBtn:
-                        startActivity(new Intent(MainActivity.this, CartActivity.class));
+                if (item.getItemId() == R.id.cartBtn) {
+                    startActivity(new Intent(MainActivity.this, CartActivity.class));
                 }
                 return true;
             }
